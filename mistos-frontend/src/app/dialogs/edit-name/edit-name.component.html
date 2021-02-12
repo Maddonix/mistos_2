@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Edit Name</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <!-- Hint -->
+        <div class="mat-form-input">
+            <mat-form-field>
+                <mat-label for="name">Name</mat-label>
+                <input matInput id="name" class="form-control" formControlName="name" #name>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="danger" (click)="onClose()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Add Images</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <div *ngFor="let image of imagesFormArray.controls; let i = index">
+            <label formArrayName="images" >
+                <input type="checkbox" [formControlName]="i">
+                {{imageValueArray[i].name}}
+              </label>
+        </div>
+      </form>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="danger" (click)="onClose()">Close</button>
+</mat-dialog-actions>

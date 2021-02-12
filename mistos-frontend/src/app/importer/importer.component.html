@@ -1,0 +1,46 @@
+<!-- <mat-file-upload
+  [labelText]="'Select a file (or multiple) to upload:'"
+  [selectButtonText]="'Choose File(s)'"
+  [uploadButtonText]="'Submit'"
+  [allowMultipleFiles]="true"
+  [showUploadButton]="true"
+  [customSvgIcon]="'close_custom'"
+  [acceptedTypes]="'.png, .jpg, .jpeg, .txt'"
+  (uploadClicked)="onUploadClicked($event)"
+  (selectedFilesChanged)="onSelectedFilesChanged($event)"
+>
+</mat-file-upload> -->
+<!-- <button mat-raised-button>text</button> -->
+
+<!-- [uploadButtonType]="submit"
+[selectFilesButtonType]="button" -->
+
+<h1>Uploader</h1> 
+<ngx-dropzone 
+  (change)="onFilesAdded($event)"
+  [expandable]="true">
+  <ngx-dropzone-label>Drop Images!</ngx-dropzone-label>
+  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+  </ngx-dropzone-preview>
+</ngx-dropzone>
+<hr>
+<button mat-raised-button color="primary" (click)="onUploadClicked()">Upload</button>
+
+<div *ngFor="let progressInfo of progressInfos" class="mb-2">
+  <span>{{ progressInfo.fileName }}</span>
+  <div class="progress">
+    <div
+      class="progress-bar progress-bar-info progress-bar-striped"
+      role="progressbar"
+      attr.aria-valuenow="{{ progressInfo.value }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: progressInfo.value + '%' }"
+    >
+      {{ progressInfo.value }}%
+    </div>
+  </div>
+</div>
+
+<!-- accept="image/jpeg,image/jpg,image/png,image/gif,image/oib" -->

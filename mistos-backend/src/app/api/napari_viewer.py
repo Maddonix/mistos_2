@@ -16,7 +16,7 @@ from app.api import classes_internal as c_int
 from app.api import utils_segmentation_random_forest as utils_seg_rf
 from app.api import utils_transformations
 
-model = StarDist2D.from_pretrained("2D_versatile_fluo")
+
 lbl_cmap = random_label_cmap()
 
 def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentation_layers = False, intImageResultLayerList: List[c_int.IntImageResultLayer] = None):   
@@ -37,9 +37,10 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
     if len(channel_names) != image.shape[1]: # axis 1 is channel axis
         channel_names = None
     
-    if display_bg_layer == True:
-        pass 
-        # intImageResultLayerList.append(self.bg_layer)
+    # if display_bg_layer == True:
+    #     pass 
+    #     # Currently not needed as bg_layer is part of segmentation layers 
+    #     # intImageResultLayerList.append(self.bg_layer)
 
     if display_segmentation_layers == True:
         intImageResultLayerList.extend(intImage.image_result_layers)
@@ -50,33 +51,60 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
         
         if intImageResultLayerList:
             for layer in intImageResultLayerList:
+                print("add layers")
+                print(layer)
                 utils_napari.add_layer_from_int_layer(viewer, layer, image_scale = image_scale, visible = False)
             
         @magicgui(
                     call_button = "Nuclei Segmentation",
                 )
-        def apply_stardist() -> napari.types.LabelsData:
+        def apply_stardist(): # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
             """Apply StarDist2D Nuclei Segmentation"""
             layer = viewer.active_layer
+            mode = "max_z"
 
             if layer:
                 # Max Z Projection
-                layer_max = layer.data.max(axis = 0)
-                # Normalize
-                layer_max = layer_max/layer_max.max()
-                labels, details = model.predict_instances(layer_max)
+                if mode == "max_z":
+                    # Load Model
+                    model = StarDist2D.from_pretrained("2D_versatile_fluo")
+                    # Max Z
+                    layer_max = layer.data.max(axis = 0)
+                    # Normalize
+                    layer_max = layer_max/layer_max.max()
+                    _labels, details = model.predict_instances(layer_max)
+                    
+                    # make z stack mask
+                    labels = np.zeros(layer.data.shape)
+                    labels[:] = _labels
+
+                # 3 D Segmentation    
+                elif mode == "3D":
+                    pass
+                    # # TO DO: Load 3 D model
+                    # labels = np.zeros(layer.data.shape)
+                    # # Iterate over every z-slice and predict
+                    # for n in range(layer.data.shape[0]):
+                    #     _slice = layer.data[n]
+                    #     # Normalize
+                    #     _slice = _slice/_slice.max()
+                    #     _labels, details = model.predict_instances(_slice)
+                    #     labels[n] = _labels
                 
-                return labels
+                print(labels.shape)
+                viewer.add_labels(labels, name = "StarDistNuclei", scale = image_scale, visible = True)
 
         @magicgui(call_button = "Save Label")
         def save_label_layer():
             """
-            Save selected layer to file and db. Append layer label to current intimageresultlayerlist
+            Save selected layer to file and db.
+            Refresh image from db, now has new layer in layerlist
+            now measure layer
             """
             layer = viewer.active_layer
 
             if layer:
-                print(f"napari viewer, save label layer")
+                print(f"Saving Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
                 new_label_layer = c_int.IntImageResultLayer(
                     uid = -1,
                     name = layer.name,
@@ -86,31 +114,13 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 )
 
                 new_label_layer.on_init()
-                intImageResultLayerList.append(new_label_layer)
+                intImage.refresh_from_db()
+                # measure layer
+                measurement = intImage.measure_mask_in_image(new_label_layer.uid, subtract_background=False)
+                print("napari viewer save label layer")
+                print(measurement)
                 refresh()
 
-        @magicgui(call_button = "Delete Label")
-        def delete_label_layer():
-            '''
-            This function deletes a layer from the database, the fileserver, but not from the image itself. 
-            If you delete a layer as a mistake, you can simply choose it in the napari viewer and add it again via "save_label_layer"
-            '''
-            layer = viewer.active_layer
-
-            layer_name = layer.name
-            layer_names = [_layer.name for _layer in intImageResultLayerList]
-
-            if layer_name in layer_names:
-                index = layer_names.index(layer_name)
-            else:
-                print("Layer not in Layerlist. Either the image does not exist in db or you renamed it within the viewer. Renaming within the viewer is not fully supported yet")
-                return
-
-            int_result_layer = intImageResultLayerList[index]
-            _layer_id = int_result_layer.uid
-            intImage.delete_result_layer(_layer_id)
-
-            refresh()
                
         @magicgui(call_button = "Save BG Layer")
         def save_background_layer():
@@ -119,7 +129,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
             if intImage.has_bg_layer == True:
                 print("Image already has a background layer")
                 return
-
+            print(f"Saving BG Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
             if layer:
                 new_bg_layer = c_int.IntImageResultLayer(
                     uid = -1,
@@ -224,20 +234,27 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         @magicgui(call_button = "Refresh Image")
         def refresh():
+            '''
+            The refresh function refreshes
+                - the image from database (loads everything but image data again)
+                - the classifier list
+            Then, all layers are popped from the viewer
+            Then, image data data is added as image
+            Then, intImageResultLayers are appended
+            '''
             intImage.refresh_from_db()
             rf_classifiers = intImage.get_classifiers("rf_segmentation")
 
             for index in range(len(viewer.layers)):
                 viewer.layers.pop(0)                  
 
-
             viewer.add_image(intImage.data, channel_axis = 1, scale = image_scale, name = channel_names) 
 
             intImageResultLayerList = []
 
-            if display_bg_layer == True:
-                pass 
-                # intImageResultLayerList.append(self.bg_layer)
+            # if display_bg_layer == True:
+            #     pass 
+            #     # intImageResultLayerList.append(self.bg_layer)
 
             if display_segmentation_layers == True:
                 intImageResultLayerList.extend(intImage.image_result_layers)
@@ -295,10 +312,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         viewer.window.add_dock_widget(save_background_layer, area = "top")
         viewer.layers.events.changed.connect(save_background_layer.reset_choices)
-
-        viewer.window.add_dock_widget(delete_label_layer, area = "top")
-        viewer.layers.events.changed.connect(delete_label_layer.reset_choices)
-        
+       
         viewer.window.add_dock_widget(load_clf_and_apply, area = "top")
         viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
 
@@ -322,5 +336,31 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
         viewer.window.add_dock_widget(apply_stardist, area = "bottom")
         
         
+########### REMOVED FUNCTIONS
+        # @magicgui(call_button = "Delete Label")
+        # def delete_label_layer():
+        #     '''
+        #     This function deletes a layer from the database, the fileserver, but not from the image itself. 
+        #     If you delete a layer as a mistake, you can simply choose it in the napari viewer and add it again via "save_label_layer"
+        #     '''
+        #     layer = viewer.active_layer
 
-        
+        #     layer_name = layer.name
+        #     layer_names = [_layer.name for _layer in intImageResultLayerList]
+
+        #     if layer_name in layer_names:
+        #         index = layer_names.index(layer_name)
+        #     else:
+        #         print("Layer not in Layerlist. Either the image does not exist in db or you renamed it within the viewer. Renaming within the viewer is not fully supported yet")
+        #         return
+
+        #     int_result_layer = intImageResultLayerList[index]
+        #     _layer_id = int_result_layer.uid
+        #     intImage.delete_result_layer(_layer_id)
+
+        #     refresh()
+
+
+
+        # viewer.window.add_dock_widget(delete_label_layer, area = "top")
+        # viewer.layers.events.changed.connect(delete_label_layer.reset_choices)

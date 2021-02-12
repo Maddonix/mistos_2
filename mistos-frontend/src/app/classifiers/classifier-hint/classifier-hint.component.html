@@ -1,0 +1,13 @@
+<div class = "mat-title">{{classifier.name}} [ID: {{classifier.uid}}]</div>
+<!-- <div class="mat-body-1">{{classifier.hint}}</div> -->
+<hr><hr>
+<div class="mat-body-2">Classifier Type</div>
+<div class="mat-body-1">{{classifier.clfType}}</div>
+<div class="mat-body-2">Params</div>
+<div class="mat-body-1">{{classifier.params | json}}</div>
+
+<div class="div" fxLayoutAlign="center end">
+    <button mat-raised-button color="primary" (click)="onPrint()">Print</button>
+    <button mat-raised-button color="primary" (click)="onPrint()">View</button>
+    <button mat-raised-button color="primary" (click)="onPrint()">Edit</button>
+</div>

@@ -1,0 +1,85 @@
+<div class="mat-headline">Image Detail: {{image.name}} [ID: {{image.uid}}]</div>
+
+<!-- Start Container -->
+<div class="grid-container">
+    <mat-grid-list cols = "4" rowHeight="1:1">
+        <!-- Image Preview Tile -->
+        <mat-grid-tile [colspan]="'2'" [rowspan]="'2'">
+            <mat-grid-tile-header>
+                    Image Preview?
+            </mat-grid-tile-header>
+            1
+            <mat-grid-tile-footer>
+                <button mat-raised-button color="primary" (click)="onOpenInViewer()">Open in Viewer</button>
+            </mat-grid-tile-footer>
+        </mat-grid-tile>
+        <!-- Metadata Tile -->
+        <mat-grid-tile [rowspan]="'2'">
+            <mat-grid-tile-header>
+                Metadata 
+            </mat-grid-tile-header>
+            <div class="top-align-forced left-align-forced mat-tile-space-under-header">
+                <!-- Channel Information -->
+                <div class="mat-body-2">
+                    Channels    
+                    <button mat-mini-fab color="primary" aria-label="Edit channels" (click)="onEditChannels()">
+                        <mat-icon>menu</mat-icon>
+                    </button>        
+                </div>
+                <div class="mat-body-1" *ngFor="let channel of metadata['custom_channel_names']">
+                    {{metadata['custom_channel_names'].indexOf(channel)}}: {{channel}}
+                </div>
+                <hr>
+                <!-- Hint -->
+                <div class="mat-body-2">
+                    Hint
+                    <button mat-mini-fab color="primary" aria-label="Edit Hint" (click)="onEditHint()">
+                        <mat-icon>menu</mat-icon>
+                    </button>      
+                </div>
+                <div class="mat-body-1">{{image.hint}}</div>
+            </div>          
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="'2'">
+            <mat-grid-tile-header>
+                Summary
+            </mat-grid-tile-header>
+            3
+        </mat-grid-tile>
+
+    </mat-grid-list>
+</div>
+
+<!-- Layers and Measurements -->
+<br>
+<div class="mat-title">Layers & Measurements</div>
+<div class="grid-container">
+    <mat-grid-list cols="4" rowHeight = "1:1">
+        <mat-grid-tile *ngFor="let layer of image.imageResultLayers; index as i">
+            <mat-grid-tile-header fxLayout = "row">
+                {{layer.name}}
+                <button mat-raised-button color="primary" style="margin-left:auto" (click)="onEditLayerName(layer)">Rename</button>
+                <button mat-raised-button color="warn" style="margin-left:3px" (click)="onDeleteLayer(layer.uid)">Delete</button>
+            </mat-grid-tile-header>
+            <div class="top-align-forced left-align-forced mat-tile-space-under-header">
+                <div class="mat-body-2"  fxLayout="row">
+                    Hint
+                    <button mat-raised-button color="primary" style="margin-left:auto; margin-right:15px" (click)="onEditLayerHint(layer)">Edit</button>
+                </div>
+                <div class="mat-body-1">
+                    {{layer.hint}}
+                </div>
+                <hr>
+                <br>
+                <div class="mat-body-2">Measurements</div>
+                <div class="measurement-info" *ngFor="let measurement of filterMeasurements(layer.uid)">
+                    <div class="mat-body-2">{{measurement.name}}</div>
+                    <div class="mat-body-1">{{measurement.hint}}</div>
+                    <div class="mat-body-1">?Measurement Dict?</div>
+                    <hr>
+                    <br>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

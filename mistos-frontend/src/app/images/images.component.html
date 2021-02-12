@@ -1,0 +1,15 @@
+<div class="mat-headline">Images</div>
+<mat-grid-list cols="3" rowHeight="1:4">
+    <mat-grid-tile [colspan]="'2'">
+        <div class='internalMatGrid'>
+            <app-images-list></app-images-list>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div class='internalMatGrid'>
+            <router-outlet></router-outlet>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+

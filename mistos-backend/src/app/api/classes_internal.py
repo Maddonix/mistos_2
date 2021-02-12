@@ -1,15 +1,16 @@
 from pydantic import BaseModel, constr
 from typing import List, Optional, Set, Any
 import numpy as np
+import pandas as pd
 import napari
 import copy
 
 from app import crud
-import app.api.utils_classes as utils_classes
+import app.api.cfg_classes as cfg_classes
 import app.api.classes_db as c_db
 import app.api.utils_import as utils_import
-from app.api import utils_paths
-from app.api.utils_classes import channel_measurement_tuple
+from app.api import utils_paths, utils_results, utils_export, utils_transformations
+from app.api.cfg_classes import channel_measurement_tuple
 from app import fileserver_requests as fsr
 
 
@@ -20,7 +21,7 @@ class IntImageResultLayer(BaseModel):
     name: str
     hint: Optional[str] = ""
     image_id: int
-    layer_type: constr(regex = utils_classes.layer_type_regex)
+    layer_type: constr(regex = cfg_classes.layer_type_regex)
     data: Any
 
     def on_init(self):
@@ -56,12 +57,17 @@ class IntImageResultLayer(BaseModel):
         return db_image_result_layer
    
 class IntResultMeasurement(BaseModel):
+    '''
+    Class to store and work with Measurements.
+    IntResultMeasurement.measurement is a dict
+    '''
     uid: int
     name: str
     hint: str = ""
     image_id: int
     result_layer_id: int
     measurement: Any
+    measurement_summary: Any
 
     def on_init(self):
         if self.uid == -1:
@@ -70,16 +76,18 @@ class IntResultMeasurement(BaseModel):
             db_result_measurement.create_in_db()
 
             self.uid = db_result_measurement.uid
-            self.save_measurement(db_result_measurement.path)
+            self.save_measurement(db_result_measurement.path, db_result_measurement.path_summary)
 
     def to_db_class(self):
         kwargs = self.dict()
         del kwargs["measurement"]
+        del kwargs["measurement_summary"]
         db_result_measurement = c_db.DbResultMeasurement(**kwargs)
         return db_result_measurement
 
-    def save_measurement(self, path):
-        fsr.save_measurement(self, path)
+    def save_measurement(self, path, path_summary):
+        fsr.save_measurement(self.measurement, path)
+        fsr.save_measurement_summary(self.measurement_summary, path_summary)
         
 class IntImage(BaseModel):
     uid: int
@@ -217,46 +225,24 @@ class IntImage(BaseModel):
     def measure_mask_in_image(self, layer_id, subtract_background = False):
         '''
         Expects a layer id.
+        Creates measurement object and initializes it (save to db and file storage)
         Returns measurement object.
+        measurement.measurement has shape: (n_labels, n_channel, n_features), n_features == 2 (n_pixels, sum_pixels)
+
+        Keyword arguments:
+        layer_id -- uid of the layer to be measured
+        subtract_background -- if True, background will be subtracted before measuring. If no background layer is defined, this step is passed
         '''
+        # n_features = utils_results.n_features #currently we calculate sum of pixels and number of pixels for each label
 
-        if subtract_background == True and has_bg_layer == True:
-            image_array, mean_bg_pixel_list = self.subtract_background()
-            n_channels = image_array.shape[1]
-        else:
-            image_array = self.data
-            n_channels = image_array.shape[1]
-            mean_bg_pixel_list = [0 for _ in range(n_channels)]
-
-        layer = self.select_result_layer(layer_id)
-        labels_array = layer.data
-        labels = np.unique(layer.data)
-
-        measurements = []
-        for label in tqdm(labels):
-            label_array = np.where(labels_array == label, 1, 0)
-            n_pixel = label_array.sum()
-            measurement = {
-                "label": label,
-                "n_pixel": n_pixel,
-                "measured_channels": []
-            }
+        # if subtract_background == True and has_bg_layer == True:
+        #     image_array, mean_bg_pixel_list = self.subtract_background()
+        #     n_channels = image_array.shape[1]
+        # else:
+        image_array = self.data
+        layer = self.select_result_layer(layer_id)        
         
-            for channel in range(n_channels):
-                channel_array = self.select_channel(channel)
-                selection = np.where(label_array, channel_array, 0)
-                _sum = selection.sum()
-                _mean = _sum/n_pixel
-
-                measured_channel = {
-                    "channel": channel, 
-                    "sum_intensity": _sum, 
-                    "mean_intensity": _mean, 
-                    "subtracted_bg_per_pixel": mean_bg_pixel_list[channel]
-                    }
-                measurement["measured_channels"].append(measured_channel)
-
-            measurements.append(measurement)
+        measurement, measurement_summary = utils_results.calculate_measurement(image_array, layer.data)
 
         measurement_result = IntResultMeasurement(
                 uid = -1,
@@ -264,7 +250,8 @@ class IntImage(BaseModel):
                 hint = "",
                 image_id = self.uid,
                 result_layer_id = layer.uid,
-                measurement = measurements
+                measurement = measurement,
+                measurement_summary = measurement_summary
         )
 
         measurement_result.on_init()
@@ -277,22 +264,9 @@ class IntImage(BaseModel):
         clf_dict = crud.read_classifier_dict_by_type(clf_type)
         return clf_dict
 
-    # def measure_by_result_layer_id(self, result_layer_uid, channels):
-    #     '''
-    #     Expects a valid result_layer_uid.
-    #     Selects 
-    #     '''
-    #     # Select result label layer
-    #     uids = [_.uid for _ in self.image_result_layers]
-    #     assert result_layer_uid in uids
-    #     index = uids.index(result_layer_uid)
-    #     c_int_image_result_layer = self.image_result_layers[index]
-
-    #     assert c_int_image_result_layer.layer_type == "labels"
-
     def refresh_from_db(self):
         '''
-        requests current information from db and updates the object:
+        requests current information from db and updates the object, does not load image data again:
         - name: str
         - hint: Optional[str] = ""
         - experiment_ids: List[int] = []
@@ -309,6 +283,7 @@ class IntImage(BaseModel):
         self.hint = updated_info.hint
         self.experiment_ids = updated_info.experiment_ids
         self.image_result_layers = updated_info.image_result_layers
+        self.result_measurements = updated_info.result_measurements
         self.tags = updated_info.tags
         self.has_bg_layer = updated_info.has_bg_layer
         self.bg_layer_id = updated_info.bg_layer_id
@@ -332,6 +307,71 @@ class IntExperimentGroup(BaseModel):
     images: List[IntImage] = []
     result_layer_ids: List[int] = []
     measurement_ids: List[int] = []
+
+    def get_experiment_result(self):
+        try:
+            db_result = crud.read_result_of_experiment_group_by_id(self.uid)
+        except:
+            self.calculate_result()
+            db_result = crud.read_result_of_experiment_group_by_id(self.uid)
+
+        return db_result.to_int_class()
+
+    def calculate_result(self):
+        '''
+        This function calculates a result from all associated result layers
+        '''
+        # Read one measurement per image and retrieve measurement np_array in shape (n_label, n_channel, n_features)
+        assert len(self.result_layer_ids) > 0
+        results = []
+        for result_layer_id in self.result_layer_ids:
+            # Read Measurement
+            c_int_measurement = crud.read_measurement_by_result_layer_uid(result_layer_id).to_int_class()
+            measurement = c_int_measurement.measurement
+            # Read Image
+            image_id = c_int_measurement.image_id
+            image = crud.read_image_by_uid(image_id)
+            # Calculate BG
+            bg_mean_pixel_list = image.calculate_background() #returns list of mean intensity per pixel values in order of channels#
+            channel_name_list = image.metadata["custom_channel_names"]
+            # Get Colnames
+            colnames_features = utils_results.get_feature_colnames(channel_name_list)
+            colnames_background = [f"{c}_mean_background_per_pixel" for c in channel_name_list]
+
+            measurement_reshaped = measurement.reshape((measurement.shape[0], -1), order ="C")
+
+            measurement_df = pd.DataFrame(measurement_reshaped, columns = colnames_features)
+            for i, bg_colname in enumerate(colnames_background):
+                measurement_df[bg_colname] = bg_mean_pixel_list[i]
+
+            measurement_df["image"] = f"{image.uid}_{image.metadata['original_filename']}"
+            measurement_df["group"] = f"{self.uid}_{self.name}"
+            results.append(measurement_df)
+
+        result_df = results[0]
+        if len(results)>1:
+            for result in results[1:]:
+                result_df = result_df.merge(result, how = outer)
+
+        try:
+            db_experiment_result = crud.read_result_of_experiment_group_by_id(self.uid)
+            print(f"Experiment group with id {self.uid} already has a result. Deleting previous result.")
+            crud.delete_experiment_result(db_experiment_result.uid)
+        except:
+            print("No Result found, creating new")
+
+        c_int_experiment_result = IntExperimentResult(
+            uid = -1,
+            name = f"{self.name}_result",
+            hint = "",
+            description = "",
+            experiment_group_id = self.uid,
+            result_type = "measure",
+            data = result_df
+        )
+        c_int_experiment_result.on_init()
+
+        return result_df
 
     def refresh_from_db(self):
         db_image = self.to_db_class()
@@ -400,8 +440,8 @@ class IntExperimentResult(BaseModel):
     name: str = ""
     hint: Optional[str] = ""
     description: Optional[str] = ""
-    experiment_groups: Optional[List[IntExperimentGroup]] = []
-    result_type: constr(regex = utils_classes.result_type_regex)
+    experiment_group_id: int
+    result_type: constr(regex = cfg_classes.result_type_regex)
     data: Any
 
     def on_init(self):
@@ -411,14 +451,14 @@ class IntExperimentResult(BaseModel):
             db_result = self.to_db_class()
             db_result.create_in_db()
             self.uid = db_result.uid
+
+            fsr.save_result_df(self.data, db_result.path)
             
             print(f"New Result created with id {self.uid}")
             # save data to path
 
     def to_db_class(self):
-        experiment_groups = [experiment_group.to_db_class() for experiment_group in self.experiment_groups]
         kwargs = self.dict()
-        kwargs["experiment_groups"] = experiment_groups
         del kwargs["data"]
 
         return c_db.DbExperimentResult(**kwargs)
@@ -470,10 +510,123 @@ class IntExperiment(BaseModel):
 
         self.experiment_groups.append(experiment_group)
 
+    def calculate_results(self):
+        '''
+        This function calls every experiment_group and calculates the corresponding result object.
+        '''
+        results_groups = []
+        assert len(self.experiment_groups) > 0
+        for group in self.experiment_groups:
+            results_groups.append(group.calculate_result())
+
+    def export_experiment(self, images:bool, masks:bool, rescaled:bool, xDim:int, yDim:int):
+        '''
+        Function exports the experiment.
+
+        keyword arguments:
+        images -- type: bool, if true experiment images will be exported as .tif
+        masks -- type: bool, if true masks will transformed to binary and exported as .tif
+        rescaled -- type: bool, if true images and masks will be cropped at given coordinates, max-z-projected and exported as .tif
+        xDim -- type: int x dimension of rescaled images
+        ydim -- type: int y dimension of rescaled images
+        '''
+        # Export result df, is always exported
+        result_df_list = []
+        for group in self.experiment_groups:
+            result_df_list.append(group.get_experiment_result().data)
+
+        assert len(result_df_list)>0
+        result_df = result_df_list[0]
+        if len(result_df_list) > 1:
+            for _result_df in result_df_list[1:]:
+                result_df = result_df.merge(_result_df, how = "outer")
+
+        utils_paths.create_experiment_export_folder(self.uid, self.name)
+        df_export_name = utils_paths.make_experiment_export_df_name(self.uid, self.name)
+        result_df.to_excel(df_export_name)
+
+        print(len(self.experiment_groups))
+        for group in self.experiment_groups:
+            utils_paths.create_experiment_group_export_folder(group.uid, group.name, self.uid, self.name)
+            if images:
+                utils_paths.create_images_export_folder(group.uid, group.name, self.uid, self.name, False)
+            if masks:
+                utils_paths.create_masks_export_folder(group.uid, group.name, self.uid, self.name, False)
+            if rescaled:
+                utils_paths.create_images_export_folder(group.uid, group.name, self.uid, self.name, True)
+                utils_paths.create_masks_export_folder(group.uid, group.name, self.uid, self.name, True)
+
+            for image in group.images:
+                if images:
+                    path = utils_paths.make_export_array_name(
+                        image.uid, image.metadata["original_filename"], 
+                        False, 
+                        group.uid, group.name, 
+                        self.uid, self.name, 
+                        rescaled = False)
+                    utils_export.to_tiff(
+                        image_array = image.data, 
+                        path = path, 
+                        image_name = image.metadata["original_filename"], 
+                        channel_names = image.metadata["custom_channel_names"])
+                if rescaled:
+                    path = utils_paths.make_export_array_name(
+                        image.uid, image.metadata["original_filename"], 
+                        False, 
+                        group.uid, group.name, 
+                        self.uid, self.name, 
+                        rescaled = True)
+                    image_array_max = image.data.max(axis = 0) # MAX Z PROJECT
+                    image_array_max_cropped = image_array_max[:, :yDim, :xDim]
+                    # TO DO: RESCALE
+                    utils_export.to_tiff(
+                        image_array = image_array_max_cropped, 
+                        path = path, 
+                        image_name = image.metadata["original_filename"], 
+                        channel_names = image.metadata["custom_channel_names"])
+
+            for result_layer_id in group.result_layer_ids:
+                result_layer = crud.read_result_layer_by_uid(result_layer_id).to_int_class()
+                int_image = crud.read_db_image_by_uid(result_layer.image_id).to_int_class()
+                mask_array, label_list = utils_transformations.multiclass_mask_to_binary(result_layer.data)
+                # Mask array has shape (z,y,x), we add c axis again
+                mask_array = mask_array[:, np.newaxis, ...]
+                print(mask_array.shape)
+                channel_names = [result_layer.name]
+                if masks:
+                    path = utils_paths.make_export_array_name(
+                        int_image.uid, int_image.metadata["original_filename"], 
+                        True, 
+                        group.uid, group.name, 
+                        self.uid, self.name, 
+                        rescaled = False)
+
+                    utils_export.to_tiff(
+                        image_array = mask_array, 
+                        path = path, 
+                        image_name = image.metadata["original_filename"], 
+                        channel_names = channel_names)
+
+                if rescaled:
+                    path = utils_paths.make_export_array_name(
+                        int_image.uid, int_image.metadata["original_filename"], 
+                        True, 
+                        group.uid, group.name, 
+                        self.uid, self.name, 
+                        rescaled = True)
+                    mask_array_max = mask_array.max(axis = 0)
+                    mask_array_max_cropped = mask_array_max[:, :yDim, :xDim]
+                    utils_export.to_tiff(
+                        image_array = mask_array_max_cropped, 
+                        path = path, 
+                        image_name = image.metadata["original_filename"], 
+                        channel_names = channel_names)
+                
+        
 class IntClassifier(BaseModel):
     uid: int
     name: str = ""
-    clf_type: constr(regex = utils_classes.classifier_type_regex)
+    clf_type: constr(regex = cfg_classes.classifier_type_regex)
     classifier: Any 
     test_train_data: Any
     params: Optional[dict]

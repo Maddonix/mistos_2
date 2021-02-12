@@ -1,0 +1,40 @@
+<div class = "mat-title">{{image.name}} [ID: {{image.uid}}]</div>
+<div class="mat-body-1">{{image.hint}}</div>
+<hr><hr>
+<!-- Channels -->
+<div class="mat-body-2">Channels</div> 
+<div *ngFor="let c of image.metadata['custom_channel_names']">
+    <div class="mat-body">{{c}}</div>
+</div>
+<!-- Dimensions -->
+<!-- X -->
+<div class="mat-body-2">Dimensions</div> 
+<div class="mat-body-1">
+    X: {{image.metadata['pixel_size_x']}}px, {{image.metadata['pixel_size_physical_x']}}{{image.metadata['pixel_size_physical_unit_x']}}/px
+</div>
+<!-- Y -->
+<div class="mat-body-1">
+    Y: {{image.metadata['pixel_size_y']}}px, {{image.metadata['pixel_size_physical_y']}}{{image.metadata['pixel_size_physical_unit_y']}}/px
+</div>
+<!-- Z -->
+<div class="mat-body-1">
+    Z: {{image.metadata['pixel_size_z']}} silce, {{image.metadata['pixel_size_physical_z']}}{{image.metadata['pixel_size_physical_unit_z']}}/slice
+</div>
+<!-- Layers -->
+<div class="mat-body-2">Layers</div>
+<div class="mat-body-1">Background Layer ID: {{image.metadata["bgLayerId"]}}</div>
+<div class="mat-body-1">Result Layers: {{image.metadata["bgLayerId"]}}</div>
+<div class="mat-body-1" style="margin-left:40px" *ngFor="let resultLayer of image.imageResultLayers">{{resultLayer.name}} [{{resultLayer.layerType}}]</div>
+
+
+<!-- Measurements -->
+<div class="mat-body-2">Measurements</div>
+<div class="mat-body-1" style="margin-left:40px" *ngFor="let measurement of image.measurements">{{measurement.name}} [ID: {{measurement.uid}}]</div>
+
+<div class="m-left" fxLayoutAlign="center end">
+    <button mat-raised-button color="primary" (click)="onPrint()">Print</button>
+    <button mat-raised-button color="primary" (click)="onPrint()">View</button>
+    <button mat-raised-button color="primary" (click)="onDetail()">Detail</button>
+</div>
+
+

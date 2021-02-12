@@ -1,0 +1,129 @@
+<div class="mat-headline" fxLayout="row">Experiment Detail: {{experiment.name}} [ID: {{experiment.uid}}]
+        <button mat-raised-button color="primary"style="margin-left: auto; margin-right: 20px" (click)="onEditName()">Rename Experiment</button> 
+        <button mat-raised-button color="warn"style="margin-right: 20px" (click)="onDeleteExperiment()">Delete Experiment</button>
+</div>
+
+<div class="grid-container">
+    <mat-grid-list cols = "4" rowHeight="1:1">
+        <!-- Summary -->
+        <mat-grid-tile [colspan]="'2'" [rowspan]="'2'">
+            <mat-grid-tile-header>
+                    Experiment Summary
+            </mat-grid-tile-header>
+            <div class="top-align-forced left-align-forced mat-tile-space-under-header">
+                <!-- Tags -->
+                <div class="mat-body-2" fxLayout="row">
+                    Tags
+                    <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;">Edit</button>     
+                </div>
+                <div class="mat-body-1"></div>
+                <hr>
+                <!-- Hint -->
+                <div class="mat-body-2" fxLayout="row">
+                    Hint
+                    <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;" (click)="onEditHint()">Edit</button>
+                </div>
+                <div class="mat-body-1">
+                    {{experiment.hint}}
+                </div>
+                <hr>
+                <!-- Description -->
+                <div class="mat-body-2" fxLayout="row">
+                    Description
+                    <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;" (click)="onEditDescription()">Edit</button>
+                </div>
+                <div class="mat-body-1">
+                    {{experiment.description}}
+                </div>
+                <hr>
+            </div>
+            <!-- <mat-grid-tile-footer>
+                <button mat-raised-button color="primary">Open in Viewer</button>
+            </mat-grid-tile-footer> -->
+        </mat-grid-tile>
+
+        <!-- Groups -->
+        <mat-grid-tile [colspan]="'2'" [rowspan]="'2'">
+            <mat-grid-tile-header>
+                    Group Summary <button mat-raised-button color="primary" style="margin-left: 10px" (click)="onAddGroup()">Add Group</button>
+            </mat-grid-tile-header>
+            <div class="top-align-forced left-align-forced mat-tile-space-under-header">
+                <div *ngFor="let group of experiment.experimentGroups">
+                        <div class="mat-body-2" fxLayout="row">
+                            {{group.name}} [ID: {{group.uid}}]   
+                            <button mat-raised-button color="primary"style="margin-left: auto; margin-right: 20px" (click)="onEditGroupName(group)">Rename</button>
+                            <button mat-raised-button color="warn"style="margin-right: 20px" (click)="onDeleteGroup(group.uid)">Delete</button>
+                        </div>
+                        <div class="mat-body-1"></div>
+                    <hr>
+                </div>                
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<!-- Groups and Results -->
+<br>
+<div class="mat-title" fxLayout="row">
+    Groups & Results
+    <button mat-raised-button color="primary" (click)="onCalculateResults()" style="margin-left:auto; margin-right:20px">Generate Result Report</button>
+    <button mat-stroked-button style="margin-right:3px" (click)="onExportExperiment()">Export Experiment</button>
+</div>
+<div class="grid-container">
+    <mat-grid-list cols="4" rowHeight = "1:4">
+        <div *ngFor="let group of experiment.experimentGroups; index as i">
+            <!-- Group Description, Hint, Images -->
+            <mat-grid-tile [colspan]="'2'">
+                <mat-grid-tile-header fxLayout="row">
+                    {{group.name}}
+                    <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;" (click)="onAddImage(group)">Add Image</button>
+                </mat-grid-tile-header>
+                <div class="top-align-forced left-align-forced mat-tile-space-under-header">
+                    <div class="mat-body-2" fxLayout="row">
+                        Hint
+                        <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;" (click)="onEditGroupHint(group)">Edit</button>
+                    </div>
+                    <div class="mat-body-1">{{group.hint}}</div>
+                    <hr>
+                    <br>
+                    <div class="mat-body-2" fxLayout="row">
+                        Description
+                        <button mat-raised-button color="primary" style="margin-left:auto; margin-right:10px;" (click)="onEditGroupDescription(group)">Edit</button>
+                    </div>
+                    <div class="mat-body-1">{{group.description}}</div>
+                    <hr>
+                    <br>
+                    <div *ngFor="let image of sortById(group.images)">
+                        <div fxLayout = "row">
+                            <button mat-button [matMenuTriggerFor]="menu">{{image.uid}}: {{image.name}}</button>
+                            <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onImageDetail(image)">Detail</button>
+                            <button mat-menu-item (click)="onRemoveImageFromGroup(group.uid, image.uid)">Delete</button>
+                            </mat-menu>
+                            <button mat-stroked-button [matMenuTriggerFor]="layerSelect"
+                            style="margin-left:auto; margin-bottom:3px">{{getActiveLayerName(group, image)}}</button>
+                            <mat-menu #layerSelect="matMenu">
+                                <button mat-menu-item *ngFor="let layer of image.imageResultLayers" 
+                                (click)="addResultLayerToGroup(group.uid, layer.uid)"
+                                >{{layer.name}}</button>
+                            </mat-menu>
+                            <div *ngIf="image.hasBgLayer then thenBlock else elseBlock"></div>
+                                <ng-template #thenBlock>
+                                    <button mat-stroked-button color="primary" style="margin-left:3px; margin-bottom:3px">BG</button>
+                                </ng-template>
+                                <ng-template #elseBlock>
+                                    <button mat-stroked-button color="warn" style="margin-left:3px; margin-bottom:3px">BG</button>
+                                </ng-template>
+                            <button mat-stroked-button color="primary" style="margin-left:3px; margin-right:10px; margin-bottom:3px" (click)="onViewImage(image)">View</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <!-- <mat-grid-tile>
+                <mat-grid-tile-header>
+                    {{group.name}} Results
+                </mat-grid-tile-header>
+            </mat-grid-tile> -->
+            <!-- Group Results -->
+        </div>
+    </mat-grid-list>
+</div>

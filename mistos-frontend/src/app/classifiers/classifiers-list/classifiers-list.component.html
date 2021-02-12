@@ -1,0 +1,62 @@
+<div class="mat-elevation-z8 data-table">
+    <mat-table matSort class="full-width-table"  aria-label="Elements" [dataSource]="dataSource"
+    matTableFilter [exampleEntity]="filterEntity" [filterType]="filterType">
+        <!-- ID COLUMN -->
+        <ng-container matColumnDef="uid">
+            <mat-header-cell [ngClass]="'colId'" *matHeaderCellDef mat-sort-header>
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="ID" [(ngModel)]="filterEntity.uid">
+                </mat-form-field>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">{{row.uid}}</mat-cell>
+        </ng-container>
+
+        <!-- NAME COLUMN -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell [ngClass]="'colName'" mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Name" [(ngModel)]="filterEntity.name">
+              </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="tuncate-text">{{row.name}}</span>
+            </mat-cell>
+        </ng-container>
+
+        <!-- CLASSIFIER TYPE COLUMN -->
+        <ng-container matColumnDef="clfType">
+            <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Type" [(ngModel)]="filterEntity.name">
+              </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.clfType}}</mat-cell>
+        </ng-container>
+
+        <!-- TAGS COLUMN -->
+        <ng-container matColumnDef="tags">
+            <mat-header-cell [ngClass]="'colTags'" *matHeaderCellDef>
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Tags" [(ngModel)]="filterEntity.tags">
+              </mat-form-field>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.tags.toString(" ")}}</mat-cell>
+        </ng-container>
+
+        <!-- ACTIONS COLUMN -->
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-raised-button color="basic" (click)="onSelect(row.uid)">Select</button>
+              <button mat-raised-button color="warn">Delete</button>
+            </mat-cell>
+        </ng-container>
+
+    <!-- Define displayed Column, maybe add dynamic selction in future -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row> 
+    <!-- Create rows for displayed columns -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

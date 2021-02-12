@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Edit Channels</h2>
+
+<mat-dialog-content>
+        <form [formGroup]="form">
+        <!-- Hint -->
+            <div class="mat-form-input" *ngFor="let channelControl of form.get('channels')['controls']; index as i">
+                <mat-form-field>
+                    <mat-label>Ch {{i}}</mat-label>
+                    <input matInput class="form-control" [formControl]="channelControl">
+                </mat-form-field>
+            </div>
+        </form>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="danger" (click)="onClose()">Close</button>
+</mat-dialog-actions>

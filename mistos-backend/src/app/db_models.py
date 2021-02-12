@@ -79,6 +79,7 @@ class Measurement(Base):
 
     id = Column(Integer, primary_key=True, index = True)
     path = Column(String)
+    path_summary = Column(String)
     name = Column(String)
     hint = Column(String)
 

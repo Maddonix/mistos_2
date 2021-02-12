@@ -1,0 +1,65 @@
+<button mat-raised-button color="primary" (click)="onFetchData()">Fetch Data</button>
+<button mat-raised-button color="primary" (click)="onPrint()">Print</button>
+<div class="mat-elevation-z8 data-table">
+  <mat-table matSort aria-label="Elements" [dataSource]="dataSource"
+  matTableFilter [exampleEntity]="filterEntity" [filterType]="filterType">
+    <!-- Id Column -->
+    <ng-container matColumnDef="uid">
+      <mat-header-cell [ngClass]="'colId'" *matHeaderCellDef mat-sort-header>
+        <mat-form-field appearance="outline">
+          <input [ngClass]="'colId'" matInput placeholder="ID" [(ngModel)]="filterEntity.uid">
+        </mat-form-field>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.uid}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell [ngClass]="'colName'" mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Name" [(ngModel)]="filterEntity.name">
+        </mat-form-field>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="seriesIndex">
+      <mat-header-cell *matHeaderCellDef>Image Series Index</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.seriesIndex}}</mat-cell>
+    </ng-container>
+    
+    <!-- Has BG Layer -->
+    <ng-container matColumnDef="hasBgLayer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-checkbox class="example-margin" [(ngModel)]="filterEntity.hasBgLayer">Has BG Layer</mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.hasBgLayer}}</mat-cell>
+    </ng-container>
+
+    <!-- Tags -->
+    <ng-container matColumnDef="tags">
+      <mat-header-cell [ngClass]="'colTags'" *matHeaderCellDef>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Tags" [(ngModel)]="filterEntity.tags">
+        </mat-form-field>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.tags.toString(" ")}}</mat-cell>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let row" fxLayoutGap="5px">
+        <button mat-raised-button color="primary" (click)="onView(row.uid)">View</button>
+        <button mat-raised-button color="basic" (click)="onSelect(row.uid)">Select</button>
+        <button mat-raised-button color="warn" (click)="onDelete(row.uid)">Delete</button>
+      </mat-cell>
+    </ng-container>
+    
+    <!-- Define displayed Column, maybe add dynamic selction in future -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row> 
+    <!-- Create rows for displayed columns -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

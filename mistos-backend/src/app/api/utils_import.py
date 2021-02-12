@@ -34,7 +34,6 @@ def load_zarr(filepath_zarr, filepath_metadata):
     '''
     # id will be passed from db in future
     # hint and description will be passed as string or filepath to textfile from db
-    
     img = zarr.convenience.load(filepath_zarr)
     with open(filepath_metadata, "r") as file:
         metadata_dict = json.load(file)
@@ -43,6 +42,15 @@ def load_zarr(filepath_zarr, filepath_metadata):
     assert len(img.shape) == 4
     
     return img, metadata_dict
+
+def load_metadata_only(filepath_metadata):
+    '''
+    loads just an images metadata
+    '''
+    with open(filepath_metadata, "r") as file:
+        metadata_dict = json.load(file)
+
+    return metadata_dict
 
 def save_label_layer_to_zarr(array, filepath):
     '''
@@ -164,8 +172,6 @@ def read_image_file(path, n_series = -1, big_file = False):
     '''
     Function expects a filepath to a compatible image file (may be series or single image). Returns list of tuples (zarr, metadata_dict,  original_metadata)
     '''
-    
-    
     # First we read the metadata of our image to see what exactly we are expecting
     # Exit the function if metadata can not be read    
     try:

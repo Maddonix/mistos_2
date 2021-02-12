@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Edit Hint</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <!-- Hint -->
+        <div class="mat-form-input">
+            <mat-form-field>
+                <mat-label for="hint">Hint</mat-label>
+                <input matInput id="hint" class="form-control" formControlName="hint" #hint>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="danger" (click)="onClose()">Close</button>
+</mat-dialog-actions>

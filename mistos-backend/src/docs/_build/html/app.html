@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app package &mdash; Mistos  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="app.api package" href="app.api.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Mistos
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">app package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="app.api.html">app.api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.tests.html">app.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app.crud">app.crud module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app.database">app.database module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app.db_models">app.db_models module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app.fileserver_requests">app.fileserver_requests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfg.html">cfg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fileserver.html">fileserver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fileserver.html">fileserver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mistos</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">src</a> &raquo;</li>
+        
+      <li>app package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/app.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="app-package">
+<h1>app package<a class="headerlink" href="#app-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="app.api.html">app.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.classes_com">app.api.classes_com module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.classes_db">app.api.classes_db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.classes_internal">app.api.classes_internal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.napari_viewer">app.api.napari_viewer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_classes">app.api.utils_classes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_import">app.api.utils_import module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_napari">app.api.utils_napari module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_paths">app.api.utils_paths module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_results">app.api.utils_results module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_segmentation">app.api.utils_segmentation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_segmentation_random_forest">app.api.utils_segmentation_random_forest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api.utils_transformations">app.api.utils_transformations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.api.html#module-app.api">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.tests.html">app.tests package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="app.tests.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.tests.html#module-app.tests.utils_tests">app.tests.utils_tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.tests.html#module-app.tests">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.crud">
+<span id="app-crud-module"></span><h2>app.crud module<a class="headerlink" href="#module-app.crud" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="app.crud.add_image_to_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">add_image_to_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">image_uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.add_image_to_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.add_measurement_to_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">add_measurement_to_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.add_measurement_to_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.add_result_layer_to_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">add_result_layer_to_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.add_result_layer_to_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_classifier">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_classifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">classifier</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_experiment">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_experiment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_experiment_result">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_experiment_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_result</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_experiment_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_image">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_result_layer">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_layer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.create_result_measurement">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">create_result_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_measurement</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_result_measurement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.delete_result_layer">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">delete_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">db_layer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="app.api.html#app.api.classes_db.DbImageResultLayer" title="app.api.classes_db.DbImageResultLayer">app.api.classes_db.DbImageResultLayer</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.delete_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects a c_db.DbResultLayer object. Deletes all associated measurements and the layer itself.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.read_classifier_by_uid">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">read_classifier_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.read_classifier_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects classifier uid and returns c_int.IntClassifier object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.read_classifier_dict_by_type">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">read_classifier_dict_by_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clf_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.read_classifier_dict_by_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects clf_type as string as defined in utils_classes and returns a dict of {name: id}.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.read_experiment_group_by_uid">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">read_experiment_group_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em>, <em class="sig-param"><span class="n">for_refresh</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.read_experiment_group_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects experiment_group uid and returns c_int.IntExperimentGroup object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.read_image_by_uid">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">read_image_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em>, <em class="sig-param"><span class="n">for_refresh</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.read_image_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects image uid and returns c_int.IntImage object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.read_result_layers_of_image_uid">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">read_result_layers_of_image_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.read_result_layers_of_image_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects image uid and returns a list of c_db.DbResultLayer objects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.remove_image_from_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">remove_image_from_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">image_uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.remove_image_from_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.remove_measurement_from_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">remove_measurement_from_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.remove_measurement_from_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.remove_result_layer_from_experiment_group">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">remove_result_layer_from_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group</span></em>, <em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.remove_result_layer_from_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.update_image_bg_false">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">update_image_bg_false</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.update_image_bg_false" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.crud.update_image_bg_true">
+<code class="sig-prename descclassname">app.crud.</code><code class="sig-name descname">update_image_bg_true</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span></em>, <em class="sig-param"><span class="n">layer_uid</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.update_image_bg_true" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-app.database">
+<span id="app-database-module"></span><h2>app.database module<a class="headerlink" href="#module-app.database" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.db_models">
+<span id="app-db-models-module"></span><h2>app.db_models module<a class="headerlink" href="#module-app.db_models" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.db_models.Classifier">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">Classifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.Classifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.clf_type">
+<code class="sig-name descname">clf_type</code><a class="headerlink" href="#app.db_models.Classifier.clf_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.Classifier.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.metrics">
+<code class="sig-name descname">metrics</code><a class="headerlink" href="#app.db_models.Classifier.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.Classifier.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.params">
+<code class="sig-name descname">params</code><a class="headerlink" href="#app.db_models.Classifier.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.path_clf">
+<code class="sig-name descname">path_clf</code><a class="headerlink" href="#app.db_models.Classifier.path_clf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.path_test_train">
+<code class="sig-name descname">path_test_train</code><a class="headerlink" href="#app.db_models.Classifier.path_test_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Classifier.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#app.db_models.Classifier.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.Experiment">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#app.db_models.Experiment.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><a class="headerlink" href="#app.db_models.Experiment.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.Experiment.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.Experiment.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.Experiment.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Experiment.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#app.db_models.Experiment.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.ExperimentGroup">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">ExperimentGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.ExperimentGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#app.db_models.ExperimentGroup.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.experiment">
+<code class="sig-name descname">experiment</code><a class="headerlink" href="#app.db_models.ExperimentGroup.experiment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.experiment_id">
+<code class="sig-name descname">experiment_id</code><a class="headerlink" href="#app.db_models.ExperimentGroup.experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.experiment_result">
+<code class="sig-name descname">experiment_result</code><a class="headerlink" href="#app.db_models.ExperimentGroup.experiment_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.ExperimentGroup.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.ExperimentGroup.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.images">
+<code class="sig-name descname">images</code><a class="headerlink" href="#app.db_models.ExperimentGroup.images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.measurements">
+<code class="sig-name descname">measurements</code><a class="headerlink" href="#app.db_models.ExperimentGroup.measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.ExperimentGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentGroup.result_layers">
+<code class="sig-name descname">result_layers</code><a class="headerlink" href="#app.db_models.ExperimentGroup.result_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.ExperimentResult">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">ExperimentResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.ExperimentResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.description">
+<code class="sig-name descname">description</code><a class="headerlink" href="#app.db_models.ExperimentResult.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.experiment_group">
+<code class="sig-name descname">experiment_group</code><a class="headerlink" href="#app.db_models.ExperimentResult.experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.experiment_group_id">
+<code class="sig-name descname">experiment_group_id</code><a class="headerlink" href="#app.db_models.ExperimentResult.experiment_group_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.ExperimentResult.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.ExperimentResult.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.ExperimentResult.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.path">
+<code class="sig-name descname">path</code><a class="headerlink" href="#app.db_models.ExperimentResult.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ExperimentResult.result_type">
+<code class="sig-name descname">result_type</code><a class="headerlink" href="#app.db_models.ExperimentResult.result_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.Image">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">Image</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.Image.bg_layer_id">
+<code class="sig-name descname">bg_layer_id</code><a class="headerlink" href="#app.db_models.Image.bg_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><a class="headerlink" href="#app.db_models.Image.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.has_bg_layer">
+<code class="sig-name descname">has_bg_layer</code><a class="headerlink" href="#app.db_models.Image.has_bg_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.Image.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.Image.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.measurements">
+<code class="sig-name descname">measurements</code><a class="headerlink" href="#app.db_models.Image.measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.Image.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.path_image">
+<code class="sig-name descname">path_image</code><a class="headerlink" href="#app.db_models.Image.path_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.path_metadata">
+<code class="sig-name descname">path_metadata</code><a class="headerlink" href="#app.db_models.Image.path_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.result_layers">
+<code class="sig-name descname">result_layers</code><a class="headerlink" href="#app.db_models.Image.result_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.series_index">
+<code class="sig-name descname">series_index</code><a class="headerlink" href="#app.db_models.Image.series_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Image.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#app.db_models.Image.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.Measurement">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">Measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.Measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><a class="headerlink" href="#app.db_models.Measurement.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.Measurement.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.Measurement.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.image">
+<code class="sig-name descname">image</code><a class="headerlink" href="#app.db_models.Measurement.image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.image_id">
+<code class="sig-name descname">image_id</code><a class="headerlink" href="#app.db_models.Measurement.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.Measurement.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.path">
+<code class="sig-name descname">path</code><a class="headerlink" href="#app.db_models.Measurement.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.result_layer">
+<code class="sig-name descname">result_layer</code><a class="headerlink" href="#app.db_models.Measurement.result_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.Measurement.result_layer_id">
+<code class="sig-name descname">result_layer_id</code><a class="headerlink" href="#app.db_models.Measurement.result_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.db_models.ResultLayer">
+<em class="property">class </em><code class="sig-prename descclassname">app.db_models.</code><code class="sig-name descname">ResultLayer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.db_models.ResultLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><a class="headerlink" href="#app.db_models.ResultLayer.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.hint">
+<code class="sig-name descname">hint</code><a class="headerlink" href="#app.db_models.ResultLayer.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#app.db_models.ResultLayer.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.image">
+<code class="sig-name descname">image</code><a class="headerlink" href="#app.db_models.ResultLayer.image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.image_id">
+<code class="sig-name descname">image_id</code><a class="headerlink" href="#app.db_models.ResultLayer.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.layer_type">
+<code class="sig-name descname">layer_type</code><a class="headerlink" href="#app.db_models.ResultLayer.layer_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.measurements">
+<code class="sig-name descname">measurements</code><a class="headerlink" href="#app.db_models.ResultLayer.measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#app.db_models.ResultLayer.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.db_models.ResultLayer.path">
+<code class="sig-name descname">path</code><a class="headerlink" href="#app.db_models.ResultLayer.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.fileserver_requests">
+<span id="app-fileserver-requests-module"></span><h2>app.fileserver_requests module<a class="headerlink" href="#module-app.fileserver_requests" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="app.fileserver_requests.delete_file">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">delete_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.delete_folder">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">delete_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.delete_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.load_classifier">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">load_classifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.load_classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.load_classifier_test_train">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">load_classifier_test_train</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.load_classifier_test_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.load_measurement">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">load_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.load_measurement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.save_classifier">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">save_classifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clf</span></em>, <em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.save_classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.save_classifier_test_train">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">save_classifier_test_train</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_train</span></em>, <em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.save_classifier_test_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.fileserver_requests.save_measurement">
+<code class="sig-prename descclassname">app.fileserver_requests.</code><code class="sig-name descname">save_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span></em>, <em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.fileserver_requests.save_measurement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-app">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="app.api.html" class="btn btn-neutral float-right" title="app.api package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas Joachim Lux.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
