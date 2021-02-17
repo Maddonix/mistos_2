@@ -39,8 +39,8 @@ export class ImageDetailComponent implements OnInit {
 
     //fetch Thumbnail Path
     this.comService.fetchImageThumbnailPath(this.image.uid).subscribe((path:string)=>{
+      this.thumbnailPath = path["path"];
       console.log(path);
-      this.thumbnailPath = path;
     });
 
     //Setup Dialog Config File

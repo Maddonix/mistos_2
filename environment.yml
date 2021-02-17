@@ -1,12 +1,8 @@
 name: mistos
-channels:
-  - pytorch
-  - fastai
-  - defaults
 dependencies:
+  - python=3.8
+  - pip
   - pandas
-  - pyqt
-  - qt
   - scikit-learn
   - scipy
   - sqlite
@@ -14,11 +10,10 @@ dependencies:
     - aiofiles
     - czifile
     - fastapi
-    - matplotlib=
+    - matplotlib
     - napari
     - openpyxl
     - pydantic
-    - pyqt5
     - python-bioformats
     - python-javabridge
     - python-multipart
@@ -33,3 +28,4 @@ dependencies:
     - webencodings
     - xtiff
     - zarr
+    - pyqt5

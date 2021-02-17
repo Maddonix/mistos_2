@@ -44,7 +44,10 @@ async def fetch_thumbnail_path(image_uid:str):
     '''
     API request to return the path of an images thumbnail
     '''
-    return utils_paths.fileserver.joinpath(utils_paths.make_thumbnail_path(int(image_uid)))
+    path = utils_paths.make_thumbnail_path(int(image_uid))
+    path = utils_paths.static_fileserver + path
+    return {"path": path}
+    # return utils_paths.fileserver.joinpath()
 
 @router.get("/api/images/export_mistos_image/{image_uid}")
 async def export_image(image_uid:str):

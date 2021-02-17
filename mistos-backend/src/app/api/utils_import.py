@@ -9,7 +9,6 @@ import app.api.classes_internal as c_int
 import skimage
 import os
 import pickle
-from cfg import cfg
 
 # Colormaps
 color_multipliers = {
@@ -198,7 +197,7 @@ def read_image_file(path, n_series = -1, big_file = False):
     filename = path.split("/")[-1]
     # Check file size
     file_size = os.path.getsize(path)/10e5 
-    if file_size > cfg["max_file_size_single_import"]:
+    if file_size > 1000:
         big_file = True
         if n_series == -1:
             print(f"warning, big file with size {os.path.getsize(path)/10e5} mb detected!\nIf you import an image series consider importing only single images to prevent crashes.")

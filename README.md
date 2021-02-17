@@ -2,8 +2,9 @@
 Microscopy Image Storing-and-Processing System
 
 ## Voraussetzungen
-- Anaconda
 - Windows
+- Anaconda
+- Oracle JDK > 1.6
 - Speicherplatz je nach Nutzung
 - RAM je nach Größe der zu bearbeitenden Bilder
 - (CUDA fähige Grafikkarte für eine bessere Performance)
@@ -19,7 +20,14 @@ Microscopy Image Storing-and-Processing System
 - Get latest Mistos build by opening a commandline in a folder where you want to save it
 - run "git clone https://github.com/Maddonix/mistos_2.git"
 
+### Oracle JDK
+- If already installed (check in system contro -> programs) you may skip this section
+- Download and install: 
+    - https://www.oracle.com/de/java/technologies/javase-jdk15-downloads.html
+    - choose appropriate version (e.g. Windows 64 bit)
+
 ### Anaconda
+- If you already have an up-to-date version of anaconda installed, you may skip this section (make sure conda is accessable from commandline!)
 - Download appropriate Anaconda Version for your system. (Tested with: Windows, Python 3.8, 64-Bit)
     - https://www.anaconda.com/products/individual
 - Install Anaconda
@@ -27,6 +35,10 @@ Microscopy Image Storing-and-Processing System
 - Activate conda in the commandline
     - open "anaconda prompt"
     - run "conda init cmd.exe"
+
+### Anaconda Mistos Environment
+- Double-click "setup.bat"
+    - Warning: Since Mistos implements neuronal networks based on pytorch and tensorflow, both are installed. This takes some time, so you may want to grab a coffee or something to eat in the meantime. 
 
 ### Filepaths
 - By default, a Mistos directory will be created in your home directory (eg. "c:\\users\\tlux\\mistos")
@@ -58,7 +70,6 @@ Microscopy Image Storing-and-Processing System
         - run "conda init cmd.exe"
         - a reboot may be necessary for changes to take effect
 
-
 - napari errors: 
     - get latest napari build by opening a commandline in a folder where you want to save it
     - run "git clone https://github.com/napari/napari.git"
@@ -84,6 +95,13 @@ Microscopy Image Storing-and-Processing System
         - go to the mistos app folder
         - go to mistos-backend/src
         - delete the file "sql_app.db"
+
+- Conda environment broken:
+    - Solution: Rebuild the environment
+        - open a commandline in the mistos project folder
+        - run "conda remove --name mistos --all"
+        - run "conda env create -f environment.yml"
+
 
 ## Main Views:
 - Dashboard (default)
