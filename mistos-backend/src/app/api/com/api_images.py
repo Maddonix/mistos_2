@@ -45,7 +45,7 @@ async def fetch_thumbnail_path(image_uid:str):
     API request to return the path of an images thumbnail
     '''
     path = utils_paths.make_thumbnail_path(int(image_uid))
-    path = utils_paths.static_fileserver + path
+    path = "http://" + utils_paths.static_fileserver + path
     return {"path": path}
     # return utils_paths.fileserver.joinpath()
 

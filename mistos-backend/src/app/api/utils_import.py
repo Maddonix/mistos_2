@@ -341,7 +341,6 @@ def import_mistos_experiment(path):
     -- Creates empty experiment group and adds these images
     -- iterates over result_layer list and adds them 
     '''
-    path = "test_exp.pkl"
     with open(path, "rb") as file:
         int_experiment = pickle.load(file)
 

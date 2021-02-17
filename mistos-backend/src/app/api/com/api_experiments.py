@@ -3,6 +3,7 @@ from fastapi import APIRouter, Header, Response
 import app.api.utils_com as utils_com
 import app.api.utils_export as utils_export
 import app.api.utils_import as utils_import
+import pathlib
 from typing import Any
 from app import crud
 from app.api.com.api_request_models import (CreateExperimentRequest, DeleteExperimentGroupRequest, NewExperimentGroupRequest, 
@@ -177,13 +178,12 @@ async def export_mistos_experiment(experiment_id:str):
     utils_export.export_mistos_experiment(int(experiment_id))
 
 @router.post("/api/experiments/import_mistos_experiment", status_code = 201)
-async def import_mistos_image(read_from_path_request: ReadFromPathRequest, response: Response):
+async def import_mistos_experiment(read_from_path_request: ReadFromPathRequest, response: Response):
     ''' 
     API Request to import an mistos image from a filepath.
     Included Layers and measurements will also be imported.
     '''
-    # path = pathlib.Path(read_from_path_request.path)
-    # if path.exists():
-    #     path = path.as_posix()
-    path = ""
+    path = pathlib.Path(read_from_path_request.path)
+    if path.exists():
+        path = path.as_posix()
     utils_import.import_mistos_experiment(path)
