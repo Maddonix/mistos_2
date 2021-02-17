@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module
 import numpy as np
 from pydantic import BaseModel, constr
 from typing import List, Optional, Set, Any
@@ -344,8 +345,13 @@ class DbClassifier(BaseModel):
 
     def to_int_class(self):
         kwargs = self.dict()
-        clf = fsr.load_classifier(self.path_clf)
-        test_train_data = fsr.load_classifier_test_train(self.path_test_train)
+        if self.clf_type == "rf_segmentation":
+            clf = fsr.load_classifier(self.path_clf)
+            test_train_data = fsr.load_classifier_test_train(self.path_test_train)
+
+        if self.clf_type =="deepflash_model":
+            clf = self.path_clf
+            test_train_data = []
 
         kwargs["test_train_data"] = test_train_data
         kwargs["classifier"] = clf
@@ -368,3 +374,11 @@ class DbClassifier(BaseModel):
         self.path_clf = sql_classifier.path_clf
         self.path_test_train = sql_classifier.path_test_train
 
+    def update_name(self, new_name):
+        crud.update_classifier_name(self.uid, new_name)
+
+    def delete(self):
+        '''
+        Deletes a classifier from db and file storage
+        '''
+        crud.delete_classifier(self)

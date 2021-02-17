@@ -1,0 +1,51 @@
+<div class="mat-subheading-2">First, select your upload mode:</div>
+    <div style = "margin-top:10px">
+      <label id="modePicker">Pick your upload Mode</label>
+      <mat-radio-group
+        aria-labelledby="modePicker"
+        [(ngModel)]="uploadMode">
+        <mat-radio-button class="example-radio-button" *ngFor="let mode of uploadModes" [value]="mode" style="margin-left:20px">
+          {{mode}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="mat-subheading-2">For small images, just drag and drop them here:</div>
+    <ngx-dropzone 
+      (change)="onImageAdded($event)"
+      [expandable]="true">
+      <ngx-dropzone-label>Drop Images!</ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of images" [removable]="true" (removed)="onRemoveImage(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+    <button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadImagesClicked()">Upload</button>
+    <br>
+    <div class="mat-body-1" style="margin-top:5px">
+      Upload Progress: {{uploadResponse}}%
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="mat-subheading-2">
+      For large images, please enter the full filepath into the textfield and click upload.
+    </div>
+    <div class="mat-body-1">
+      Example: <br>
+      F:\Data_Storage\AG_Rittner\Microscope Framework\data\demo_experiment_1\3-NFh-CIRL1-1.oib
+      <br>
+      <br>
+      This skips the webbroswer upload and considerably speeds up the importing process!
+      <br>
+      <form>
+        <mat-form-field style="width:600px">
+          <mat-label for="labelFilepathInput">Filepath</mat-label>
+          <input matInput id="filepathInput" name = "filepathInput" aria-labelledby="labelFilepathInput" type="text" [(ngModel)]="imageInputPath" placeholder="C:\example\path\to\file.oib">
+        </mat-form-field>
+      </form>
+      <br>
+      <button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadImageFromFilepath()">Import from filepath</button>
+      <div class="mat-body-1">{{meassageFilePathRead}}</div>
+    </div>

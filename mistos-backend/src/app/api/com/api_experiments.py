@@ -1,12 +1,14 @@
+# pylint:disable=no-name-in-module, import-error
 from fastapi import APIRouter, Header, Response
 import app.api.utils_com as utils_com
+import app.api.utils_export as utils_export
+import app.api.utils_import as utils_import
 from typing import Any
 from app import crud
 from app.api.com.api_request_models import (CreateExperimentRequest, DeleteExperimentGroupRequest, NewExperimentGroupRequest, 
 DeleteExperimentRequest, UpdateHintRequest, UpdateDescriptionRequest, UpdateNameRequest, UpdateExperimentGroupImagesRequest,
-DeleteImageFromExperimentGroupRequest, AddLayerToGroupRequest, CalculateExperimentResultsRequest, ExportExperimentRequest)
+DeleteImageFromExperimentGroupRequest, AddLayerToGroupRequest, ReadFromPathRequest, CalculateExperimentResultsRequest, ExportExperimentRequest)
 
-import asyncio
 
 router = APIRouter()
 
@@ -99,7 +101,7 @@ async def update_experiment_hint(update_hint_request: UpdateHintRequest):
     db_experiment.update_hint(update_hint_request.new_hint)
 
 @router.post("/api/experiments/update_experiment_description", status_code = 200)
-async def update_experiment_hint(update_description_request: UpdateDescriptionRequest):
+async def update_experiment_description(update_description_request: UpdateDescriptionRequest):
     '''
     API Request to update an experiment description
     '''
@@ -165,3 +167,23 @@ async def export_experiment(export_experiment_request: ExportExperimentRequest):
     int_experiment = crud.read_experiment_by_uid(export_experiment_request.experiment_id).to_int_class()
 
     int_experiment.export_experiment(**export_experiment_request.export_request)
+
+
+@router.get("/api/experiments/export_mistos_experiment/{experiment_id}")
+async def export_mistos_experiment(experiment_id:str):
+    '''
+    API request to export a mistos experiment to the export folder
+    '''
+    utils_export.export_mistos_experiment(int(experiment_id))
+
+@router.post("/api/experiments/import_mistos_experiment", status_code = 201)
+async def import_mistos_image(read_from_path_request: ReadFromPathRequest, response: Response):
+    ''' 
+    API Request to import an mistos image from a filepath.
+    Included Layers and measurements will also be imported.
+    '''
+    # path = pathlib.Path(read_from_path_request.path)
+    # if path.exists():
+    #     path = path.as_posix()
+    path = ""
+    utils_import.import_mistos_experiment(path)

@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent, HttpRequest } from "@angular/common/http";
+import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
@@ -66,6 +66,23 @@ export class ComService {
             )
     }
 
+    fetchImageThumbnailPath(imageId) {
+        let url = this.serverURL.concat("images/fetch_thumbnail_path/");
+        url = url.concat(imageId.toString());
+        return this.httpClient.get(
+            url
+            ).pipe(
+                map(
+                    (data: string) => {
+                        return data
+                    },
+                    (error) => {
+                        return error
+                    }
+                )
+            )
+    }
+
     viewImage(imageId:number, displayResultLayers:boolean = false, displayBackgroundLayer: boolean = false) {
         this.httpClient.post(
                 this.serverURL.concat("images/view_by_id"), // URL
@@ -77,19 +94,59 @@ export class ComService {
         });
     }
 
-    uploadImage(file:File):Observable<HttpEvent<any>> {
+    uploadImages(file:File, uploadMode:string) {
         const formData: FormData = new FormData();
-    
         formData.append('file', file);
-    
-        const req = new HttpRequest('POST', `${this.serverURL}images/upload`, formData//, {
-        //   reportProgress: true,
-        //   responseType: 'json'
-        // }
-        );
-    
-        return this.httpClient.request(req);
-      }
+
+        if (uploadMode === "image") {
+            return this.httpClient.post(`${this.serverURL}images/upload`, formData, {
+                reportProgress: true,
+                observe: 'events'
+                }).pipe(
+                    map((event)=>{
+                        switch(event.type) {
+                            case HttpEventType.UploadProgress:
+                                const progress = Math.round(100 * event.loaded / event.total);
+                                return {status: "progress", message: progress};
+                                
+                            case HttpEventType.Response:
+                                return event.body;
+                            
+                            default:
+                                return "Unhandled event: ${event.type}";
+                        }
+                    })
+                );
+        } else {
+            return this.httpClient.post(`${this.serverURL}images/upload_max_z_projection`, formData, {
+                reportProgress: true,
+                observe: 'events'
+                }).pipe(
+                    map((event)=>{
+                        switch(event.type) {
+                            case HttpEventType.UploadProgress:
+                                const progress = Math.round(100 * event.loaded / event.total);
+                                return {status: "progress", message: progress};
+                                
+                            case HttpEventType.Response:
+                                return event.body;
+                            
+                            default:
+                                return "Unhandled event: ${event.type}";
+                        }
+                    })
+            );
+        }
+    }
+
+    uploadImageFromFilepath(path:string, uploadMode:string) {
+        let payload = {path: path};
+        if (uploadMode === "image") {
+            return this.httpClient.post(`${this.serverURL}images/read_from_path`, payload);
+        } else {
+            return this.httpClient.post(`${this.serverURL}images/read_from_path_max_z_projection`, payload)
+        }
+    } 
 
     deleteImageById(imageId:number) {
         return this.httpClient.post(
@@ -150,7 +207,29 @@ export class ComService {
         ) 
     }
 
-    // Classifier
+    exportMistosImage(imageId:number) {
+        let url = this.serverURL.concat("images/export_mistos_image/");
+        url = url.concat(imageId.toString());
+        return this.httpClient.get(
+            url
+            ).pipe(
+                map(
+                    (data: Image) => {
+                        return data
+                    },
+                    (error) => {
+                        return error
+                    }
+                )
+            )
+    }
+
+    importMistosImage(path) {
+        let payload = {path: path};
+        return this.httpClient.post(`${this.serverURL}images/import_mistos_image`, payload);
+    }
+
+    // Classifier + Deepflash
     fetchClassifierList() {
         return this.httpClient.get(this.serverURL.concat("classifier/fetch_all"))
         .pipe(
@@ -167,8 +246,8 @@ export class ComService {
         )
     }
 
-    fetchClassifierById(classifierId){
-        let url = this.serverURL.concat("classifier/fetch_by_id/");
+    fetchClassifierById(classifierId:number){
+        let url = this.serverURL.concat("classifier/fetch_rf_by_id/");
         url = url.concat(classifierId.toString());
 
         return this.httpClient.get(
@@ -186,6 +265,146 @@ export class ComService {
                     this.classifierService.changeActiveClassifier(data);
                 })
             )
+    }
+
+    fetchRfClassifierList() {
+        return this.httpClient.get(this.serverURL.concat("classifier/fetch_all_rf"))
+        .pipe(
+            map((data:Classifier[])=>{
+                return data
+            },
+            (error)=>{
+                return error
+            }
+            ),
+            tap((data:Classifier[])=>{
+                this.classifierService.setRfClassifierList(data);
+            })
+        )
+    }
+
+    fetchRfClassifierById(classifierId:number){
+        let url = this.serverURL.concat("classifier/fetch_rf_by_id/");
+        url = url.concat(classifierId.toString());
+
+        return this.httpClient.get(
+            url
+            ).pipe(
+                map(
+                    (data: Classifier) => {
+                        return data
+                    },
+                    (error) => {
+                        return error
+                    }
+                ),
+                tap((data:Classifier) => {
+                    this.classifierService.changeActiveRfClassifier(data);
+                })
+            )
+    }
+
+    uploadDeepflashModels(file:File) {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(`${this.serverURL}deepflash/upload_model`, formData, {
+        reportProgress: true,
+        observe: 'events'
+        }).pipe(
+            map((event)=>{
+                switch(event.type) {
+                    case HttpEventType.UploadProgress:
+                        const progress = Math.round(100 * event.loaded / event.total);
+                        return {status: "progress", message: progress};
+                        
+                    case HttpEventType.Response:
+                        return event.body;
+                    
+                    default:
+                        return "Unhandled event: ${event.type}";
+                }
+            })
+        );
+    } 
+
+    uploadDfModelFromFilepath(path:string) {
+        let payload = {path: path}; 
+            return this.httpClient.post(`${this.serverURL}deepflash/read_from_path`, payload);
+    } 
+
+    estimateGroundTruth(imagesLabelsDict) {
+        return this.httpClient.post(
+            this.serverURL.concat("deepflash/estimate_ground_truth"), // URL
+            {"images_label_dict": imagesLabelsDict}
+        )
+    }
+
+    fetchDfClassifierList(){
+        return this.httpClient.get(this.serverURL.concat("classifier/fetch_all_df"))
+        .pipe(
+            map((data:Classifier[])=>{
+                return data
+            },
+            (error)=>{
+                return error
+            }
+            ),
+            tap((data:Classifier[])=>{
+                this.classifierService.setDfClassifierList(data);
+            })
+        )
+    }
+
+    fetchDfClassifierById(classifierId:number){
+        let url = this.serverURL.concat("classifier/fetch_df_by_id/");
+        url = url.concat(classifierId.toString());
+
+        return this.httpClient.get(
+            url
+            ).pipe(
+                map(
+                    (data: Classifier) => {
+                        return data
+                    },
+                    (error) => {
+                        return error
+                    }
+                ),
+                tap((data:Classifier) => {
+                    this.classifierService.changeActiveDfClassifier(data);
+                })
+            )
+    }
+
+    deleteClassifierById(classifierId:number) {
+        return this.httpClient.post(
+            this.serverURL.concat("classifier/delete_by_id"), // URL
+            {
+                "id": classifierId
+            }
+        )
+    }
+
+    updateClassifierName(classifierId:number, newName: string) {
+        return this.httpClient.post(
+            this.serverURL.concat("classifier/update_name"), // URL
+            {
+                "id": classifierId,
+                "new_name": newName
+            }
+        ) 
+    }
+
+    deepflashPredictImages(classifierId:number, imageIds:number[]) {
+        return this.httpClient.post(
+            this.serverURL.concat("deepflash/predict_images"),
+            {
+                "classifier_id": classifierId,
+                "image_ids": imageIds,
+                "use_tta": false
+            }
+        )
     }
 
     // Experiments
@@ -364,6 +583,28 @@ export class ComService {
                 "export_request": exportRequest
             }
         )
+    }
+
+    exportMistosExperiment(experimentId:number) {
+        let url = this.serverURL.concat("experiments/export_mistos_experiment/");
+        url = url.concat(experimentId.toString());
+        return this.httpClient.get(
+            url
+            ).pipe(
+                map(
+                    (data: Image) => {
+                        return data
+                    },
+                    (error) => {
+                        return error
+                    }
+                )
+            )
+    }
+
+    importMistosExperiment(path) {
+        let payload = {path: path};
+        return this.httpClient.post(`${this.serverURL}experiments/import_mistos_experiment`, payload);
     }
 
 }

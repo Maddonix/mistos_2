@@ -11,12 +11,11 @@ export class ClassifierListResolver implements Resolve<Classifier[]> {
     classifierList:Classifier[];
 
     constructor(
-        private classifierService:ClassifierService,
         private comService:ComService
     ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier[]> | Promise<Classifier[]> | Classifier[] {
-        return this.comService.fetchClassifierList()
+        return this.comService.fetchClassifierList();
         }
 }
 
@@ -27,13 +26,73 @@ export class ClassifierResolver implements Resolve<Classifier> {
     id: number;
 
     constructor(
-        private classifierService:ClassifierService,
+        private comService:ComService
+    ) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier> | Promise<Classifier> | Classifier{
+        this.id = route.params["id"];    
+        return this.comService.fetchClassifierById(this.id);
+        }
+}
+
+@Injectable()
+export class RfClassifierListResolver implements Resolve<Classifier[]> {
+    subscription:Subscription;
+    classifierList:Classifier[];
+
+    constructor(
+        private comService:ComService
+    ) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier[]> | Promise<Classifier[]> | Classifier[] {
+        return this.comService.fetchRfClassifierList()
+        }
+}
+
+@Injectable()
+export class RfClassifierResolver implements Resolve<Classifier> {
+    subscription:Subscription;
+    classifier:Classifier;
+    id: number;
+
+    constructor(
         private comService:ComService
     ) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier> | Promise<Classifier> | Classifier{
         // this.comService.fetchExperimentList();
         this.id = route.params["id"];    
-        return this.comService.fetchClassifierById(this.id);
+        return this.comService.fetchRfClassifierById(this.id);
+        }
+}
+
+@Injectable()
+export class DfClassifierListResolver implements Resolve<Classifier[]> {
+    subscription:Subscription;
+    classifierList:Classifier[];
+
+    constructor(
+        private comService:ComService
+    ) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier[]> | Promise<Classifier[]> | Classifier[] {
+        return this.comService.fetchDfClassifierList()
+        }
+}
+
+@Injectable()
+export class DfClassifierResolver implements Resolve<Classifier> {
+    subscription:Subscription;
+    classifier:Classifier;
+    id: number;
+
+    constructor(
+        private comService:ComService
+    ) {}
+
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Classifier> | Promise<Classifier> | Classifier{
+        // this.comService.fetchExperimentList();
+        this.id = route.params["id"];    
+        return this.comService.fetchDfClassifierById(this.id);
         }
 }

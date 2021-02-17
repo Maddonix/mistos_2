@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module, import-error
 from pydantic import BaseModel, constr
 from typing import List, Optional, Set, Dict    
 from app.api import cfg_classes  
@@ -78,5 +79,3 @@ class ComClassifier(BaseModel):
     params: dict = {}
     metrics: dict = {}
     tags: List[str] = []
-    
-    

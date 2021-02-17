@@ -1,0 +1,37 @@
+<!-- Settings -->
+<div>
+    <div class="mat-subheading-2">Settings:</div>
+    <div>
+        <form [formGroup]="optionsForm">
+            <mat-form-field appearance="fill">
+                <mat-label for="selectModel">Model</mat-label>
+                <mat-select class="form-control" formControlName="model">
+                  <mat-option id="selectModel" *ngFor="let model of models" [value]="model.uid">
+                    {{model.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+
+<!-- Image Selection -->
+<div>
+    <button mat-raised-button color="primary" (click)="onAddImage()">Add Images</button>
+</div>
+<hr>
+<mat-grid-list cols="5" rowHeight="1:1">
+    <mat-grid-tile [colspan]="'1'" *ngFor="let image of predictImageList; let i = index;">
+        <mat-grid-tile-header fxLayout="row">
+            <div class="">
+                {{ image.name }} [ID: {{ image.uid }}]
+            </div>
+            <div style="margin-left: auto; margin-right:5px;">
+                <button mat-raised-button color="warn" (click)="onDeleteImageFromList(i)">X</button>
+            </div>
+        </mat-grid-tile-header>
+    </mat-grid-tile>
+</mat-grid-list>
+<hr>
+<button mat-raised-button color="primary" (click)="onPredict()">Predict</button>
+

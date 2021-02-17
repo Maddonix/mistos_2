@@ -1,8 +1,56 @@
 import pathlib
 import os
 from datetime import datetime as dt
+import cfg
 
-########## MAKE SURE ALL FOLDERS EXIST ON STARTUP, ELSE CREATE ###############
+# Default dirs
+default_mistos_dir = pathlib.Path.home()
+default_export_dir = default_mistos_dir.joinpath("export")
+default_fileserver_dir = default_mistos_dir.joinpath("working_directory")
+using_default = False
+
+# Check if custom paths were supplied
+custom_paths = cfg.settings
+
+# Ceck for custom export_folder path
+export_folder= pathlib.Path(custom_paths["EXPORT_DIRECTORY"])
+if export_folder.as_posix() == ".":
+    using_default = True
+    export_folder = default_export_dir
+    print(f"Export Directory is: {default_export_dir.as_posix()}")
+elif not export_folder.exists():
+    using_default = True
+    print("WARNING: export path was set to:")
+    print(export_folder.as_posix())
+    print("Path doesn't exist, using default export directory")
+    print(default_export_dir.as_posix())
+    using_default = True
+    export_folder = default_export_dir
+else:
+    print("Custom Export Directory:")
+    print(export_folder)
+
+# Check for custom fileserver_path
+fileserver= pathlib.Path(custom_paths["WORKING_DIRECTORY"])
+if fileserver.as_posix() == ".":
+    using_default = True
+    fileserver = default_fileserver_dir
+    print(f"Export Directory is: {default_fileserver_dir.as_posix()}")
+elif not fileserver.exists():
+    using_default = True
+    print("WARNING: export path was set to:")
+    print(fileserver.as_posix())
+    print("Path doesn't exist, using default export directory")
+    print(default_fileserver_dir.as_posix())
+    using_default = True
+    fileserver = default_fileserver_dir
+else:
+    print("Custom Export Directory:")
+    print(fileserver)
+
+if using_default and not default_mistos_dir.exists():
+    os.mkdir(default_mistos_dir)
+
 fileserver = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder")
 export_folder = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder\\export")
 
@@ -26,13 +74,37 @@ check_paths_list = [
     tmp_folder
 ]
 check_paths_list = [fileserver.joinpath(path) for path in check_paths_list]
+check_paths_list.append(export_folder)
 
 for path in check_paths_list:
     if not path.exists():
         os.mkdir(path)
-        
+
+def add_str_to_path(path, _str):
+    _ = path.as_posix()
+    _ = _+_str
+    return pathlib.Path(_)
+
+def assert_path_not_exist(_path, suffix):
+    '''
+    Expects a pathlib Path. Checks if path exists and appends [{i}]{suffix} until it doesnt.
+    '''
+    i = 0
+    if add_str_to_path(_path, suffix).exists():
+        path = add_str_to_path(_path, f" [{i}]{suffix}")
+        while path.exists():
+            i+=1
+            path = add_str_to_path(_path, f" [{i}]{suffix}")
+    else:
+        path = add_str_to_path(_path,suffix)
+    return path
+
 def make_image_path(uid):
     path = image_folder.joinpath(f"{uid}.zarr").as_posix()
+    return path
+
+def make_thumbnail_path(uid):
+    path = image_folder.joinpath(f"{uid}.png").as_posix()
     return path
 
 def make_metadata_path(uid):
@@ -67,6 +139,15 @@ def make_tmp_file_path(filename):
     filelist = [_ for _ in tmp_folder.glob("*")]
     path = tmp_folder.joinpath(f"{len(filelist)}_{filename}").as_posix()
     return path
+
+def make_deepflash_model_path(uid):
+    path = clf_folder.joinpath(f"deepflash_model_{uid}")
+    return path
+
+def make_export_mistos_object_path(name:str, type:str):
+    path = export_folder.joinpath(f"mistos_{type}_{name}")
+    return path
+
 
 ####### EXPORT PATHS
 def make_experiment_export_folder_path(uid, experiment_name):

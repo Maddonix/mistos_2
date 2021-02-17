@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Data, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { AddImageToGroupComponent } from 'src/app/dialogs/add-image-to-group/add-image-to-group.component';
 import { EditDescriptionComponent } from 'src/app/dialogs/edit-description/edit-description.component';
 import { EditHintComponent } from 'src/app/dialogs/edit-hint/edit-hint.component';
@@ -12,8 +11,6 @@ import { Experiment } from 'src/app/models/experiment.model';
 import { ImageResultLayer } from 'src/app/models/image-result-layer.model';
 import { Image } from 'src/app/models/image.model';
 import { ComService } from 'src/app/shared/com.service';
-import { ExperimentService } from 'src/app/shared/experiment.service';
-import { ImageService } from 'src/app/shared/image.service';
 
 @Component({
   selector: 'app-experiment-detail',
@@ -29,8 +26,6 @@ export class ExperimentDetailComponent implements OnInit {
   
 
   constructor(
-    private experimentService: ExperimentService,
-    private imageService: ImageService,
     private route: ActivatedRoute,
     private router: Router,
     private comService: ComService,
@@ -337,6 +332,10 @@ export class ExperimentDetailComponent implements OnInit {
       }
     }
     )
+  }
+
+  onExportMistosExperiment() {
+    this.comService.exportMistosExperiment(this.experiment.uid).subscribe();
   }
 
 }

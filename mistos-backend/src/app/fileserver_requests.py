@@ -5,6 +5,10 @@ import json
 import zarr
 import pathlib
 import pandas as pd
+import imageio
+from app.api import utils_garbage
+from shutil import copyfile
+
 
 def create_folder(path):
     os.mkdir(path)
@@ -32,6 +36,37 @@ def delete_folder(path):
     except:
         print(f"folder {path} could not be deleted. Add to garbage collection")
         utils_garbage.add_folder_to_garbage(path)
+
+def save_deepflash_model(model_input_paths, path):
+    '''
+    keyword arguments:
+    model_input_paths -- list of pathlib.Path objects pointing to model files
+    path -- pathlib.Path to create the new model folder
+    '''
+    print(model_input_paths)
+    print(path)
+
+    # Create new folder to save models in
+    path = pathlib.Path(path)
+    create_folder(path)
+    for input_path in model_input_paths:
+        model_path = path.joinpath(input_path.as_posix().split("/")[-1])
+        copyfile(input_path, model_path)
+        
+def load_deepflash_model(path):
+    with open(path, "rb") as _file:
+        model = pickle.load(_file)
+    return model
+
+def save_zarr(array, path):
+    zarr.save_array(path,array)
+
+def save_json(dictionary, path):
+    with open(path, "w") as file:
+        json.dump(dictionary, file, indent = 3)
+
+def save_thumbnail(image, path):
+    imageio.imwrite(path, image)
 
 def save_measurement(measurement, path):
     print(measurement)

@@ -19,6 +19,7 @@ export class ImageDetailComponent implements OnInit {
   metadata: {};
   // Define Dialog Configuration
   dialogConfig = new MatDialogConfig();
+  thumbnailPath:string;
   
 
   constructor(
@@ -35,6 +36,12 @@ export class ImageDetailComponent implements OnInit {
     });
     console.log(this.image);
     this.metadata = this.image.metadata;
+
+    //fetch Thumbnail Path
+    this.comService.fetchImageThumbnailPath(this.image.uid).subscribe((path:string)=>{
+      console.log(path);
+      this.thumbnailPath = path;
+    });
 
     //Setup Dialog Config File
     this.dialogConfig.disableClose = true; //disables closing by clicking outside of the dialog
@@ -123,6 +130,10 @@ export class ImageDetailComponent implements OnInit {
       }
     }
     )
+  }
+
+  onExportMistosImage(){
+    this.comService.exportMistosImage(this.image.uid).subscribe()
   }
 
   onDeleteLayer(layerId:number){

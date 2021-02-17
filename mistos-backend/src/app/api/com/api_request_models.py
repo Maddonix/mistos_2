@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module, import-error
 from typing import Optional
 from pydantic import BaseModel
 from typing import List, Any
@@ -18,6 +19,9 @@ class UpdateNameRequest(BaseModel):
 
 class DeleteRequest(BaseModel):
     id: int
+
+class ReadFromPathRequest(BaseModel):
+    path: str
 
 # Images
 class ViewImageRequest(BaseModel):
@@ -61,3 +65,13 @@ class AddLayerToGroupRequest(BaseModel):
 class ExportExperimentRequest(BaseModel):
     experiment_id: int
     export_request: dict
+
+
+## Deepflash
+class EstimateGroundTruthRequest(BaseModel):
+    images_label_dict: dict
+
+class PredictImagesRequest(BaseModel):
+    classifier_id: int
+    image_ids: List[int]
+    use_tta: bool = False

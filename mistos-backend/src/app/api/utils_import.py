@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module, import-error, no-member
 import zarr
 import javabridge
 import bioformats
@@ -7,7 +8,19 @@ import xml
 import app.api.classes_internal as c_int
 import skimage
 import os
+import pickle
 from cfg import cfg
+
+# Colormaps
+color_multipliers = {
+    "red":[1,0,0],
+    "green": [0,1,0],
+    "blue": [0,0,1],
+    "teal": [0,1,1],
+    "yellow": [1,1,0]
+}
+cmaps = ["blue", "green", "red", "yellow", "teal"]
+
 
 #  Start Javabridge for bioformats_importer
 javabridge.start_vm(class_path = bioformats.JARS)
@@ -193,7 +206,11 @@ def read_image_file(path, n_series = -1, big_file = False):
     # Create metadata dictionary
     metadata_dict = acquire_image_metadata_dict(metadata_OMEXML, filename)
     _n_series = metadata_dict["n_series"]
-    
+
+    # Fix metadata dict if information is missing
+    for key, value in metadata_dict["images"].items():
+        metadata_dict["images"][key] = fix_image_metadata(value)
+
     image_list = []
     if n_series == -1:
         for i in range(_n_series):
@@ -205,3 +222,161 @@ def read_image_file(path, n_series = -1, big_file = False):
         image_list.append(image)
     
     return image_list, metadata_dict, metadata_OMEXML
+
+def fix_image_metadata(metadata_dict):
+    if not metadata_dict["pixel_size_physical_x"]:
+        metadata_dict["pixel_size_physical_x"] = 1
+        metadata_dict["pixel_size_physical_unit_x"] = "px"
+    if not metadata_dict["pixel_size_physical_y"]:
+        metadata_dict["pixel_size_physical_y"] = 1
+        metadata_dict["pixel_size_physical_unit_y"] = "px"
+    # dont change z
+    if not len(metadata_dict["channel_names"]) == metadata_dict["n_channels"]:
+        metadata_dict["channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
+        metadata_dict["custom_channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
+        
+    return metadata_dict
+
+def generate_thumbnail(img, cmap_list = cmaps):
+    '''
+    Function expects an object of shape (z,c,y,x). To generate a thumbnail, the image is c-projected and standard color maps are applied.
+    Only a maximum of 5 channels are included in the thumbnail.
+
+    keyword arguments:
+    img -- numpy array of shape (z,c,y,x)
+    cmap_list -- (optional) list of colormaps to apply like:  ["blue", "green", "red", "yellow", "teal"]. By changing the order, diffrent channels will get diffrent colormaps.
+    '''
+    img = np.array(img).max(axis = 0)
+
+    new_shape = (img.shape[1], img.shape[2], 3)
+    color_image = np.zeros(new_shape)
+    n_channel = img.shape[0]
+
+    for channel in range(n_channel):
+        if channel == 5:
+            break
+        img_channel = img[channel]
+        cmap = color_multipliers[cmaps[channel]]
+        img_channel_colored = skimage.color.gray2rgb(img_channel) * cmap
+        color_image += img_channel_colored
+        
+    for _color in range(color_image.shape[2]):
+        _color_image = color_image[..., _color]
+        _max = _color_image.max()
+        _min = _color_image.min()
+        _color_image = (_color_image - _min)/_max
+        color_image[..., _color] = _color_image
+
+    color_image = (color_image*255).astype(np.uint8)
+    return color_image
+
+def import_mistos_image(input, for_experiment = False):
+    '''
+    Expects a path pointing to a valid exported image object file (.pkl) if for_experiment is false.
+    Otherwise, expects int_image_object
+    The image object holds all data to reimport a valid image into the system:
+        - Image data
+        - c_int_metadata json
+        - Image Metadata (xml and json)
+
+    tbd:
+    - MF: make upload mask for images and experiments (Just Filepaths)
+    - read image, 
+    - read layers into list
+    - read measurements into list
+    - make c_int image and init
+    - make layers and init
+    - make measurements and init
+    - add layers to image
+    '''
+    if for_experiment == False:
+        path = input
+        with open(path, "rb") as file:
+            int_image = pickle.load(file)
+    else:
+        int_image = input
+
+    layers = int_image.image_result_layers
+    measurements = int_image.result_measurements
+
+    #Creating Layers dict: key = old_id, value = new_id
+    old_image_id = int_image.uid
+    id_dict = {
+        "image": {old_image_id:None},
+        "layers": {}
+    }
+
+    int_image.uid = -2
+    int_image.image_result_layers = []
+    int_image.result_measurements = []
+
+    int_image.on_init()
+    id_dict["image"][old_image_id] = int_image.uid
+
+    for layer in layers:
+        old_layer_id = layer.uid
+        id_dict["layers"][old_layer_id] = None
+        layer.uid = -1
+        layer.image_id = int_image.uid
+        layer.on_init()
+        print("layer_id")
+        print(layer.uid)
+        id_dict["layers"][old_layer_id] = layer.uid
+    print(id_dict)
+    for measurement in measurements:
+        print("measurement")
+        print(measurement)
+        measurement.uid = -1
+        measurement.image_id = int_image.uid
+        measurement.result_layer_id = id_dict["layers"][measurement.result_layer_id]
+        measurement.on_init()
+
+    return int_image, id_dict
+
+def import_mistos_experiment(path):
+    '''
+    Expects filepath, reads archived experiment file.
+    - Creates experiment without groups.
+    - Iterates over experiment groups: 
+    -- Imports all images
+    -- Creates empty experiment group and adds these images
+    -- iterates over result_layer list and adds them 
+    '''
+    path = "test_exp.pkl"
+    with open(path, "rb") as file:
+        int_experiment = pickle.load(file)
+
+    new_experiment = c_int.IntExperiment(
+        uid = -1,
+        name = int_experiment.name, 
+        hint = int_experiment.hint,
+        description = int_experiment.description,
+        tags = int_experiment.tags
+    )
+
+    new_experiment.on_init()
+
+    for experiment_group in int_experiment.experiment_groups:
+        group_image_ids = []
+        group_layer_ids = []
+        for image in experiment_group.images:
+            # id dicts are defined in import_mistos_image
+            image, id_dict = import_mistos_image(image, for_experiment = True)
+            group_image_ids.append(image.uid)
+            for layer_id in experiment_group.result_layer_ids:
+                if layer_id in id_dict["layers"]:
+                    group_layer_ids.append(id_dict["layers"][layer_id])
+
+        new_group = c_int.IntExperimentGroup(
+            uid = -1,
+            experiment_id = new_experiment.uid,
+            name = experiment_group.name,
+            hint = experiment_group.hint,
+            description = experiment_group.description
+        )
+        new_group.on_init()
+        for image_id in group_image_ids:
+            new_group.add_image_by_uid(image_id)
+        for layer_id in group_layer_ids:
+            new_group.add_result_layer(layer_id)
+        

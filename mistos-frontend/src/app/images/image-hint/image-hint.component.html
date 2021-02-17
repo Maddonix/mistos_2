@@ -6,35 +6,36 @@
 <div *ngFor="let c of image.metadata['custom_channel_names']">
     <div class="mat-body">{{c}}</div>
 </div>
+<br>
 <!-- Dimensions -->
 <!-- X -->
 <div class="mat-body-2">Dimensions</div> 
 <div class="mat-body-1">
     X: {{image.metadata['pixel_size_x']}}px, {{image.metadata['pixel_size_physical_x']}}{{image.metadata['pixel_size_physical_unit_x']}}/px
 </div>
+<br>
 <!-- Y -->
 <div class="mat-body-1">
     Y: {{image.metadata['pixel_size_y']}}px, {{image.metadata['pixel_size_physical_y']}}{{image.metadata['pixel_size_physical_unit_y']}}/px
 </div>
+<br>
 <!-- Z -->
 <div class="mat-body-1">
     Z: {{image.metadata['pixel_size_z']}} silce, {{image.metadata['pixel_size_physical_z']}}{{image.metadata['pixel_size_physical_unit_z']}}/slice
 </div>
+<br>
 <!-- Layers -->
 <div class="mat-body-2">Layers</div>
-<div class="mat-body-1">Background Layer ID: {{image.metadata["bgLayerId"]}}</div>
+<div class="mat-body-1">Background Layer ID: {{image.bgLayerId}}</div>
 <div class="mat-body-1">Result Layers: {{image.metadata["bgLayerId"]}}</div>
 <div class="mat-body-1" style="margin-left:40px" *ngFor="let resultLayer of image.imageResultLayers">{{resultLayer.name}} [{{resultLayer.layerType}}]</div>
-
-
+<br>
 <!-- Measurements -->
 <div class="mat-body-2">Measurements</div>
 <div class="mat-body-1" style="margin-left:40px" *ngFor="let measurement of image.measurements">{{measurement.name}} [ID: {{measurement.uid}}]</div>
 
 <div class="m-left" fxLayoutAlign="center end">
-    <button mat-raised-button color="primary" (click)="onPrint()">Print</button>
-    <button mat-raised-button color="primary" (click)="onPrint()">View</button>
-    <button mat-raised-button color="primary" (click)="onDetail()">Detail</button>
+    <button mat-raised-button color="primary" style="margin-left:5px; margin-right:5px;" (click)="onDetail()">Detail</button>
 </div>
 
 

@@ -1,0 +1,63 @@
+<div class="mat-body-1">
+    <br>
+    Ground Truth estimation is based on SimpleIKT's STAPLE implementation. 
+    <br><br>
+    1. Select a number of experts and add the images you want to evaluate.
+    <br>
+    2. Generate the form (always generate a new form if number of experts or selcted images were changed).
+    <br>
+    3. Select a layer for every expert for every image. 
+    <br>
+    4. Calculate Ground Truth Estimation, new layers will be added to the images automatically.
+    <hr>
+</div>
+<div>
+    <!-- <form [formGroup]="optionsForm"> -->
+        <mat-form-field appearance="fill">
+            <mat-label for="numberExperts">Number of Experts</mat-label>
+            <input matInput id="numberExperts" type="number" [(ngModel)]="numberExperts">
+        </mat-form-field>
+    <!-- </form> -->
+    <div>
+        <button mat-raised-button color="primary" (click)="onAddImage()">Add Images</button>
+    </div>
+</div>
+<hr>
+<button mat-raised-button color="primary" (click)="onCreateNewForm()">Create New Form</button>
+<form [formGroup]="layersForm">
+    <mat-grid-list cols="5" rowHeight="1:1" *ngFor="let image of truthImageList; let i = index;">
+        <!-- Image Tile -->
+        <mat-grid-tile [colspan]="'1'">
+            <mat-grid-tile-header fxLayout="row">
+                <div class="">
+                    {{ image.name }} [ID: {{ image.uid }}]
+                </div>
+                <div style="margin-left: auto; margin-right:5px;">
+                    <button mat-raised-button color="warn" (click)="onDeleteImageFromList(i)">X</button>
+                </div>
+            </mat-grid-tile-header>
+        </mat-grid-tile>
+        <!-- Expert Tiles -->
+        <mat-grid-tile [colspan]="'1'" *ngFor="let expert of rangeExperts">
+            <mat-grid-tile-header fxLayout="row">
+                <div class="">
+                    Expert {{ expert }}
+                </div>
+                <!-- <div style="margin-left: auto; margin-right:5px;">
+                    <button mat-raised-button color="warn" (click)="onDeleteImageFromList(i)">X</button>
+                </div> -->
+            </mat-grid-tile-header>
+            <mat-form-field appearance="fill">
+                <mat-label for="selectModel">Model</mat-label>
+                <mat-select class="form-control" [formControlName]="image.uid.toString()+'_'+expert.toString()">
+                  <mat-option id="selectModel" *ngFor="let choice of layerChoices[image.uid]" [value]="choice.layerId">
+                    {{choice.viewValue}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>
+<hr>
+<div class="mat-body-2" style="color:red">Warning: <br> Ground truth will be estimated and layers will be added to corresponding images. <br> This may take some time.</div>
+<button mat-raised-button color="primary" (click)="onCalculateGroundTruth()">Calculate Ground Truth</button>

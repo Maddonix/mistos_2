@@ -1,0 +1,30 @@
+<!-- <div class="mat-subheading-2">Drag and drop custom Deepflash models:</div>
+<ngx-dropzone 
+  (change)="onDeepflashModelAdded($event)"
+  [expandable]="true">
+  <ngx-dropzone-label>Drop Models!</ngx-dropzone-label>
+  <ngx-dropzone-preview *ngFor="let f of deepflashModels" [removable]="true" (removed)="onRemoveDeepflashModel(f)">
+    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+  </ngx-dropzone-preview>
+</ngx-dropzone>
+<button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadDeepflashModelsClicked()">Upload</button> -->
+<hr>
+<div class="mat-subheading-2">
+    For large models, please enter the full folderpath into the textfield and click upload.
+  </div>
+  <div class="mat-body-1">
+    Example: <br>
+    F:\Data_Storage\AG_Rittner\Microscope Framework\data\demo_experiment_deepflash\model
+    <br>
+    <br>
+    This skips the webbroswer upload and considerably speeds up the importing process!
+    <br>
+    <form>
+      <mat-form-field style="width:600px">
+        <mat-label for="labelFilepathInput">Filepath</mat-label>
+        <input matInput id="filepathInput" name = "filepathInput" aria-labelledby="labelFilepathInput" type="text" [(ngModel)]="modelInputPath" placeholder="C:\example\path\to\model">
+      </mat-form-field>
+    </form>
+    <br>
+    <button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadDeepflashModelFromFilepath()">Import from filepath</button>
+<div class="mat-body-1">{{meassageFilePathRead}}</div>

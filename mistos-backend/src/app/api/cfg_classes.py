@@ -17,7 +17,8 @@ layer_types = [
 ]
 
 classifier_types = [
-    "rf_segmentation"
+    "rf_segmentation",
+    "deepflash_model"
 ]
 
 result_type_regex = f"^({'|'.join(result_types)}$)"

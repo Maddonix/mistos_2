@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OnionsComponent } from './onions.component';
+import { DeepflashModelsComponent } from './deepflash-models.component';
 
-describe('OnionsComponent', () => {
-  let component: OnionsComponent;
-  let fixture: ComponentFixture<OnionsComponent>;
+describe('DeepflashModelsComponent', () => {
+  let component: DeepflashModelsComponent;
+  let fixture: ComponentFixture<DeepflashModelsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OnionsComponent ]
+      declarations: [ DeepflashModelsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OnionsComponent);
+    fixture = TestBed.createComponent(DeepflashModelsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,17 +19,13 @@ export class ImageHintComponent implements OnInit {
     private imageService: ImageService,
     private route: ActivatedRoute,
     private router: Router,
-    private comService: ComService,
+    private comService: ComService
   ) { }
 
   ngOnInit() {
     this.route.data.subscribe((data:Data) => {
       this.image = data["image"];
     });
-  }
-
-  onPrint() {
-    console.log(this.image);
   }
 
   onDetail() {

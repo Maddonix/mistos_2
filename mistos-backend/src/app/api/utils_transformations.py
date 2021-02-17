@@ -1,3 +1,4 @@
+# pylint:disable=invalid-unary-operand-type
 import numpy as np
 import skimage.draw
 import skimage.measure

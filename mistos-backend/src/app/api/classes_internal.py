@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module
 from pydantic import BaseModel, constr
 from typing import List, Optional, Set, Any
 import numpy as np
@@ -105,7 +106,11 @@ class IntImage(BaseModel):
     bg_layer_id: Optional[int]
 
     def on_init(self):
-        # should be called on every creation
+        '''
+        On Init method should be called after image is created.
+        Image will be saved to db and file storage.
+        Image must have uid -1 (completely new image) or uid -2 (importing archived mistos image)
+        '''
         if self.uid == -1:
             print("On Init Image:")
             db_image = self.to_db_class()
@@ -121,6 +126,23 @@ class IntImage(BaseModel):
                 filepath_zarr = db_image.path_image, 
                 filepath_metadata = db_image.path_metadata
                 )
+
+            thumbnail = utils_import.generate_thumbnail(self.data)
+            thumbnail_path = self.get_thumbnail_path()
+
+            fsr.save_thumbnail(thumbnail, thumbnail_path)
+
+        elif self.uid == -2:
+            print("Importing archived Mistos image")
+            db_image = self.to_db_class()
+            db_image.create_in_db()
+            self.uid = db_image.uid
+
+            fsr.save_zarr(self.data, db_image.path_image)
+            fsr.save_json(self.metadata, db_image.path_metadata)
+
+    def get_thumbnail_path(self):
+        return utils_paths.fileserver.joinpath(utils_paths.make_thumbnail_path(self.uid)).as_posix()
         
     def get_image_scaling(self):
         '''
@@ -193,9 +215,19 @@ class IntImage(BaseModel):
         Result layer must be binary.
         Returns list of len = n_channel with mean intensity of measured pixels.
         '''
-        bg_uid = self.bg_layer_id
-        bg_layer = self.select_result_layer(bg_uid)
-        bg_mask = bg_layer.data
+        if self.has_bg_layer:
+            print(self.bg_layer_id)
+            bg_uid = self.bg_layer_id
+            print([_.uid for _ in self.image_result_layers])
+            bg_layer = self.select_result_layer(bg_uid)
+            print(bg_layer)
+            bg_mask = bg_layer.data
+        else:
+            bg_mask = np.zeros((
+                self.data.shape[0],
+                self.data.shape[2],
+                self.data.shape[3]
+                ))
         assert bg_mask.max() < 2
         n_pixel = bg_mask.sum()
         n_channel = self.data.shape[1]
@@ -240,8 +272,7 @@ class IntImage(BaseModel):
         #     n_channels = image_array.shape[1]
         # else:
         image_array = self.data
-        layer = self.select_result_layer(layer_id)        
-        
+        layer = self.select_result_layer(layer_id)     
         measurement, measurement_summary = utils_results.calculate_measurement(image_array, layer.data)
 
         measurement_result = IntResultMeasurement(
@@ -262,6 +293,8 @@ class IntImage(BaseModel):
     def get_classifiers(self,clf_type):
         # Fetches dict in form {name: id}
         clf_dict = crud.read_classifier_dict_by_type(clf_type)
+        if clf_dict == {}:
+            clf_dict["No classifers found"] = None
         return clf_dict
 
     def refresh_from_db(self):
@@ -297,6 +330,26 @@ class IntImage(BaseModel):
         layer.delete()
 
         self.refresh_from_db()
+
+    def calculate_ground_truth_layer(self, layer_id_list, suffix=""):
+        '''
+        expects a list of layer ids and optionally a suffix.
+        Ground Truth is estimated by SimpleITK's STAPLE probabilities.
+        For ground truth estimation layer will be binarized, all labels > 0 will be unified and represented as foreground (==1) in returned mask.
+        '''
+        label_array_list = [crud.read_result_layer_by_uid(layer_id).to_int_class().data for layer_id in layer_id_list]
+        ground_truth_estimation_array = utils_results.staple_gte(label_array_list)
+        hint = f"Following Label Layers were used to estimate the ground truth: {layer_id_list}"
+        int_result_layer = IntImageResultLayer(
+            uid = -1,
+            name = f"ground_truth_estimation_{suffix}",
+            hint= hint,
+            image_id= self.uid,
+            layer_type= "labels",
+            data= ground_truth_estimation_array
+        )
+
+        int_result_layer.on_init()
 
 class IntExperimentGroup(BaseModel):
     uid: int
@@ -351,7 +404,7 @@ class IntExperimentGroup(BaseModel):
         result_df = results[0]
         if len(results)>1:
             for result in results[1:]:
-                result_df = result_df.merge(result, how = outer)
+                result_df = result_df.merge(result, how = "outer")
 
         try:
             db_experiment_result = crud.read_result_of_experiment_group_by_id(self.uid)
@@ -621,16 +674,15 @@ class IntExperiment(BaseModel):
                         path = path, 
                         image_name = image.metadata["original_filename"], 
                         channel_names = channel_names)
-                
-        
+                       
 class IntClassifier(BaseModel):
     uid: int
     name: str = ""
     clf_type: constr(regex = cfg_classes.classifier_type_regex)
     classifier: Any 
     test_train_data: Any
-    params: Optional[dict]
-    metrics: Optional[dict]
+    params: dict
+    metrics: dict
     tags: set = set()
 
     def on_init(self):
@@ -641,13 +693,21 @@ class IntClassifier(BaseModel):
 
         path_clf = db_classifier.path_clf
         path_test_train = db_classifier.path_test_train
-        fsr.save_classifier(self.classifier, path_clf)
-        fsr.save_classifier_test_train(self.test_train_data, path_test_train)
+
+        if self.clf_type == "rf_segmentation":
+            fsr.save_classifier(self.classifier, path_clf)
+            fsr.save_classifier_test_train(self.test_train_data, path_test_train)
+
+        if self.clf_type == "deepflash_model":
+            #We expect self.classifier to be a list of pathlib.Paths
+            fsr.save_deepflash_model(self.classifier, path_clf)
 
     def to_db_class(self):
         kwargs = self.dict()
         del kwargs["classifier"]
         del kwargs["test_train_data"]
+        if not self.uid == -1:
+            kwargs["path_clf"] = self.classifier
 
         return c_db.DbClassifier(**kwargs)
 

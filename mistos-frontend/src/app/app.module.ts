@@ -36,7 +36,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
-import { OnionsComponent } from './onions/onions.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -49,7 +48,7 @@ import { ExperimentStartComponent } from './experiments/experiment-start/experim
 import { ImageStartComponent } from './images/image-start/image-start.component';
 import { ClassifierStartComponent } from './classifiers/classifier-start/classifier-start.component';
 import { ExperimentListResolver, ExperimentResolver } from './experiments/experiments.resolver';
-import { ClassifierListResolver, ClassifierResolver } from './classifiers/classifier.resolver';
+import { RfClassifierListResolver, DfClassifierListResolver, RfClassifierResolver, DfClassifierResolver, ClassifierListResolver, ClassifierResolver } from './classifiers/classifier.resolver';
 import { ImageListResolver, ImageResolver } from './images/images.resolver';
 import { ExperimentCreateNewDialogComponent } from './dialogs/experiment-create-new-dialog/experiment-create-new-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -60,6 +59,14 @@ import { EditDescriptionComponent } from './dialogs/edit-description/edit-descri
 import { EditNameComponent } from './dialogs/edit-name/edit-name.component';
 import { AddImageToGroupComponent } from './dialogs/add-image-to-group/add-image-to-group.component';
 import { ExportExperimentComponent } from './dialogs/export-experiment/export-experiment.component';
+import { DeepflashComponent } from './deepflash/deepflash.component';
+import { GroundTruthEstimatorComponent } from './deepflash/ground-truth-estimator/ground-truth-estimator.component';
+import { PredictComponent } from './deepflash/predict/predict.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { WarningDeleteComponent } from './dialogs/warning-delete/warning-delete.component';
+import { MistosFormatsComponent } from './importer/mistos-formats/mistos-formats.component';
+import { DeepflashModelsComponent } from './importer/deepflash-models/deepflash-models.component';
+import { ImagesUploadComponent } from './importer/images-upload/images-upload.component';
 
 
 @NgModule({
@@ -82,7 +89,6 @@ import { ExportExperimentComponent } from './dialogs/export-experiment/export-ex
     ClassifierDetailComponent,
     OptionsComponent,
     AppNavbarComponent,
-    OnionsComponent,
     ExperimentStartComponent,
     ImageStartComponent,
     ClassifierStartComponent,
@@ -92,7 +98,14 @@ import { ExportExperimentComponent } from './dialogs/export-experiment/export-ex
     EditDescriptionComponent,
     EditNameComponent,
     AddImageToGroupComponent,
-    ExportExperimentComponent
+    ExportExperimentComponent,
+    DeepflashComponent,
+    GroundTruthEstimatorComponent,
+    PredictComponent,
+    WarningDeleteComponent,
+    MistosFormatsComponent,
+    DeepflashModelsComponent,
+    ImagesUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -123,13 +136,16 @@ import { ExportExperimentComponent } from './dialogs/export-experiment/export-ex
     MatTableFilterModule,
     MatCheckboxModule,
     MatFileUploadModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    MatTabsModule
   ],
   exports: [
   ],
   providers: [
     ExperimentListResolver, ExperimentResolver,
     ClassifierListResolver, ClassifierResolver,
+    RfClassifierListResolver, RfClassifierResolver,
+    DfClassifierListResolver, DfClassifierResolver,
     ImageListResolver, ImageResolver
   ],
   schemas: [
@@ -143,7 +159,8 @@ import { ExportExperimentComponent } from './dialogs/export-experiment/export-ex
     EditHintComponent, 
     EditDescriptionComponent,
     EditNameComponent,
-    ExportExperimentComponent
+    ExportExperimentComponent,
+    WarningDeleteComponent
   ]
 })
 export class AppModule { }

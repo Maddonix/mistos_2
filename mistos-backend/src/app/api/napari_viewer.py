@@ -1,3 +1,4 @@
+# pylint:disable=no-name-in-module, import-error, no-member
 import napari
 from PyQt5.QtCore import Qt
 
@@ -56,7 +57,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 utils_napari.add_layer_from_int_layer(viewer, layer, image_scale = image_scale, visible = False)
             
         @magicgui(
-                    call_button = "Nuclei Segmentation",
+                    call_button = "Nuclei Segmentation"
                 )
         def apply_stardist(): # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
             """Apply StarDist2D Nuclei Segmentation"""
@@ -120,8 +121,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 print("napari viewer save label layer")
                 print(measurement)
                 refresh()
-
-               
+              
         @magicgui(call_button = "Save BG Layer")
         def save_background_layer():
             layer = viewer.active_layer
@@ -179,6 +179,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 classifier = clf,
                 clf_type = "rf_segmentation",
                 test_train_data = [(intImage.data, label_array)],
+                metrics = {},
                 params = {
                     "multichannel": multichannel
                 }, 
@@ -244,6 +245,8 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
             '''
             intImage.refresh_from_db()
             rf_classifiers = intImage.get_classifiers("rf_segmentation")
+            print("refresh")
+            print(rf_classifiers)
 
             for index in range(len(viewer.layers)):
                 viewer.layers.pop(0)                  
@@ -265,11 +268,14 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         @magicgui(
             call_button = "Load&Segment",
-            classifier = {"choices": [clf_name for clf_name in list(rf_classifiers.keys())]},
+            classifier = {"choices": [clf_name for clf_name in rf_classifiers]}, #list(rf_classifiers.keys())
             threshold = {"widget_type": "SpinBox", "min": 0, "max": 100, "value": 50},
             layout = "vertical"
         )
         def load_clf_and_apply(classifier, threshold):
+            if classifier == "No Classifiers Trained":
+                print("Train a classifier first!")
+                return
             clf_uid = rf_classifiers[classifier]
             int_clf = crud.read_classifier_by_uid(clf_uid)
             multichannel = int_clf.is_multichannel()

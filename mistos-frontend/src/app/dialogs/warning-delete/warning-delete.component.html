@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Warning</h2>
+
+<mat-dialog-content>
+    <div class="mat-body-1">You are about to delete {{warningInput}}</div>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onSubmit()">Delete</button>
+    <button mat-raised-button color="" (click)="onClose()">Abort</button>
+</mat-dialog-actions>

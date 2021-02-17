@@ -1,3 +1,4 @@
+# pylint:disable=not-context-manager
 from app.database import engine
 from . import db_models
 from sqlalchemy.orm import Session
@@ -129,8 +130,12 @@ def create_classifier(classifier):
         sess.commit()
         sess.refresh(sql_clf)
 
-        sql_clf.path_clf = utils_paths.fileserver.joinpath(utils_paths.make_clf_path(sql_clf.id)).as_posix()
-        sql_clf.path_test_train = utils_paths.fileserver.joinpath(utils_paths.make_clf_test_train_path(sql_clf.id)).as_posix()
+        if classifier.clf_type == "rf_segmentation":
+            sql_clf.path_clf = utils_paths.fileserver.joinpath(utils_paths.make_clf_path(sql_clf.id)).as_posix()
+            sql_clf.path_test_train = utils_paths.fileserver.joinpath(utils_paths.make_clf_test_train_path(sql_clf.id)).as_posix()
+        elif classifier.clf_type == "deepflash_model":
+            sql_clf.path_clf = utils_paths.fileserver.joinpath(utils_paths.make_deepflash_model_path(sql_clf.id)).as_posix()
+            sql_clf.path_test_train = ""
 
         sess.commit()
         return sql_clf
@@ -238,7 +243,7 @@ def read_result_layers_of_image_uid(uid):
         sql_result_layers = sql_image.result_layers
         db_result_layers = [utils_db.result_layer_sql_to_db(sql_result_layer) for sql_result_layer in sql_result_layers]
 
-        return c_int_image
+        return db_result_layers
 
 def read_result_layer_by_uid(uid):
     with SessionLocal(expire_on_commit = False) as sess:
@@ -393,6 +398,12 @@ def update_result_layer_name(uid:int, new_name:str):
         sql_layer.name = new_name
         sess.commit()
 
+def update_classifier_name(uid:int, new_name:str):
+    with SessionLocal() as sess:
+        sql_clf = sess.query(db_models.Classifier).filter(db_models.Classifier.id == uid).one()
+        sql_clf.name = new_name
+        sess.commit()
+
 # Delete
 def delete_result_layer(db_layer):
     '''
@@ -458,6 +469,19 @@ def remove_measurement_from_experiment_group(experiment_group, uid):
 
         sess.commit()
 
+def delete_classifier(clf):
+    '''
+    Expects classifier and deletes it
+    '''
+    with SessionLocal() as sess:
+        sess.query(db_models.Classifier).filter(db_models.Classifier.id == clf.uid).delete()
+        sess.commit()
+        if clf.clf_type == "rf_segmentation":
+            fsr.delete_file(clf.path_clf)
+            fsr.delete_file(clf.path_test_train)
+        if clf.clf_type == "deepflash_model":
+            fsr.delete_folder(clf.path_clf)
+
 def delete_experiment_result(uid):
     '''
     Expects uid of experiment result, deletes it from db and filesserver.
@@ -467,7 +491,6 @@ def delete_experiment_result(uid):
         fsr.delete_file(sql_result.path)
         sess.query(db_models.ExperimentResult).filter(db_models.ExperimentResult.id == uid).delete()
         sess.commit()
-
 
 def delete_experiment_group_by_id(experiment_group_id: int):
     '''

@@ -1,5 +1,6 @@
 import app.api.classes_com as classes_com
 import app.crud as crud
+from app.api import cfg_classes
 
 # Images
 def get_com_image_list():
@@ -20,13 +21,22 @@ def get_com_image_by_uid(image_uid:int):
     return com_img
 
 # Classifier
-def get_com_clf_list():
+def get_com_clf_list(_type):
     '''
-    This function fetches all classifiers from the database and returns them as list of ComClassifier objects.
+    This function fetches all classifiers from the database and returns them as filtered list of ComClassifier objects.
+    
+    keyword arguments:
+    type -- if none, all clf are returned, otherwise string must be valid clf_type ("rf_segmentation", "deepflash_model")
     '''
     db_clf_list = crud.read_all_classifiers()
-    com_classifier_list = [db_clf.to_com_class() for db_clf in db_clf_list]
+    if _type:
+        assert _type in cfg_classes.classifier_types
+        com_classifier_list = [db_clf.to_com_class() for db_clf in db_clf_list if db_clf.clf_type == _type]
+    else:
+        com_classifier_list = [db_clf.to_com_class() for db_clf in db_clf_list]
+    
     return com_classifier_list
+
 
 def get_com_classifier_by_uid(classifier_uid:int):
     '''

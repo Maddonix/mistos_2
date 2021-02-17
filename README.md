@@ -1,6 +1,9 @@
 # mistos
 Microscopy Image Storing-and-Processing System
 
+## Generate environment
+To ensure cross platform compatibility, conda environment was exported using "conda env export --from-history"
+
 ## Start App:
 - for python terminals activate the venv: 
 -- d:\programming\venv\mistos\scripts\activate.ps1 (powershell)

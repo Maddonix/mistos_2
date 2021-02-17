@@ -1,10 +1,18 @@
-<div class="mat-headline">Image Detail: {{image.name}} [ID: {{image.uid}}]</div>
+<div fxLayout="row">
+    <div class="mat-headline">Image Detail: {{image.name}} [ID: {{image.uid}}]</div>
+    <button mat-raised-button color="primary" (click)="onExportMistosImage()" style="margin-left:auto; margin-right: 10px;">Export to Export Folder</button>
+</div>
+
 
 <!-- Start Container -->
 <div class="grid-container">
     <mat-grid-list cols = "4" rowHeight="1:1">
         <!-- Image Preview Tile -->
         <mat-grid-tile [colspan]="'2'" [rowspan]="'2'">
+            <!-- <mat-card>
+                <img mat-card-image src="F:\Data_Storage\AG_Rittner\Microscope Framework\data\fileserver_folder\images\7.png"> 
+                [src] ="thumbnailPath">
+            </mat-card> -->
             <mat-grid-tile-header>
                     Image Preview?
             </mat-grid-tile-header>
@@ -72,13 +80,7 @@
                 <hr>
                 <br>
                 <div class="mat-body-2">Measurements</div>
-                <div class="measurement-info" *ngFor="let measurement of filterMeasurements(layer.uid)">
-                    <div class="mat-body-2">{{measurement.name}}</div>
-                    <div class="mat-body-1">{{measurement.hint}}</div>
-                    <div class="mat-body-1">?Measurement Dict?</div>
-                    <hr>
-                    <br>
-                </div>
+                <!-- <div class="measurement-info" *ngFor="let measurement of filterMeasurements(layer.uid)"></div> -->
             </div>
         </mat-grid-tile>
     </mat-grid-list>

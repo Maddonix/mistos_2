@@ -1,0 +1,29 @@
+<!-- Images -->
+<div class="mat-title">
+    Import archived Mistos Images
+</div>
+<form>
+    <mat-form-field style="width:600px">
+      <mat-label name = "labelFilepathInput" id="labelFilepathInput">Filepath</mat-label>
+      <input matInput id="filepathInputImage" name = "filepathInputImage" aria-labelledby="labelFilepathInput" type="text" [(ngModel)]="imageInputPath" placeholder="C:\example\path\to\exp\folder">
+    </mat-form-field>
+</form>
+<br>
+<button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadImage()">Import from filepath</button>
+<div class="mat-body-1">{{meassageFilePathReadImage}}</div>
+<br>
+<hr><hr>
+<!-- Experiments -->
+<br>
+<div class="mat-title">
+    Import archived Mistos Experiments
+</div>
+<form>
+    <mat-form-field style="width:600px">
+      <mat-label name="labelFilepathInputExperiment" for="labelFilepathInputExperiment">Filepath</mat-label>
+      <input matInput id="filepathInputExperiment" name = "filepathInputExperiment" aria-labelledby="labelFilepathInputExperiment" type="text" [(ngModel)]="experimentInputPath" placeholder="C:\example\path\to\file.pkl">
+    </mat-form-field>
+</form>
+<br>
+<button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadExperiment()">Import from filepath</button>
+<div class="mat-body-1">{{meassageFilePathReadExperiment}}</div>

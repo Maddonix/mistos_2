@@ -5,12 +5,11 @@
 <div class="mat-subheading-2">Groups</div>
 <div *ngFor="let group of experiment.experimentGroups">
     <div class="mat-body-2">{{group.name}} [ID: {{group.uid}}]</div>
-    <div class="mat-body-1">Number of Images: X</div>
-    <div class="mat-body-1">Results Calculated: X</div>
+    <div class="mat-body-1">Number of Images: {{group.images.length}}</div>
+    <div class="mat-body-2">Hint</div>
+    <div class="mat-body-1">{{group.hint}}</div>
     <hr>
 </div>
 <div class="m-left" fxLayoutAlign="center end">
-    <button mat-raised-button color="primary" (click)="onPrint()">Print</button>
     <button mat-raised-button color="primary" (click)="onDetail()">Detail</button>
-    <button mat-raised-button color="primary" (click)="onPrint()">Edit</button>
 </div>
