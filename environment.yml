@@ -31,6 +31,6 @@ dependencies:
     - zarr
     - pyqt5
     - auto-tqdm
-    - h5py==2.10.0
-    - numpy==1.16.0
+    # - h5py==2.10.0
+    # - numpy==1.16.0
     # - gast
