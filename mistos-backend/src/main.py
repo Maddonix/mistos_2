@@ -17,10 +17,10 @@ For debugging using VSCode or Pycharm see: https://fastapi.tiangolo.com/tutorial
 
 """
 # Delete old files from garbage collection before startup
-from app.api import utils_garbage
-if not utils_garbage.garbage_json.exists():
-    utils_garbage.create_garbage_json()    
-utils_garbage.delete_garbage_file() 
+# from app.api import utils_garbage
+# if not utils_garbage.garbage_json.exists():
+#     utils_garbage.create_garbage_json()    
+# utils_garbage.delete_garbage_file() 
 
 import uvicorn
 
