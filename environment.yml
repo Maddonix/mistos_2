@@ -23,7 +23,6 @@ dependencies:
   - zarr
   - pyqt5
   - auto-tqdm
-
   pip:
     - stardist
 
