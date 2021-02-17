@@ -4,8 +4,9 @@ dependencies:
   - pip
   - pandas
   - scikit-learn
-  - scipy
+  - scipy=1.4.1
   - sqlite
+  - tensorflow
   - pip:
     - aiofiles
     - czifile
@@ -29,3 +30,7 @@ dependencies:
     - xtiff
     - zarr
     - pyqt5
+    - auto-tqdm
+    - h5py==2.10.0
+    - numpy==1.16.0
+    # - gast
