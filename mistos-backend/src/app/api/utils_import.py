@@ -7,6 +7,7 @@ import json
 import xml
 import app.api.classes_internal as c_int
 import skimage
+from skimage import exposure
 import os
 import pickle
 
@@ -266,6 +267,12 @@ def generate_thumbnail(img, cmap_list = cmaps):
         _color_image = (_color_image - _min)/_max
         color_image[..., _color] = _color_image
 
+    # enhance contrast
+    try: 
+        color_image = exposure.equalize_adapthist(img, clip_limit = 0.1)
+    except: 
+        color_image = (color_image + 0.01)/1.01
+
     color_image = (color_image*255).astype(np.uint8)
     return color_image
 
@@ -377,4 +384,9 @@ def import_mistos_experiment(path):
             new_group.add_image_by_uid(image_id)
         for layer_id in group_layer_ids:
             new_group.add_result_layer(layer_id)
+
+        # try:
+        #     new_group.calculate_result()
+        # except:
+        #     pass
         

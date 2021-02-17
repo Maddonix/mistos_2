@@ -497,8 +497,11 @@ def delete_experiment_group_by_id(experiment_group_id: int):
     Expects a experiment_group_id as int, queries db for experiment_group, deletes experiment_group.
     '''
     with SessionLocal(expire_on_commit = False) as sess:
-        sql_group = sess.query(db_models.ExperimentGroup).filter(db_models.ExperimentGroup.id == experiment_group_id).one()
-        delete_experiment_result(sql_group.experiment_result.id)
+        try:
+            sql_group = sess.query(db_models.ExperimentGroup).filter(db_models.ExperimentGroup.id == experiment_group_id).one()
+            delete_experiment_result(sql_group.experiment_result.id)
+        except:
+            pass
 
         sess.query(db_models.ExperimentGroup).filter(db_models.ExperimentGroup.id == experiment_group_id).delete()
         sess.commit()
