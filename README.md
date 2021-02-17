@@ -23,6 +23,10 @@ Microscopy Image Storing-and-Processing System
 - Download appropriate Anaconda Version for your system. (Tested with: Windows, Python 3.8, 64-Bit)
     - https://www.anaconda.com/products/individual
 - Install Anaconda
+    - add conda to path during installation
+- Activate conda in the commandline
+    - open "anaconda prompt"
+    - run "conda init cmd.exe"
 
 ### Filepaths
 - By default, a Mistos directory will be created in your home directory (eg. "c:\\users\\tlux\\mistos")
@@ -42,6 +46,19 @@ Microscopy Image Storing-and-Processing System
 - run "python fileserver.py" in ""mistos-backend/src" 
 
 ## Troubleshooting
+- Anaconda not added to PATH correctly
+    - Solution: Add Anaconda to path
+        - Find Anaconda path (default is: C:\\users\\{username}\\Anaconda3)
+        - Open the Windows menu "Systemumgebungsvariablen bearbeiten" TODO: ADD ENGLISH NAME
+        - Go to "Umgebungsvariablen..."
+        - double-click on "Path" in the upper list ("Benutzervariablen für {username}")
+        - click "New" and paste the Anaconda path
+        - click okay and close the menus
+        - open the "anaconda prompt"
+        - run "conda init cmd.exe"
+        - a reboot may be necessary for changes to take effect
+
+
 - napari errors: 
     - get latest napari build by opening a commandline in a folder where you want to save it
     - run "git clone https://github.com/napari/napari.git"
