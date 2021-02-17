@@ -1,8 +1,36 @@
 # mistos
 Microscopy Image Storing-and-Processing System
 
-## Generate environment
-To ensure cross platform compatibility, conda environment was exported using "conda env export --from-history"
+## Voraussetzungen
+- Anaconda
+- Windows
+- Speicherplatz je nach Nutzung
+- RAM je nach Größe der zu bearbeitenden Bilder
+- (CUDA fähige Grafikkarte für eine bessere Performance)
+    - List of Cuda enabled GPU's: https://developer.nvidia.com/cuda-gpus
+    - Guide to setup GPU support: https://www.tensorflow.org/install/gpu
+
+## Setup
+### Git
+- If you already have the latest version of this repository stored locally, skip this section
+- If you have not used git before, download and install it
+    - https://git-scm.com/downloads
+    - Make sure to check "Git from the commandline and also from 3rd party software" option during installation 
+- Get latest Mistos build by opening a commandline in a folder where you want to save it
+- run "git clone https://github.com/Maddonix/mistos_2.git"
+
+### Anaconda
+- Download appropriate Anaconda Version for your system. (Tested with: Windows, Python 3.8, 64-Bit)
+    - https://www.anaconda.com/products/individual
+- Install Anaconda
+
+### Filepaths
+- By default, a Mistos directory will be created in your home directory (eg. "c:\\users\\tlux\\mistos")
+- Optionally you may change the filepaths:
+    - Open the config.json file
+    - Enter a valid file path to an existing folder for 
+        - "EXPORT_DIRECTORY" (all exports will be stored here)
+        - "WORKING_DIRECTORY" (internal storage for the app)
 
 ## Start App:
 - for python terminals activate the venv: 
@@ -12,6 +40,33 @@ To ensure cross platform compatibility, conda environment was exported using "co
 - run "python main.py" in "mistos-backend/src"
 -- run "uvicorn main:mistos --reload --host 0.0.0.0 --port 7777" in "mistos-backend/src" for debugging
 - run "python fileserver.py" in ""mistos-backend/src" 
+
+## Troubleshooting
+- napari errors: 
+    - get latest napari build by opening a commandline in a folder where you want to save it
+    - run "git clone https://github.com/napari/napari.git"
+    - run "cd napari"
+    - run "conda activate mistos"
+    - run "pip install ."
+
+- Deepflash errors:
+    - get forked deepflash2 by opening a commandline in a folder where you want to save it
+    - run "git clone https://github.com/Maddonix/deepflash2.git"
+    - run "cd deepflash2"
+    - run "conda activate mistos"
+    - run "pip install -e ."
+
+- You changed the filepaths under config before deleting all entries:
+    - The database will still hold references to the old paths, the app will not work anymore
+    - Option 1: 
+        - change the paths back, the app should work again
+        - delete all experiments and images
+        - now you may change the path
+    - Option 2: 
+        - This option will delete all old database references, only do it if you don't need them anymore
+        - go to the mistos app folder
+        - go to mistos-backend/src
+        - delete the file "sql_app.db"
 
 ## Main Views:
 - Dashboard (default)
