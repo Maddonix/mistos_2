@@ -6,6 +6,7 @@ import { EditDescriptionComponent } from 'src/app/dialogs/edit-description/edit-
 import { EditHintComponent } from 'src/app/dialogs/edit-hint/edit-hint.component';
 import { EditNameComponent } from 'src/app/dialogs/edit-name/edit-name.component';
 import { ExportExperimentComponent } from 'src/app/dialogs/export-experiment/export-experiment.component';
+import { WarningDeleteComponent } from 'src/app/dialogs/warning-delete/warning-delete.component';
 import { ExperimentGroup } from 'src/app/models/experiment-group.model';
 import { Experiment } from 'src/app/models/experiment.model';
 import { ImageResultLayer } from 'src/app/models/image-result-layer.model';
@@ -64,9 +65,28 @@ export class ExperimentDetailComponent implements OnInit {
   };
 
   onDeleteExperiment() {
-    this.comService.deleteExperiment(this.experiment.uid).subscribe(response => {
-      this.router.navigate(["../../"], {relativeTo: this.route})
-    });
+    this.dialogConfig.data = {
+      warningInput: "this experiment"
+    };
+
+    const dialogRef = this.dialog.open(         //dialogRef is a observable of the dialog
+      WarningDeleteComponent,
+      this.dialogConfig
+    );
+    dialogRef.afterClosed().subscribe((proceed:boolean)=> {
+      if (proceed === true) {
+        this.comService.deleteExperiment(this.experiment.uid).subscribe(response => {
+          this.router.navigate(["../../"], {relativeTo: this.route})
+        });
+      } else {
+        console.log("Delete experiment was aboirted.");
+      }
+    }
+    ) 
+
+
+
+    
   }
 
   onDeleteGroup(groupId) {

@@ -3,7 +3,6 @@ from pydantic import BaseModel, constr
 from typing import List, Optional, Set, Any
 import numpy as np
 import pandas as pd
-import napari
 import copy
 
 from app import crud
@@ -598,7 +597,6 @@ class IntExperiment(BaseModel):
         df_export_name = utils_paths.make_experiment_export_df_name(self.uid, self.name)
         result_df.to_excel(df_export_name)
 
-        print(len(self.experiment_groups))
         for group in self.experiment_groups:
             utils_paths.create_experiment_group_export_folder(group.uid, group.name, self.uid, self.name)
             if images:
@@ -630,7 +628,20 @@ class IntExperiment(BaseModel):
                         self.uid, self.name, 
                         rescaled = True)
                     image_array_max = image.data.max(axis = 0) # MAX Z PROJECT
-                    image_array_max_cropped = image_array_max[:, :yDim, :xDim]
+                    image_array_max_shape = image_array_max.shape
+                    if xDim > image_array_max_shape[1] or yDim > image_array_max_shape[2]:
+                        image_array_max_cropped = np.zeros((
+                            image_array_max_shape[0],
+                            yDim,
+                            xDim
+                        ))
+                        image_array_max_cropped[
+                            :image_array_max_shape[0],
+                            :image_array_max_shape[1],
+                            :image_array_max_shape[2]
+                        ] = image_array_max
+                    else: 
+                        image_array_max_cropped = image_array_max[:, :yDim, :xDim]
                     # TO DO: RESCALE
                     utils_export.to_tiff(
                         image_array = image_array_max_cropped, 
@@ -668,7 +679,20 @@ class IntExperiment(BaseModel):
                         self.uid, self.name, 
                         rescaled = True)
                     mask_array_max = mask_array.max(axis = 0)
-                    mask_array_max_cropped = mask_array_max[:, :yDim, :xDim]
+                    mask_array_max_shape = mask_array_max.shape
+                    if xDim > mask_array_max_shape[1] or yDim > mask_array_max_shape[2]:
+                        mask_array_max_cropped = np.zeros((
+                            mask_array_max_shape[0],
+                            yDim,
+                            xDim
+                        ))
+                        mask_array_max_cropped[
+                            :mask_array_max_shape[0],
+                            :mask_array_max_shape[1],
+                            :mask_array_max_shape[2]
+                        ] = mask_array_max
+                    else: 
+                        mask_array_max_cropped = mask_array_max[:, :yDim, :xDim]
                     utils_export.to_tiff(
                         image_array = mask_array_max_cropped, 
                         path = path, 

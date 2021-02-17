@@ -61,4 +61,8 @@ export class ExperimentsListComponent implements AfterViewInit, OnInit {
     this.router.navigate([experimentId, "hint"], {relativeTo: this.route});
   }
 
+  onDetail(uid) {
+    this.router.navigate([uid, "detail"], {relativeTo:this.route});
+  }
+
 }

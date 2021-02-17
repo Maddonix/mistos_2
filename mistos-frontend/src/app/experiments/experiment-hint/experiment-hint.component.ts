@@ -35,8 +35,4 @@ export class ExperimentHintComponent implements OnInit {
     console.log(this.experiment);
   }
 
-  onDetail() {
-    this.router.navigate(["..", "detail"], {relativeTo:this.route});
-  }
-
 }
