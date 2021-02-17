@@ -51,8 +51,8 @@ else:
 if using_default and not default_mistos_dir.exists():
     os.mkdir(default_mistos_dir)
 
-fileserver = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder")
-export_folder = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder\\export")
+# fileserver = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder")
+# export_folder = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder\\export")
 static_fileserver = "localhost:7778/"
 
 image_folder = pathlib.Path("images")
