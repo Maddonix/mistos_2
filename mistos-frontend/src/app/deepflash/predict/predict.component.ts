@@ -18,6 +18,7 @@ export class PredictComponent implements OnInit {
   metadata: {};
   models: Classifier[];
   optionsForm: FormGroup;
+  thumbnailPaths:string[] = [];
   // Define Dialog Configuration
   dialogConfig = new MatDialogConfig();
 
@@ -63,6 +64,9 @@ export class PredictComponent implements OnInit {
             this.predictImageList.push(image);
             console.log(this.predictImageList);
           });
+          this.comService.fetchImageThumbnailPath(imageId).subscribe((path:string)=>{
+            this.thumbnailPaths.push(path["path"]);
+          });
         }
       } else {
         console.log("Add Images was aborted.");
@@ -73,6 +77,7 @@ export class PredictComponent implements OnInit {
 
   onDeleteImageFromList(index:number) {
     this.predictImageList.splice(index, 1);
+    this.thumbnailPaths.splice(index,1);
   }
 
   onPredict() {

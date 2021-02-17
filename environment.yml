@@ -1,5 +1,30 @@
 name: mistos
 dependencies:
-  - python=3.8
+  - pandas
+  - scikit-learn
+  - scipy
+  - tensorflow
+  - numpy
+  - scikit-image
+  - simpleitk
+  - aiofiles
+  - fastapi
+  - matplotlib
+  - napari
+  - openpyxl
+  - pydantic
+  - python-bioformats
+  - python-javabridge
+  - sqlalchemy==1.4.0b2
+  - tifffile
+  - tqdm
+  - uvicorn
+  - xtiff
+  - zarr
+  - pyqt5
+  - auto-tqdm
+
+  pip:
+    - stardist
 
 

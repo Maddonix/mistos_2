@@ -21,6 +21,7 @@ export class GroundTruthEstimatorComponent implements OnInit {
   numberExperts: number = 0;
   rangeExperts = [];
   layerChoices = {};
+  thumbnailPaths:string[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -93,7 +94,9 @@ export class GroundTruthEstimatorComponent implements OnInit {
         for (let imageId of imageIdList) {
           this.comService.fetchImageById(imageId).subscribe((image:Image)=> {
             this.truthImageList.push(image);
-            console.log(this.truthImageList);
+          });
+          this.comService.fetchImageThumbnailPath(imageId).subscribe((path:string)=>{
+            this.thumbnailPaths.push(path["path"]);
           });
         }
       } else {
@@ -105,6 +108,7 @@ export class GroundTruthEstimatorComponent implements OnInit {
 
   onDeleteImageFromList(index:number) {
     this.truthImageList.splice(index, 1);
+    this.thumbnailPaths.splice(index, 1);
   }
 
   onCalculateGroundTruth() {

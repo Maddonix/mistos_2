@@ -22,6 +22,9 @@
 <hr>
 <mat-grid-list cols="5" rowHeight="1:1">
     <mat-grid-tile [colspan]="'1'" *ngFor="let image of predictImageList; let i = index;">
+        <mat-card>
+            <img mat-card-image [src] ="thumbnailPaths[i]"> 
+        </mat-card>
         <mat-grid-tile-header fxLayout="row">
             <div class="">
                 {{ image.name }} [ID: {{ image.uid }}]
