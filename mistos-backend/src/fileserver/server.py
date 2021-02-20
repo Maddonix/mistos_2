@@ -34,5 +34,5 @@ else:
 os.chdir(fileserver)
 print(f"Serving in directory: {os.getcwd()} at port {port}")
 
-server_object = HTTPServer(server_address=('', 7778), RequestHandlerClass=CGIHTTPRequestHandler)
+server_object = HTTPServer(server_address=('', port), RequestHandlerClass=CGIHTTPRequestHandler)
 server_object.serve_forever()

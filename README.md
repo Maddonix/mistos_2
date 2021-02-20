@@ -121,3 +121,8 @@ Microscopy Image Storing-and-Processing System
 
 ## Functions
 
+## Developer Processes
+### Build new frontend distribution
+- cd mistos-frontend
+- ng build
+- git add -f --all :/mistos-frontend/dist
