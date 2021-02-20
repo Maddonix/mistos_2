@@ -339,7 +339,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "top")
         
-        # viewer.window.add_dock_widget(apply_stardist, area = "top")
+        viewer.window.add_dock_widget(apply_stardist, area = "top")
         
         
 ########### REMOVED FUNCTIONS
