@@ -57,7 +57,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 utils_napari.add_layer_from_int_layer(viewer, layer, image_scale = image_scale, visible = False)
             
         @magicgui(
-                    call_button = "Nuclei Segmentation"
+                    call_button = "Nuclei Segmentation", layout = "horizontal"
                 )
         def apply_stardist(): # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
             """Apply StarDist2D Nuclei Segmentation"""
@@ -95,7 +95,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 print(labels.shape)
                 viewer.add_labels(labels, name = "StarDistNuclei", scale = image_scale, visible = True)
 
-        @magicgui(call_button = "Save Label")
+        @magicgui(call_button = "Save Label", layout = "horizontal")
         def save_label_layer():
             """
             Save selected layer to file and db.
@@ -122,7 +122,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 print(measurement)
                 refresh()
               
-        @magicgui(call_button = "Save BG Layer")
+        @magicgui(call_button = "Save BG Layer", layout = "horizontal")
         def save_background_layer():
             layer = viewer.active_layer
             
@@ -191,7 +191,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
             viewer.add_labels(segmentation_labels, name = "Segmentation", scale = image_scale)
 
-        @magicgui(call_button = "To individuals")
+        @magicgui(call_button = "To individuals", layout = "horizontal")
         def binary_mask_to_multilabel():
             layer = viewer.active_layer
 
@@ -233,7 +233,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
             mask = utils_transformations.binary_closing(layer.data, selem_edge_len)
             layer.data = mask
 
-        @magicgui(call_button = "Refresh Image")
+        @magicgui(call_button = "Refresh Image", layout = "horizontal")
         def refresh():
             '''
             The refresh function refreshes
@@ -313,16 +313,16 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         # Build UI
         # Top
-        viewer.window.add_dock_widget(save_label_layer, area = "left")
+        viewer.window.add_dock_widget(save_label_layer, area = "top")
         viewer.layers.events.changed.connect(save_label_layer.reset_choices)
 
-        viewer.window.add_dock_widget(save_background_layer, area = "left")
+        viewer.window.add_dock_widget(save_background_layer, area = "top")
         viewer.layers.events.changed.connect(save_background_layer.reset_choices)
        
         viewer.window.add_dock_widget(load_clf_and_apply, area = "bottom")
         viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
 
-        viewer.window.add_dock_widget(refresh, area = "left")
+        viewer.window.add_dock_widget(refresh, area = "top")
 
         # Left
         viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "bottom")
@@ -337,9 +337,9 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         viewer.window.add_dock_widget(watershed, area = "bottom")
 
-        viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "left")
+        viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "top")
         
-        viewer.window.add_dock_widget(apply_stardist, area = "left")
+        # viewer.window.add_dock_widget(apply_stardist, area = "top")
         
         
 ########### REMOVED FUNCTIONS
