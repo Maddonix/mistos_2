@@ -3,4 +3,4 @@
 TITLE Mistos Frontend
 ECHO Mistos Frontend serving at port 4200.
 conda activate mistos
-python frontend_server.py
+call python frontend_server.py
