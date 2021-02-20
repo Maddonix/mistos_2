@@ -313,19 +313,19 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         # Build UI
         # Top
-        viewer.window.add_dock_widget(save_label_layer, area = "top")
+        viewer.window.add_dock_widget(save_label_layer, area = "left")
         viewer.layers.events.changed.connect(save_label_layer.reset_choices)
 
-        viewer.window.add_dock_widget(save_background_layer, area = "top")
+        viewer.window.add_dock_widget(save_background_layer, area = "left")
         viewer.layers.events.changed.connect(save_background_layer.reset_choices)
        
-        viewer.window.add_dock_widget(load_clf_and_apply, area = "top")
+        viewer.window.add_dock_widget(load_clf_and_apply, area = "bottom")
         viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
 
-        viewer.window.add_dock_widget(refresh, area = "top")
+        viewer.window.add_dock_widget(refresh, area = "left")
 
         # Left
-        viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "left")
+        viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "bottom")
         viewer.layers.events.changed.connect(semiautomatic_segmentation_random_forest.reset_choices)
 
         # Bottom
@@ -337,9 +337,9 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
 
         viewer.window.add_dock_widget(watershed, area = "bottom")
 
-        viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "bottom")
+        viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "left")
         
-        viewer.window.add_dock_widget(apply_stardist, area = "bottom")
+        viewer.window.add_dock_widget(apply_stardist, area = "left")
         
         
 ########### REMOVED FUNCTIONS
