@@ -1,4 +1,4 @@
-name: mistos
+name: mistos_dev
 channels:
   - matjesg
   - fastai
@@ -322,4 +322,3 @@ dependencies:
     - sqlalchemy==1.4.0b2
     - stardist==0.6.1
     - xtiff==0.6.4
-prefix: C:\Users\luxt001\Anaconda3\envs\mistos
