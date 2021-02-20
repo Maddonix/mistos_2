@@ -1,7 +1,6 @@
 pandas
 scikit-learn
 scipy
-sqlite
 tensorflow
 numpy
 scikit-image
