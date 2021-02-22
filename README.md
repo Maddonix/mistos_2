@@ -6,6 +6,7 @@ Microscopy Image Storing-and-Processing System
 - Anaconda
 - Chrome browser (recommended)
 - Oracle JDK > 1.6
+- microsoft visual c++ 14.0
 - Speicherplatz je nach Nutzung
 - RAM je nach Größe der zu bearbeitenden Bilder
 - (CUDA fähige Grafikkarte für eine bessere Performance)
