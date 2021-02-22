@@ -35,6 +35,9 @@ def semi_automatic_classification(img_array, label_array, multichannel = False, 
     # I
     if remove_bg_label:
         classified_img[classified_img>0] = classified_img[classified_img>0] - 1
+
+    if len(classified_img.shape) == 2:
+        classified_img = classified_img[np.newaxis, ...]
     
     return classified_img, clf
 

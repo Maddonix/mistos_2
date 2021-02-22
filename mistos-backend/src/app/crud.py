@@ -418,7 +418,7 @@ def delete_result_layer(db_layer):
         for measurement in sql_layer.measurements:
             fsr.delete_folder(measurement.path)
             fsr.delete_file(measurement.path_summary)
-            layer_query = sess.query(db_models.Measurement).filter(db_models.Measurement.id == measurement.id).delete()
+            sess.query(db_models.Measurement).filter(db_models.Measurement.id == measurement.id).delete()
             sess.commit()
 
         fsr.delete_folder(sql_layer.path)

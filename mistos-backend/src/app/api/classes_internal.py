@@ -12,9 +12,6 @@ import app.api.utils_import as utils_import
 from app.api import utils_paths, utils_results, utils_export, utils_transformations
 from app.api.cfg_classes import channel_measurement_tuple
 from app import fileserver_requests as fsr
-
-
-from tqdm import tqdm
    
 class IntImageResultLayer(BaseModel):
     uid: int
@@ -27,6 +24,10 @@ class IntImageResultLayer(BaseModel):
     def on_init(self):
         # should be called on every creation
         if self.uid == -1:
+            if len(self.data.shape) == 2:
+                print(f"WARNING: Result Layer was initialized with shape {self.data.shape}, appending new axis to match universal layer shape (z,y,x)")
+                self.data = self.data[np.newaxis, ...]
+            assert len(self.data.shape) == 3
             print("On Init IntImageResultLayer:")
             db_layer = self.to_db_class()
             db_layer.create_in_db()
@@ -253,7 +254,7 @@ class IntImage(BaseModel):
 
         return img_bgs, mean_bg_pixel_list
 
-    def measure_mask_in_image(self, layer_id, subtract_background = False):
+    def measure_mask_in_image(self, layer_id):
         '''
         Expects a layer id.
         Creates measurement object and initializes it (save to db and file storage)
@@ -264,12 +265,6 @@ class IntImage(BaseModel):
         layer_id -- uid of the layer to be measured
         subtract_background -- if True, background will be subtracted before measuring. If no background layer is defined, this step is passed
         '''
-        # n_features = utils_results.n_features #currently we calculate sum of pixels and number of pixels for each label
-
-        # if subtract_background == True and has_bg_layer == True:
-        #     image_array, mean_bg_pixel_list = self.subtract_background()
-        #     n_channels = image_array.shape[1]
-        # else:
         image_array = self.data
         layer = self.select_result_layer(layer_id)     
         measurement, measurement_summary = utils_results.calculate_measurement(image_array, layer.data)
@@ -349,6 +344,9 @@ class IntImage(BaseModel):
         )
 
         int_result_layer.on_init()
+        print(int_result_layer.uid)
+        self.refresh_from_db()
+        self.measure_mask_in_image(int_result_layer.uid)
 
 class IntExperimentGroup(BaseModel):
     uid: int
@@ -392,9 +390,10 @@ class IntExperimentGroup(BaseModel):
 
             measurement_reshaped = measurement.reshape((measurement.shape[0], -1), order ="C")
 
-            measurement_df = pd.DataFrame(measurement_reshaped, columns = colnames_features)
+            measurement_df = pd.DataFrame(measurement_reshaped, columns = colnames_features) # Here, pandas adds a index column
             for i, bg_colname in enumerate(colnames_background):
                 measurement_df[bg_colname] = bg_mean_pixel_list[i]
+            measurement_df["n_z_slices"] = image.data.shape[0]
 
             measurement_df["image"] = f"{image.uid}_{image.metadata['original_filename']}"
             measurement_df["group"] = f"{self.uid}_{self.name}"
@@ -403,7 +402,7 @@ class IntExperimentGroup(BaseModel):
         result_df = results[0]
         if len(results)>1:
             for result in results[1:]:
-                result_df = result_df.merge(result, how = "outer")
+                result_df = result_df.append(result, ignore_index = True) #merge(result.iloc[1:, :], how = "outer") #dont select index row
 
         try:
             db_experiment_result = crud.read_result_of_experiment_group_by_id(self.uid)
@@ -589,9 +588,10 @@ class IntExperiment(BaseModel):
 
         assert len(result_df_list)>0
         result_df = result_df_list[0]
+        print(result_df)
         if len(result_df_list) > 1:
             for _result_df in result_df_list[1:]:
-                result_df = result_df.merge(_result_df, how = "outer")
+                result_df = result_df.append(_result_df, ignore_index = True)#merge(_result_df, how = "outer")
 
         utils_paths.create_experiment_export_folder(self.uid, self.name)
         df_export_name = utils_paths.make_experiment_export_df_name(self.uid, self.name)
@@ -655,7 +655,6 @@ class IntExperiment(BaseModel):
                 mask_array, label_list = utils_transformations.multiclass_mask_to_binary(result_layer.data)
                 # Mask array has shape (z,y,x), we add c axis again
                 mask_array = mask_array[:, np.newaxis, ...]
-                print(mask_array.shape)
                 channel_names = [result_layer.name]
                 if masks:
                     path = utils_paths.make_export_array_name(
@@ -669,7 +668,7 @@ class IntExperiment(BaseModel):
                         image_array = mask_array, 
                         path = path, 
                         image_name = image.metadata["original_filename"], 
-                        channel_names = channel_names)
+                        channel_names = channel_names, mask = True)
 
                 if rescaled:
                     path = utils_paths.make_export_array_name(
@@ -697,7 +696,7 @@ class IntExperiment(BaseModel):
                         image_array = mask_array_max_cropped, 
                         path = path, 
                         image_name = image.metadata["original_filename"], 
-                        channel_names = channel_names)
+                        channel_names = channel_names, mask = True)
                        
 class IntClassifier(BaseModel):
     uid: int

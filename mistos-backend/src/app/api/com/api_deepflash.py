@@ -1,18 +1,11 @@
 # pylint:disable=no-name-in-module, import-error
-from fastapi import APIRouter, Header, Response
-import app.api.utils_com as utils_com
-import app.api.utils_paths as utils_paths
-import app.api.utils_import as utils_import
+from fastapi import APIRouter
 import app.api.classes_internal as c_int
 from app.api import utils_deepflash
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter
 import pathlib
-from app import fileserver_requests as fsr
-from typing import Any
 from app import crud
-import aiofiles
 from app.api.com.api_request_models import EstimateGroundTruthRequest, ReadFromPathRequest, PredictImagesRequest
-import asyncio
 
 router = APIRouter()
 

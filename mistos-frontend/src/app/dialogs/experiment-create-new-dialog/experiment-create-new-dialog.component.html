@@ -5,29 +5,29 @@
         <!-- name -->
         <div class="mat-form-input">
             <mat-form-field>
-                <mat-label for="name">Input</mat-label>
-                <input matInput type="text" id="name" class="form-control" formControlName="name" #name>
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" class="form-control" formControlName="name" placeholder = "Experiment Name" #name>
             </mat-form-field>
         </div>
         <!-- tags -->
         <div class="mat-form-input">
             <mat-form-field>
                 <mat-label for="tags">Tags</mat-label>
-                <input matInput type="text" id="tags" class="form-control" formControlName="tags" #tags>
+                <input matInput type="text" id="tags" class="form-control" formControlName="tags" placeholder = "Enter Tags separated by ';'" #tags>
             </mat-form-field>
         </div>
         <!-- Hint -->
         <div class="mat-form-input">
             <mat-form-field>
                 <mat-label for="hint">Hint</mat-label>
-                <input matInput id="hint" class="form-control" formControlName="hint" #hint>
+                <input matInput id="hint" class="form-control" formControlName="hint" placeholder = "Hint" #hint>
             </mat-form-field>
         </div>
         <!-- Description -->
         <div class="mat-form-input">
             <mat-form-field>
                 <mat-label for="description">Description</mat-label>
-                <input matInput id="description" class="form-control" formControlName="description" #description>
+                <input matInput id="description" class="form-control" formControlName="description" placeholder = "Description" #description>
             </mat-form-field>
         </div>
 
@@ -35,7 +35,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Create Experiment</button>
     
     <button mat-raised-button color="danger" (click)="onClose()">Close</button>
 

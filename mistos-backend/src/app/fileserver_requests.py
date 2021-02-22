@@ -91,7 +91,7 @@ def save_result_df(result_df, path):
     result_df.to_excel(path)
 
 def load_result_df(path):
-    return pd.read_excel(path)
+    return pd.read_excel(path, index_col = 0)
 
 def load_metadata(path):
     with open(path, "r") as _file:

@@ -4,6 +4,7 @@ Microscopy Image Storing-and-Processing System
 ## Voraussetzungen
 - Windows
 - Anaconda
+- Chrome browser (recommended)
 - Oracle JDK > 1.6
 - Speicherplatz je nach Nutzung
 - RAM je nach Größe der zu bearbeitenden Bilder

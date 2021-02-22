@@ -20,7 +20,7 @@ from app.api import utils_transformations
 
 lbl_cmap = random_label_cmap()
 
-def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentation_layers = False, intImageResultLayerList: List[c_int.IntImageResultLayer] = None):   
+def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImageResultLayerList: List[c_int.IntImageResultLayer] = None):   
     '''
     Expects image array, metadata dict and list of additional layer tuples (array, layer_type)
     '''  
@@ -117,32 +117,56 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
                 new_label_layer.on_init()
                 intImage.refresh_from_db()
                 # measure layer
-                measurement = intImage.measure_mask_in_image(new_label_layer.uid, subtract_background=False)
+                measurement = intImage.measure_mask_in_image(new_label_layer.uid)
                 print("napari viewer save label layer")
                 print(measurement)
                 refresh()
-              
+
+        # @magicgui(call_button = "Delete Label", layout = "horizontal")
+        # def delete_label_layer():
+        #     '''
+        #     Function to delete the selected layer
+        #     '''
+        #     layer = viewer.active_layer
+
+        #     if layer:
+        #         intImage.delete_result_layer(layer.uid)
+
+
         @magicgui(call_button = "Save BG Layer", layout = "horizontal")
         def save_background_layer():
+            '''
+            Function to save the currently selected layer as background layer. If a background layer already exists, the layer will not be saved. 
+            '''
             layer = viewer.active_layer
             
             if intImage.has_bg_layer == True:
                 print("Image already has a background layer")
-                return
-            print(f"Saving BG Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
-            if layer:
-                new_bg_layer = c_int.IntImageResultLayer(
-                    uid = -1,
-                    name = layer.name,
-                    image_id = intImage.uid,
-                    layer_type = "labels",
-                    data = layer.data
-                )
-                new_bg_layer.on_init()
-                intImage.set_bg_true(new_bg_layer)
+            else:
+                print(f"Saving BG Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
+                if layer:
+                    new_bg_layer = c_int.IntImageResultLayer(
+                        uid = -1,
+                        name = "Background",
+                        image_id = intImage.uid,
+                        layer_type = "labels",
+                        data = layer.data
+                    )
+                    new_bg_layer.on_init()
+                    intImage.set_bg_true(new_bg_layer)
 
+                    refresh()
+
+        @magicgui(call_button = "Delete BG Layer", layout = "horizontal")
+        def delete_background_layer():
+            '''
+            Function to delete the current background layer. Also sets the 
+            '''
+            if intImage.has_bg_layer():
+                intImage.delete_result_layer(intImage.bg_layer_id)
                 refresh()
-        
+
+
         @magicgui(
                     call_button = "Segmentation",
                     multichannel={"choices": [True, False]},
@@ -314,10 +338,10 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
         # Build UI
         # Top
         viewer.window.add_dock_widget(save_label_layer, area = "top")
-        viewer.layers.events.changed.connect(save_label_layer.reset_choices)
+        # viewer.window.add_dock_widget(delete_label_layer, area = "top")
 
         viewer.window.add_dock_widget(save_background_layer, area = "top")
-        viewer.layers.events.changed.connect(save_background_layer.reset_choices)
+        viewer.window.add_dock_widget(delete_background_layer, area = "top")
        
         viewer.window.add_dock_widget(load_clf_and_apply, area = "bottom")
         viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
@@ -328,7 +352,7 @@ def view(intImage: c_int.IntImage, display_bg_layer = False, display_segmentatio
         viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "bottom")
         viewer.layers.events.changed.connect(semiautomatic_segmentation_random_forest.reset_choices)
 
-        # Bottom
+    
         viewer.window.add_dock_widget(remove_small_objects, area = "bottom")
 
         viewer.window.add_dock_widget(remove_small_holes, area = "bottom")

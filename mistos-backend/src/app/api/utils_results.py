@@ -20,9 +20,8 @@ def calculate_measurement(image_array, labels_array):
     n_channels = image_array.shape[1]
     labels = np.unique(labels_array)
 
-    measurement = np.zeros((len(labels), n_channels, n_features))
+    measurement = np.zeros((len(labels)-1, n_channels, n_features)) # we reduce the label length since label 0 is empty
 
-    np.zeros((len(labels), n_channels, n_features))
     for n in range(n_channels):
         channel_array = image_array[:,n,...]
         for i, label in tqdm(enumerate(labels)):
@@ -31,7 +30,7 @@ def calculate_measurement(image_array, labels_array):
             label_array = np.where(labels_array == label, channel_array, 0)
             _sum_pixel = label_array.sum()
             _n_pixel = (label_array>0).sum()
-            measurement[i, n] = [_n_pixel, _sum_pixel]
+            measurement[i-1, n] = [_n_pixel, _sum_pixel]
 
     measurement_summary = {
         "n_labels": measurement.shape[0]
@@ -47,7 +46,7 @@ def get_feature_colnames(channel_name_list):
 
     return colnames
 
-def staple_gte(segmentation_list, threshold=0.5):
+def staple_gte(segmentation_list):
     '''
     Expects list of label layers (shape (z,y,x))
     Labels will be binarized (if (label > 0) => 1 ? 0)

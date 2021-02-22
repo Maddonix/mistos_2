@@ -23,7 +23,7 @@
     </div>
 </div>
 <hr>
-<button mat-raised-button color="primary" (click)="onCreateNewForm()">Create New Form</button>
+<button mat-raised-button color="primary" (click)="onCreateNewForm()" style="margin-bottom: 5px">Create New Form</button>
 <form [formGroup]="layersForm">
     <mat-grid-list cols="5" rowHeight="1:1" *ngFor="let image of truthImageList; let i = index;">
         <!-- Image Tile -->

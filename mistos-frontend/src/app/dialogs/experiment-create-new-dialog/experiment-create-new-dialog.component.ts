@@ -21,10 +21,10 @@ export class ExperimentCreateNewDialogComponent implements OnInit {
     
   ngOnInit(): void {
     this.form = new FormGroup({
-      "name": new FormControl("Experiment Name", Validators.required),
-      "tags": new FormControl("Enter Tags separated by ';'"),
-      "hint": new FormControl("Short Experiment Description"),
-      "description": new FormControl("Experiment Description")
+      "name": new FormControl("", Validators.required),
+      "tags": new FormControl(""),
+      "hint": new FormControl(""),
+      "description": new FormControl("")
     })
     this.form.enable();
   }
