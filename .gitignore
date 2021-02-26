@@ -133,3 +133,4 @@ dmypy.json
 
 # Misc
 config.json
+.config.json

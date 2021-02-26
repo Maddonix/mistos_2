@@ -7,8 +7,6 @@ from app.api import utils_paths as utils_paths
 def to_tiff(image_array, path, image_name, channel_names, mask=False):
     if mask == True:
         image_array = image_array.astype(int)
-    else: 
-        image_array = image_array.astype(int)
     xtiff.to_tiff(
         img = image_array,
         file = path,

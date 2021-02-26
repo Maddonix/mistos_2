@@ -1,4 +1,4 @@
-name: mistos_dev
+name: mistos
 channels:
   - bioconda
   - conda-forge
