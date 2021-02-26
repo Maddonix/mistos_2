@@ -4,4 +4,4 @@ TITLE Mistos Fileserver
 ECHO Mistos Fileserver booting.
 cd mistos-backend/src
 call conda activate mistos
-call python fileserver/server.py
+python fileserver/server.py

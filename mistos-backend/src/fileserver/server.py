@@ -9,7 +9,7 @@ default_mistos_dir = pathlib.Path.home()
 default_fileserver_dir = default_mistos_dir.joinpath("working_directory")
 using_default = False
 
-path_cfg = pathlib.Path(pathlib.Path.cwd()).parents[2].joinpath("config.json")
+path_cfg = pathlib.Path(pathlib.Path.cwd()).parents[1].joinpath("config.json")
 print(path_cfg)
 with open(path_cfg, "r") as _file:
     custom_paths = json.load(_file)

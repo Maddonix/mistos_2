@@ -265,8 +265,9 @@ def generate_thumbnail(img, cmap_list = cmaps):
         _color_image = color_image[..., _color]
         _max = _color_image.max()
         _min = _color_image.min()
-        _color_image = (_color_image - _min)/_max
-        color_image[..., _color] = _color_image
+        if _max > 0:
+            _color_image = (_color_image - _min)/_max
+            color_image[..., _color] = _color_image
 
     # enhance contrast
     try: 
