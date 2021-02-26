@@ -37,7 +37,8 @@ def save_zarr(index, array, metadata_dict, metadata_omexml, filepath_zarr, filep
         
     metadata_string = metadata_omexml.to_xml(encoding = "utf-8")
     pretty_xml_str = xml.dom.minidom.parseString(metadata_string).toprettyxml(indent = "\t")
-    
+    print("_____________________")
+    print(f"SAVING METADATA TO: {filepath_metadata}")
     with open(filepath_metadata.replace("json", "xml"), "w", encoding = "utf-8") as file:
         file.write(pretty_xml_str)
     
