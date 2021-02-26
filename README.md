@@ -50,14 +50,29 @@ Microscopy Image Storing-and-Processing System
         - "EXPORT_DIRECTORY" (all exports will be stored here)
         - "WORKING_DIRECTORY" (internal storage for the app)
 
-## Start App:
-- for python terminals activate the venv: 
+## Start App for the first time:
+- for python terminals activate conda: 
 -- d:\programming\venv\mistos\scripts\activate.ps1 (powershell)
 -- d:\programming\venv\mistos\scripts\activate (regular terminal)
-- run "ng serve" in "mistos-frontend" directory
-- run "python main.py" in "mistos-backend/src"
--- run "uvicorn main:mistos --reload --host 0.0.0.0 --port 7777" in "mistos-backend/src" for debugging
-- run "python fileserver.py" in ""mistos-backend/src" 
+
+### Frontend
+- open a commandline or powershell in "mistos_2" directory
+- run "conda activate mistos"
+- run "python frontend_server.py"
+- allow network access for private networks if requested
+
+### Fileserver
+- open a commandline or powershell in "mistos_2/mistos-backend/src" directory
+- run "conda activate mistos"
+- run "python fileserver/server.py"
+- allow network access for private networks if requested
+
+### Backend
+- open a commandline or powershell in "mistos_2/mistos-backend/src" directory
+- run "conda activate mistos"
+- run "python python main.py"
+- allow network access for private networks if requested
+
 
 ## Troubleshooting
 - Anaconda not added to PATH correctly

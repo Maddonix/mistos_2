@@ -32,6 +32,8 @@ class IntImageResultLayer(BaseModel):
             db_layer = self.to_db_class()
             db_layer.create_in_db()
             self.uid = db_layer.uid
+
+            self.data = self.data.astype(int)
             
             print(f"New Layer created with id {self.uid}")
             utils_import.save_label_layer_to_zarr(

@@ -79,7 +79,7 @@ export class ExperimentDetailComponent implements OnInit {
           this.router.navigate(["../../"], {relativeTo: this.route})
         });
       } else {
-        console.log("Delete experiment was aboirted.");
+        console.log("Delete experiment was aborted.");
       }
     }
     ) 

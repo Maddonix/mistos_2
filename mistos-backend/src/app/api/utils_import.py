@@ -364,8 +364,10 @@ def import_mistos_experiment(path):
     for experiment_group in int_experiment.experiment_groups:
         group_image_ids = []
         group_layer_ids = []
+        imported_image_ids = []
         for image in experiment_group.images:
             # id dicts are defined in import_mistos_image
+            imported_image_ids.append(image.uid)
             image, id_dict = import_mistos_image(image, for_experiment = True)
             group_image_ids.append(image.uid)
             for layer_id in experiment_group.result_layer_ids:

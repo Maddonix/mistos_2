@@ -12,6 +12,7 @@ n_features = len(features)
 def calculate_measurement(image_array, labels_array):
     '''
     Function expects image array and labels array.
+    features are sum pixel and number of pixels. Pixels are calculated over whole image stack!
 
     keyword arguments:
     image_array -- np.array of shape(z,c,y,x)

@@ -76,8 +76,9 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     _labels, details = model.predict_instances(layer_max)
                     
                     # make z stack mask
-                    labels = np.zeros(layer.data.shape)
+                    labels = np.zeros(layer.data.shape, dtype = int)
                     labels[:] = _labels
+                    print(labels.shape, labels.dtype)
 
                 # 3 D Segmentation    
                 elif mode == "3D":
@@ -91,8 +92,6 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     #     _slice = _slice/_slice.max()
                     #     _labels, details = model.predict_instances(_slice)
                     #     labels[n] = _labels
-                
-                print(labels.shape)
                 viewer.add_labels(labels, name = "StarDistNuclei", scale = image_scale, visible = True)
 
         @magicgui(call_button = "Save Label", layout = "horizontal")
@@ -231,8 +230,19 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             segmentation_labels = layer.data
             if segmentation_labels.max() == 1:
                 segmentation_labels = segmentation_labels.astype(bool)
+            else:
+                segmentation_labels = segmentation_labels.astype(int)
 
             segmentation_labels = morphology.remove_small_objects(segmentation_labels,px,conn)
+            layer.data = segmentation_labels
+
+        
+        @magicgui(call_button = "To binary", layout = "horizontal")
+        def multiclass_mask_to_binary():
+            layer = viewer.active_layer
+
+            segmentation_labels = layer.data
+            segmentation_labels, _classes = utils_transformations.multiclass_mask_to_binary(segmentation_labels)
             layer.data = segmentation_labels
 
         @magicgui(call_button = "del small holes", px={"widget_type": "SpinBox", "max": 1000, "min": 1, "value": 50}, conn = {"widget_type": "SpinBox", "max":50, "min": 1, "value": 5},
@@ -241,7 +251,14 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             layer = viewer.active_layer
 
             segmentation_labels = layer.data
+            if segmentation_labels.max() == 1:
+                is_binary = True
+            else:
+                is_binary = False
+
             segmentation_labels = morphology.remove_small_holes(segmentation_labels,px,conn)
+            if is_binary == False:
+                segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(segmentation_labels)
             layer.data = segmentation_labels
 
         @magicgui(call_button = "Watershed", compactness={"widget_type": "FloatSpinBox", "max": 50, "min": 0, "value":5}, layout = "vertical")
@@ -336,7 +353,6 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
         #     print(viewer.active_layer)
 
         # Build UI
-        # Top
         viewer.window.add_dock_widget(save_label_layer, area = "top")
         # viewer.window.add_dock_widget(delete_label_layer, area = "top")
 
@@ -348,11 +364,9 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
 
         viewer.window.add_dock_widget(refresh, area = "top")
 
-        # Left
         viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "bottom")
         viewer.layers.events.changed.connect(semiautomatic_segmentation_random_forest.reset_choices)
 
-    
         viewer.window.add_dock_widget(remove_small_objects, area = "bottom")
 
         viewer.window.add_dock_widget(remove_small_holes, area = "bottom")
@@ -362,6 +376,7 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
         viewer.window.add_dock_widget(watershed, area = "bottom")
 
         viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "top")
+        viewer.window.add_dock_widget(multiclass_mask_to_binary, area = "top")
         
         viewer.window.add_dock_widget(apply_stardist, area = "top")
         

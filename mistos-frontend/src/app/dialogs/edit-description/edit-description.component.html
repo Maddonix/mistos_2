@@ -4,9 +4,13 @@
     <form [formGroup]="form">
         <!-- Hint -->
         <div class="mat-form-input">
-            <mat-form-field>
+            <mat-form-field style="width:400px">
                 <mat-label for="description">Description</mat-label>
-                <input matInput id="description" class="form-control" formControlName="description" #description>
+                <textarea matInput id="description" class="form-control" formControlName="description" placeholder = "Enter description" #description 
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="10"
+                ></textarea>
             </mat-form-field>
         </div>
     </form>

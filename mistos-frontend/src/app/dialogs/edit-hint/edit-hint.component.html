@@ -4,9 +4,12 @@
     <form [formGroup]="form">
         <!-- Hint -->
         <div class="mat-form-input">
-            <mat-form-field>
+            <mat-form-field style="width:400px">
                 <mat-label for="hint">Hint</mat-label>
-                <input matInput id="hint" class="form-control" formControlName="hint" #hint>
+                <textarea matInput id="hint" class="form-control" formControlName="hint" #hint 
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="10"></textarea>
             </mat-form-field>
         </div>
     </form>
