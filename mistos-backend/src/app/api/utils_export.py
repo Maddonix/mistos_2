@@ -1,17 +1,28 @@
 import xtiff
+from tifffile import imwrite
+from skimage import img_as_ubyte, img_as_bool, img_as_uint, img_as_float32
 from app import crud
 import pickle
 from app.api import classes_internal as c_int
 from app.api import utils_paths as utils_paths
 
-def to_tiff(image_array, path, image_name, channel_names, mask=False):
+def to_tiff(image_array, path, image_name, channel_names, mask=False, pixel_type = None):
     if mask == True:
-        image_array = image_array.astype(int)
+        image_array = img_as_bool(image_array)
+    else: 
+        if pixel_type == "uint8":
+            image_array = img_as_ubyte(image_array)
+        elif pixel_type == "uint16":
+            image_array = img_as_uint(image_array)
+        else:
+            print(f"Image type {pixel_type} currently not supported for export, defaulting to 32-bit float export")
+            image_array = img_as_float32(image_array)
     xtiff.to_tiff(
         img = image_array,
         file = path,
         image_name = image_name, 
-        channel_names = channel_names
+        channel_names = channel_names,
+        profile = 3
     )
 
 def export_mistos_image(image_uid:int):

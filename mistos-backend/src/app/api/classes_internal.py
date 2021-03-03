@@ -621,7 +621,9 @@ class IntExperiment(BaseModel):
                         image_array = image.data, 
                         path = path, 
                         image_name = image.metadata["original_filename"], 
-                        channel_names = image.metadata["custom_channel_names"])
+                        channel_names = image.metadata["custom_channel_names"],
+                        pixel_type = image.metadata["pixel_type"]
+                        )
                 if rescaled:
                     path = utils_paths.make_export_array_name(
                         image.uid, image.metadata["original_filename"], 
@@ -644,12 +646,12 @@ class IntExperiment(BaseModel):
                         ] = image_array_max
                     else: 
                         image_array_max_cropped = image_array_max[:, :yDim, :xDim]
-                    # TO DO: RESCALE
                     utils_export.to_tiff(
                         image_array = image_array_max_cropped, 
                         path = path, 
                         image_name = image.metadata["original_filename"], 
-                        channel_names = image.metadata["custom_channel_names"])
+                        channel_names = image.metadata["custom_channel_names"],
+                        pixel_type = image.metadata["pixel_type"])
 
             for result_layer_id in group.result_layer_ids:
                 result_layer = crud.read_result_layer_by_uid(result_layer_id).to_int_class()
