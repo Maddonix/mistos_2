@@ -22,15 +22,16 @@ from app.api import utils_transformations
 
 
 # Activate experimental napari features: async and octree
-os.environ["NAPARI_OCTREE"]="1"
-os.environ["NAPARI_ASYNC"]="1"
+os.environ["NAPARI_OCTREE"] = "1"
+os.environ["NAPARI_ASYNC"] = "1"
 
 lbl_cmap = random_label_cmap()
 
-def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImageResultLayerList: List[c_int.IntImageResultLayer] = None):   
+
+def view(intImage: c_int.IntImage, display_segmentation_layers=False, intImageResultLayerList: List[c_int.IntImageResultLayer] = None):
     '''
     Expects image array, metadata dict and list of additional layer tuples (array, layer_type)
-    '''  
+    '''
 
     intImageResultLayerList = []
 
@@ -41,26 +42,28 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
     __ACTIVE_LAYER__ = None
     rf_classifiers = intImage.get_classifiers("rf_segmentation")
 
-    if len(channel_names) != image.shape[1]: # axis 1 is channel axis
+    if len(channel_names) != image.shape[1]:  # axis 1 is channel axis
         channel_names = None
 
     if display_segmentation_layers == True:
         intImageResultLayerList.extend(intImage.image_result_layers)
 
     with napari.gui_qt():
-        viewer = napari.Viewer(title = f"{intImage.name}", show = True)       
-        viewer.add_image(image.data, channel_axis = 1, scale = image_scale, name = channel_names) 
-        
+        viewer = napari.Viewer(title=f"{intImage.name}", show=True)
+        viewer.add_image(image.data, channel_axis=1,
+                         scale=image_scale, name=channel_names)
+
         if intImageResultLayerList:
             for layer in intImageResultLayerList:
                 print("add layers")
                 print(layer)
-                utils_napari.add_layer_from_int_layer(viewer, layer, image_scale = image_scale, visible = False)
-            
+                utils_napari.add_layer_from_int_layer(
+                    viewer, layer, image_scale=image_scale, visible=False)
+
         @magicgui(
-                    call_button = "Nuclei Segmentation", layout = "horizontal"
-                )
-        def apply_stardist(): # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
+            call_button="Nuclei Segmentation", layout="horizontal"
+        )
+        def apply_stardist():  # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
             """
             Apply StarDist2D Nuclei Segmentation
             """
@@ -73,17 +76,17 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     # Load Model
                     model = StarDist2D.from_pretrained("2D_versatile_fluo")
                     # Max Z
-                    layer_max = layer.data.max(axis = 0)
+                    layer_max = layer.data.max(axis=0)
                     # Normalize
                     layer_max = layer_max/layer_max.max()
                     _labels, details = model.predict_instances(layer_max)
-                    
+
                     # make z stack mask
-                    labels = np.zeros(layer.data.shape, dtype = int)
+                    labels = np.zeros(layer.data.shape, dtype=int)
                     labels[:] = _labels
                     print(labels.shape, labels.dtype)
 
-                # 3 D Segmentation    
+                # 3 D Segmentation
                 elif mode == "3D":
                     pass
                     # # TO DO: Load 3 D model
@@ -95,9 +98,10 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     #     _slice = _slice/_slice.max()
                     #     _labels, details = model.predict_instances(_slice)
                     #     labels[n] = _labels
-                viewer.add_labels(labels, name = "StarDistNuclei", scale = image_scale, visible = True)
+                viewer.add_labels(labels, name="StarDistNuclei",
+                                  scale=image_scale, visible=True)
 
-        @magicgui(call_button = "Save Label", layout = "horizontal")
+        @magicgui(call_button="Save Label", layout="horizontal")
         def save_label_layer():
             """
             Save selected layer to file and db.
@@ -117,17 +121,18 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     label_array = img_as_uint(layer.data)
 
                 new_label_layer = c_int.IntImageResultLayer(
-                    uid = -1,
-                    name = layer.name,
-                    image_id = intImage.uid,
-                    layer_type = "labels",
-                    data = label_array
+                    uid=-1,
+                    name=layer.name,
+                    image_id=intImage.uid,
+                    layer_type="labels",
+                    data=label_array
                 )
 
                 new_label_layer.on_init()
                 intImage.refresh_from_db()
                 # measure layer
-                measurement = intImage.measure_mask_in_image(new_label_layer.uid)
+                measurement = intImage.measure_mask_in_image(
+                    new_label_layer.uid)
                 refresh()
 
         # @magicgui(call_button = "Delete Label", layout = "horizontal")
@@ -140,32 +145,32 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
         #     if layer:
         #         intImage.delete_result_layer(layer.uid)
 
-
-        @magicgui(call_button = "Save BG Layer", layout = "horizontal")
+        @magicgui(call_button="Save BG Layer", layout="horizontal")
         def save_background_layer():
             '''
             Function to save the currently selected layer as background layer. If a background layer already exists, the layer will not be saved. 
             '''
             layer = viewer.active_layer
-            
+
             if intImage.has_bg_layer == True:
                 print("Image already has a background layer")
             else:
-                print(f"Saving BG Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
+                print(
+                    f"Saving BG Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
                 if layer:
                     new_bg_layer = c_int.IntImageResultLayer(
-                        uid = -1,
-                        name = "Background",
-                        image_id = intImage.uid,
-                        layer_type = "labels",
-                        data = layer.data
+                        uid=-1,
+                        name="Background",
+                        image_id=intImage.uid,
+                        layer_type="labels",
+                        data=layer.data
                     )
                     new_bg_layer.on_init()
                     intImage.set_bg_true(new_bg_layer)
 
                     refresh()
 
-        @magicgui(call_button = "Delete BG Layer", layout = "horizontal")
+        @magicgui(call_button="Delete BG Layer", layout="horizontal")
         def delete_background_layer():
             '''
             Function to delete the current background layer. Also sets the 
@@ -174,66 +179,68 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                 intImage.delete_result_layer(intImage.bg_layer_id)
                 refresh()
 
-
         @magicgui(
-                    call_button = "Segmentation",
-                    multichannel={"choices": [True, False]},
-                    tags = {"widget_type": "LineEdit", "label": "tags"},
-                    layout = "vertical"
-                )
+            call_button="Segmentation",
+            multichannel={"choices": [True, False]},
+            tags={"widget_type": "LineEdit", "label": "tags"},
+            layout="vertical"
+        )
         def semiautomatic_segmentation_random_forest(
-            layer_image: napari.layers.Image, 
+            layer_image: napari.layers.Image,
             layer_labels: napari.layers.Labels,
             tags: str,
-            multichannel = False,
-            ):
-                        
+            multichannel=False,
+        ):
+
             img_array = layer_image.data
             label_array = layer_labels.data
             assert img_array.shape == label_array.shape
-            
+
             if multichannel:
                 # get all original image layers
-                img_array = image.data # shape: (z,c,y,x)
+                img_array = image.data  # shape: (z,c,y,x)
                 # for multichannel segmentation we expect c to be the last dimension
                 img_array = np.moveaxis(img_array, 1, -1)
-                
+
             # if we have only one z slice, we tranform the image to shape (y,x)
             if img_array.shape[0] == 1:
-                img_array = img_array[0,...]
-                label_array = label_array[0,...]
-            
-            segmentation_labels, clf = utils_seg_rf.semi_automatic_classification(img_array, label_array, multichannel = multichannel)
+                img_array = img_array[0, ...]
+                label_array = label_array[0, ...]
+
+            segmentation_labels, clf = utils_seg_rf.semi_automatic_classification(
+                img_array, label_array, multichannel=multichannel)
 
             classifier = c_int.IntClassifier(
-                uid = -1,
-                name = f"random_forest_on_{intImage.name}",
-                classifier = clf,
-                clf_type = "rf_segmentation",
-                test_train_data = [(intImage.data, label_array)],
-                metrics = {},
-                params = {
+                uid=-1,
+                name=f"random_forest_on_{intImage.name}",
+                classifier=clf,
+                clf_type="rf_segmentation",
+                test_train_data=[(intImage.data, label_array)],
+                metrics={},
+                params={
                     "multichannel": multichannel
-                }, 
-                tags = set(tags.split(";"))
+                },
+                tags=set(tags.split(";"))
             )
             classifier.on_init()
 
             # will only be a binary mask if we have marked only labels 1==background, 2==regions of interest
 
-            viewer.add_labels(segmentation_labels, name = "Segmentation", scale = image_scale)
+            viewer.add_labels(segmentation_labels,
+                              name="Segmentation", scale=image_scale)
 
-        @magicgui(call_button = "To individuals", layout = "horizontal")
+        @magicgui(call_button="To individuals", layout="horizontal")
         def binary_mask_to_multilabel():
             layer = viewer.active_layer
 
             segmentation_labels = layer.data
-            segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(segmentation_labels)
+            segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(
+                segmentation_labels)
             layer.data = segmentation_labels
 
-        @magicgui(call_button = "del small obj", px={"widget_type": "SpinBox", "max": 1000, "min": 1}, conn = {"widget_type": "SpinBox", "max":50, "min": 1},
-        layout = "vertical")
-        def remove_small_objects(px:int, conn:int):
+        @magicgui(call_button="del small obj", px={"widget_type": "SpinBox", "max": 1000, "min": 1}, conn={"widget_type": "SpinBox", "max": 50, "min": 1},
+                  layout="vertical")
+        def remove_small_objects(px: int, conn: int):
             layer = viewer.active_layer
 
             segmentation_labels = layer.data
@@ -242,21 +249,22 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             else:
                 segmentation_labels = segmentation_labels.astype(int)
 
-            segmentation_labels = morphology.remove_small_objects(segmentation_labels,px,conn)
+            segmentation_labels = morphology.remove_small_objects(
+                segmentation_labels, px, conn)
             layer.data = segmentation_labels
 
-        
-        @magicgui(call_button = "To binary", layout = "horizontal")
+        @magicgui(call_button="To binary", layout="horizontal")
         def multiclass_mask_to_binary():
             layer = viewer.active_layer
 
             segmentation_labels = layer.data
-            segmentation_labels, _classes = utils_transformations.multiclass_mask_to_binary(segmentation_labels)
+            segmentation_labels, _classes = utils_transformations.multiclass_mask_to_binary(
+                segmentation_labels)
             layer.data = segmentation_labels
 
-        @magicgui(call_button = "del small holes", px={"widget_type": "SpinBox", "max": 1000, "min": 1, "value": 50}, conn = {"widget_type": "SpinBox", "max":50, "min": 1, "value": 5},
-        layout = "vertical")
-        def remove_small_holes(px:int, conn:int):
+        @magicgui(call_button="del small holes", px={"widget_type": "SpinBox", "max": 1000, "min": 1, "value": 50}, conn={"widget_type": "SpinBox", "max": 50, "min": 1, "value": 5},
+                  layout="vertical")
+        def remove_small_holes(px: int, conn: int):
             layer = viewer.active_layer
 
             segmentation_labels = layer.data
@@ -265,25 +273,29 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             else:
                 is_binary = False
 
-            segmentation_labels = morphology.remove_small_holes(segmentation_labels,px,conn)
+            segmentation_labels = morphology.remove_small_holes(
+                segmentation_labels, px, conn)
             if is_binary == False:
-                segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(segmentation_labels)
+                segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(
+                    segmentation_labels)
             layer.data = segmentation_labels
 
-        @magicgui(call_button = "Watershed", compactness={"widget_type": "FloatSpinBox", "max": 50, "min": 0, "value":5}, layout = "vertical")
+        @magicgui(call_button="Watershed", compactness={"widget_type": "FloatSpinBox", "max": 50, "min": 0, "value": 5}, layout="vertical")
         def watershed(compactness: float):
             layer = viewer.active_layer
-            labels = utils_transformations.watershed(layer.data,compactness, watershed_line=True)
+            labels = utils_transformations.watershed(
+                layer.data, compactness, watershed_line=True)
             viewer.active_layer.data = labels
 
-        @magicgui(call_button = "Area Closing", selem_edge_len = {"widget_type": "SpinBox", "max": 50, "min": 1, "value": 10}, layout = "vertical")
+        @magicgui(call_button="Area Closing", selem_edge_len={"widget_type": "SpinBox", "max": 50, "min": 1, "value": 10}, layout="vertical")
         def area_closing(selem_edge_len):
             layer = viewer.active_layer
 
-            mask = utils_transformations.binary_closing(layer.data, selem_edge_len)
+            mask = utils_transformations.binary_closing(
+                layer.data, selem_edge_len)
             layer.data = mask
 
-        @magicgui(call_button = "Refresh Image", layout = "horizontal")
+        @magicgui(call_button="Refresh Image", layout="horizontal")
         def refresh():
             '''
             The refresh function refreshes
@@ -299,14 +311,15 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             print(rf_classifiers)
 
             for index in range(len(viewer.layers)):
-                viewer.layers.pop(0)                  
+                viewer.layers.pop(0)
 
-            viewer.add_image(intImage.data, channel_axis = 1, scale = image_scale, name = channel_names) 
+            viewer.add_image(intImage.data, channel_axis=1,
+                             scale=image_scale, name=channel_names)
 
             intImageResultLayerList = []
 
             # if display_bg_layer == True:
-            #     pass 
+            #     pass
             #     # intImageResultLayerList.append(self.bg_layer)
 
             if display_segmentation_layers == True:
@@ -314,13 +327,16 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
 
             if intImageResultLayerList:
                 for layer in intImageResultLayerList:
-                    utils_napari.add_layer_from_int_layer(viewer, layer, image_scale = image_scale, visible = False)
+                    utils_napari.add_layer_from_int_layer(
+                        viewer, layer, image_scale=image_scale, visible=False)
 
         @magicgui(
-            call_button = "Load&Segment",
-            classifier = {"choices": [clf_name for clf_name in rf_classifiers]}, #list(rf_classifiers.keys())
-            threshold = {"widget_type": "SpinBox", "min": 0, "max": 100, "value": 50},
-            layout = "vertical"
+            call_button="Load&Segment",
+            # list(rf_classifiers.keys())
+            classifier={"choices": [clf_name for clf_name in rf_classifiers]},
+            threshold={"widget_type": "SpinBox",
+                       "min": 0, "max": 100, "value": 50},
+            layout="vertical"
         )
         def load_clf_and_apply(classifier, threshold):
             if classifier == "No Classifiers Trained":
@@ -334,13 +350,15 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             image_array = viewer.active_layer.data
             # if z-dim == 1, reduce dimensionality
             if image_array.shape[0] == 1:
-                image_array = image_array[0,...]
+                image_array = image_array[0, ...]
 
             if multichannel == True:
                 print("multilabel not yet supported")
-            else: 
-                image_features = utils_seg_rf.multiscale_basic_features(image_array, multichannel = multichannel)
-                prediction = utils_seg_rf.predict_proba_segmenter(image_features, int_clf.classifier, threshold)
+            else:
+                image_features = utils_seg_rf.multiscale_basic_features(
+                    image_array, multichannel=multichannel)
+                prediction = utils_seg_rf.predict_proba_segmenter(
+                    image_features, int_clf.classifier, threshold)
 
                 kwargs = {
                     "uid": -1,
@@ -349,10 +367,11 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     "image_id": intImage.uid,
                     "layer_type": "labels",
                     "data": prediction
-                    }
+                }
 
                 prediction_layer = c_int.IntImageResultLayer(**kwargs)
-                utils_napari.add_layer_from_int_layer(viewer = viewer, intImageResultLayer = prediction_layer, image_scale = image_scale, visible = True)
+                utils_napari.add_layer_from_int_layer(
+                    viewer=viewer, intImageResultLayer=prediction_layer, image_scale=image_scale, visible=True)
 
         # Shortcuts
         # print active layer
@@ -363,34 +382,42 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
 
         @viewer.bind_key('Control-n')
         def zoom_on_next_label(viewer):
-            is_label_layer = type(viewer.active_layer) == napari.layers.labels.labels.Labels
+            is_label_layer = type(
+                viewer.active_layer) == napari.layers.labels.labels.Labels
 
             if viewer.active_layer and is_label_layer:
                 # Make sure we have a panzoomcamera
-                assert str(type(viewer.window.qt_viewer.view.camera)) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
+                assert str(type(viewer.window.qt_viewer.view.camera)
+                           ) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
                 viewer.active_layer.selected_label += 1
-                layer = np.where(viewer.active_layer.data == viewer.active_layer.selected_label, 1, 0)
-                _zoom_view = utils_napari.get_zoom_view_on_label(layer, image_scale)
+                layer = np.where(viewer.active_layer.data ==
+                                 viewer.active_layer.selected_label, 1, 0)
+                _zoom_view = utils_napari.get_zoom_view_on_label(
+                    layer, image_scale)
                 viewer.window.qt_viewer.view.camera.set_state(_zoom_view)
                 print(image_scale)
 
-
         @viewer.bind_key('Control-b')
         def zoom_on_previous_label(viewer):
-            is_label_layer = type(viewer.active_layer) == napari.layers.labels.labels.Labels
+            is_label_layer = type(
+                viewer.active_layer) == napari.layers.labels.labels.Labels
 
             if viewer.active_layer and is_label_layer:
                 # Make sure we have a panzoomcamera
-                assert str(type(viewer.window.qt_viewer.view.camera)) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
+                assert str(type(viewer.window.qt_viewer.view.camera)
+                           ) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
                 viewer.active_layer.selected_label -= 1
-                layer = np.where(viewer.active_layer.data == viewer.active_layer.selected_label, 1, 0)
-                _zoom_view = utils_napari.get_zoom_view_on_label(layer, image_scale)
+                layer = np.where(viewer.active_layer.data ==
+                                 viewer.active_layer.selected_label, 1, 0)
+                _zoom_view = utils_napari.get_zoom_view_on_label(
+                    layer, image_scale)
                 viewer.window.qt_viewer.view.camera.set_state(_zoom_view)
 
         @viewer.bind_key('Control-d')
         def delete_label(viewer):
             active_layer = viewer.active_layer.selected_label
-            viewer.active_layer.data = np.where(viewer.active_layer.data == active_layer, 0, viewer.active_layer.data)
+            viewer.active_layer.data = np.where(
+                viewer.active_layer.data == active_layer, 0, viewer.active_layer.data)
 
         @viewer.bind_key('Control-e')
         def expand_label(viewer):
@@ -416,42 +443,43 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                 labels = np.where(labels == active_label, 0, labels)
                 labels = np.where(_labels == 1, active_label, labels)
                 viewer.active_layer.data = labels
-        
 
         # Build UI
-        viewer.window.add_dock_widget(save_label_layer, area = "top")
+        viewer.window.add_dock_widget(save_label_layer, area="top")
         # viewer.window.add_dock_widget(delete_label_layer, area = "top")
 
-        viewer.window.add_dock_widget(save_background_layer, area = "top")
-        viewer.window.add_dock_widget(delete_background_layer, area = "top")
-       
-        viewer.window.add_dock_widget(load_clf_and_apply, area = "bottom")
+        viewer.window.add_dock_widget(save_background_layer, area="top")
+        viewer.window.add_dock_widget(delete_background_layer, area="top")
+
+        viewer.window.add_dock_widget(load_clf_and_apply, area="bottom")
         viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
 
-        viewer.window.add_dock_widget(refresh, area = "top")
+        viewer.window.add_dock_widget(refresh, area="top")
 
-        viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "bottom")
-        viewer.layers.events.changed.connect(semiautomatic_segmentation_random_forest.reset_choices)
+        viewer.window.add_dock_widget(
+            semiautomatic_segmentation_random_forest, area="bottom")
+        viewer.layers.events.changed.connect(
+            semiautomatic_segmentation_random_forest.reset_choices)
 
-        viewer.window.add_dock_widget(remove_small_objects, area = "bottom")
+        viewer.window.add_dock_widget(remove_small_objects, area="bottom")
 
-        viewer.window.add_dock_widget(remove_small_holes, area = "bottom")
+        viewer.window.add_dock_widget(remove_small_holes, area="bottom")
 
-        viewer.window.add_dock_widget(area_closing, area = "bottom")
+        viewer.window.add_dock_widget(area_closing, area="bottom")
 
-        viewer.window.add_dock_widget(watershed, area = "bottom")
+        viewer.window.add_dock_widget(watershed, area="bottom")
 
-        viewer.window.add_dock_widget(binary_mask_to_multilabel, area = "top")
-        viewer.window.add_dock_widget(multiclass_mask_to_binary, area = "top")
-        
-        viewer.window.add_dock_widget(apply_stardist, area = "top")
-        
-        
-########### REMOVED FUNCTIONS
+        viewer.window.add_dock_widget(binary_mask_to_multilabel, area="top")
+        viewer.window.add_dock_widget(multiclass_mask_to_binary, area="top")
+
+        viewer.window.add_dock_widget(apply_stardist, area="top")
+
+
+# REMOVED FUNCTIONS
         # @magicgui(call_button = "Delete Label")
         # def delete_label_layer():
         #     '''
-        #     This function deletes a layer from the database, the fileserver, but not from the image itself. 
+        #     This function deletes a layer from the database, the fileserver, but not from the image itself.
         #     If you delete a layer as a mistake, you can simply choose it in the napari viewer and add it again via "save_label_layer"
         #     '''
         #     layer = viewer.active_layer
@@ -470,8 +498,6 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
         #     intImage.delete_result_layer(_layer_id)
 
         #     refresh()
-
-
 
         # viewer.window.add_dock_widget(delete_label_layer, area = "top")
         # viewer.layers.events.changed.connect(delete_label_layer.reset_choices)

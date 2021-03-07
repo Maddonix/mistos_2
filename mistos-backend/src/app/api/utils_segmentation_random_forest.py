@@ -18,8 +18,8 @@ except ImportError:
     class NotFittedError(Exception):
         pass
 
-    
-def semi_automatic_classification(img_array, label_array, multichannel = False, remove_bg_label = True):
+
+def semi_automatic_classification(img_array, label_array, multichannel=False, remove_bg_label=True):
     '''
     Expects a image of 2 or 3 Dimensions as well as labels for it. Returns the completely labeled image.
     Background should always be labeled with class 1:
@@ -28,22 +28,24 @@ def semi_automatic_classification(img_array, label_array, multichannel = False, 
     clf = RandomForestClassifier(
         n_estimators=50, n_jobs=-1, max_depth=8, max_samples=0.05
     )
-        
-    features = multiscale_basic_features(img_array, multichannel = multichannel)
+
+    features = multiscale_basic_features(img_array, multichannel=multichannel)
     classified_img, clf = fit_segmenter(label_array, features, clf)
-    
+
     # I
     if remove_bg_label:
-        classified_img[classified_img>0] = classified_img[classified_img>0] - 1
+        classified_img[classified_img >
+                       0] = classified_img[classified_img > 0] - 1
 
     if len(classified_img.shape) == 2:
         classified_img = classified_img[np.newaxis, ...]
-    
+
     return classified_img, clf
 
-# Taken and adapted (mostly directly copied) from 
+# Taken and adapted (mostly directly copied) from
 # https://github.com/plotly/dash-sample-apps/blob/master/apps/dash-image-segmentation/trainable_segmentation.py
 # 23.01.2021, 11:10
+
 
 def _texture_filter(gaussian_filtered):
     H_elems = [
@@ -195,14 +197,14 @@ def fit_segmenter(labels, features, clf):
     return output, clf
 
 
-def predict_proba_segmenter(features, clf, threshold = 0.5):
+def predict_proba_segmenter(features, clf, threshold=0.5):
     sh = features.shape
     features = features.reshape((sh[0], np.prod(sh[1:]))).T
     try:
         # Returns array of shape (n_pixels, 2). Last dimension is (P(false), P(True)). For Multiclass, a List of len n_classes is returned
-        predicted_labels = clf.predict_proba(features)[:,1]
-        predicted_labels = np.where(predicted_labels>threshold, 1, 0)
-        
+        predicted_labels = clf.predict_proba(features)[:, 1]
+        predicted_labels = np.where(predicted_labels > threshold, 1, 0)
+
     except NotFittedError:
         raise NotFittedError(
             "You must train the classifier `clf` first"
@@ -211,6 +213,7 @@ def predict_proba_segmenter(features, clf, threshold = 0.5):
         )
     output = predicted_labels.reshape(sh[1:])
     return output
+
 
 def predict_segmenter(features, clf):
     """

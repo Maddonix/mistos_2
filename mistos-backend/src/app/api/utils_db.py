@@ -1,5 +1,6 @@
 import app.api.classes_db as c_db
 
+
 def experiment_result_sql_to_db(sql_experiment_group):
     kwargs = {
         "uid": sql_experiment_group.id,
@@ -12,7 +13,7 @@ def experiment_result_sql_to_db(sql_experiment_group):
     }
 
     return c_db.DbExperimentResult(**kwargs)
-    
+
 
 def measurement_sql_to_db(sql_measurement):
     kwargs = {
@@ -27,6 +28,7 @@ def measurement_sql_to_db(sql_measurement):
 
     return c_db.DbResultMeasurement(**kwargs)
 
+
 def result_layer_sql_to_db(sql_result_layer):
     kwargs = {
         "uid": sql_result_layer.id,
@@ -36,12 +38,15 @@ def result_layer_sql_to_db(sql_result_layer):
         "image_id": sql_result_layer.image_id,
         "layer_type": sql_result_layer.layer_type
     }
-    
+
     return c_db.DbImageResultLayer(**kwargs)
 
+
 def image_sql_to_db(sql_image):
-    result_layers = [result_layer_sql_to_db(result_layer) for result_layer in sql_image.result_layers]
-    measurements = [measurement_sql_to_db(measurement) for measurement in sql_image.measurements]
+    result_layers = [result_layer_sql_to_db(
+        result_layer) for result_layer in sql_image.result_layers]
+    measurements = [measurement_sql_to_db(
+        measurement) for measurement in sql_image.measurements]
 
     kwargs = {
         "uid": sql_image.id,
@@ -59,6 +64,7 @@ def image_sql_to_db(sql_image):
     db_image = c_db.DbImage(**kwargs)
 
     return db_image
+
 
 def experiment_group_sql_to_db(sql_experiment_group):
     images = [image_sql_to_db(img) for img in sql_experiment_group.images]
@@ -78,11 +84,13 @@ def experiment_group_sql_to_db(sql_experiment_group):
 
     return c_db.DbExperimentGroup(**kwargs)
 
+
 def experiment_sql_to_db(sql_experiment):
     '''
     This function expects a sql_experiment object and returns a db_experiment object
     '''
-    experiment_groups = [experiment_group_sql_to_db(exp_g) for exp_g in sql_experiment.experiment_groups]
+    experiment_groups = [experiment_group_sql_to_db(
+        exp_g) for exp_g in sql_experiment.experiment_groups]
     kwargs = {
         "uid": sql_experiment.id,
         "name": sql_experiment.name,
@@ -91,11 +99,12 @@ def experiment_sql_to_db(sql_experiment):
         "tags": sql_experiment.tags,
         "experiment_groups": experiment_groups
     }
-    
+
     return c_db.DbExperiment(**kwargs)
 
+
 def classifier_sql_to_db(sql_classifier):
-    
+
     kwargs = {
         "uid": sql_classifier.id,
         "name": sql_classifier.name,

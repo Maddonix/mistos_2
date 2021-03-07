@@ -15,6 +15,7 @@ def get_db():
     finally:
         db.close()
 
+
 def override_get_db():
     print("Called test override_get_db method")
     try:

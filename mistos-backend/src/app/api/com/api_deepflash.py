@@ -9,7 +9,8 @@ from app.api.com.api_request_models import EstimateGroundTruthRequest, ReadFromP
 
 router = APIRouter()
 
-@router.post("/api/deepflash/estimate_ground_truth", status_code = 200)
+
+@router.post("/api/deepflash/estimate_ground_truth", status_code=200)
 async def estimate_ground_truth(estimate_ground_truth_request: EstimateGroundTruthRequest):
     '''
     API Request to generate ground truth labels for image.
@@ -30,15 +31,16 @@ async def estimate_ground_truth(estimate_ground_truth_request: EstimateGroundTru
 
     for image_id in image_ids:
         images_label_dict[image_id] = []
-    
+
     for i, label_id in enumerate(label_ids):
         images_label_dict[image_ids[i]].append(label_id)
 
     for image_id, label_id_list in images_label_dict.items():
         int_image = crud.read_image_by_uid(image_id)
-        int_image.calculate_ground_truth_layer(label_id_list, suffix = "")
+        int_image.calculate_ground_truth_layer(label_id_list, suffix="")
 
-@router.post("/api/deepflash/read_from_path", status_code = 201)
+
+@router.post("/api/deepflash/read_from_path", status_code=201)
 async def upload_deepflash_model(read_from_path_request: ReadFromPathRequest):
     ''' 
     API Request to read and import a Deepflash model. Expects Folder containing models for an ensemble.
@@ -48,17 +50,18 @@ async def upload_deepflash_model(read_from_path_request: ReadFromPathRequest):
     files = [_ for _ in path.glob("*")]
 
     c_int_classifier_deepflash = c_int.IntClassifier(
-        uid= -1,
-        name= name,
-        clf_type= "deepflash_model",
+        uid=-1,
+        name=name,
+        clf_type="deepflash_model",
         tags=set(),
-        classifier = files, 
-        params = {},
-        metrics = {}
+        classifier=files,
+        params={},
+        metrics={}
     )
     c_int_classifier_deepflash.on_init()
-            
+
     return {"Result": "OK"}
+
 
 @router.post("/api/deepflash/predict_images", status_code=200)
 async def predict_images(predict_images_request: PredictImagesRequest):
@@ -71,6 +74,7 @@ async def predict_images(predict_images_request: PredictImagesRequest):
 
     utils_deepflash.predict_image_list(classifier_id, image_ids, use_tta)
 
+
 @router.post("/api/deepflash/predict_images_3d", status_code=200)
 async def predict_images_3d(predict_images_request: PredictImagesRequest):
     '''
@@ -81,13 +85,14 @@ async def predict_images_3d(predict_images_request: PredictImagesRequest):
     use_tta = predict_images_request.use_tta
     channel = predict_images_request.channel
 
-    utils_deepflash.predict_image_list(classifier_id, image_ids, use_tta, channel = channel, separate_z_slices = True)
+    utils_deepflash.predict_image_list(
+        classifier_id, image_ids, use_tta, channel=channel, separate_z_slices=True)
 
 
-##### TO DO: Adapt to upload and save folder
+# TO DO: Adapt to upload and save folder
 # @router.post("/api/deepflash/upload_model", status_code = 201)
 # async def upload_deepflash_model(file:UploadFile = File(...)):
-#     ''' 
+#     '''
 #     API Request to upload a deepflash model.
 #     '''
 #     path = utils_paths.make_tmp_file_path(file.filename)
@@ -106,7 +111,7 @@ async def predict_images_3d(predict_images_request: PredictImagesRequest):
 #         metrics = {}
 #     )
 #     c_int_classifier_deepflash.on_init()
-            
+
 #     fsr.delete_file(path)
 
 #     return {"Result": "OK"}

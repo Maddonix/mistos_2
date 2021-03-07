@@ -51,9 +51,9 @@
 #         n[-1] = 0
 #     return n, x, im_bw
 
-# def segment_grayscale_2d_image(array, 
-#                                radius_smooth = 5, 
-#                                thresh_min = 0.05, thresh_max = 1, 
+# def segment_grayscale_2d_image(array,
+#                                radius_smooth = 5,
+#                                thresh_min = 0.05, thresh_max = 1,
 #                                radius_close = 6,
 #                                min_object_size = 100
 #                               ):
@@ -61,18 +61,18 @@
 #     This function excpects a single plane greyscale image and returns a labeled mask after image segmentation.
 #     "radius_smooth": int, smoothes values after laplacian edge detection
 #     "thresh_min / thresh_max": values to be accepted as edge after laplacian edge detection
-    
+
 #     '''
 #     #Laplacian edge detection
 #     laplacian = cv2.Laplacian(array,cv2.CV_64F)
 #     laplacian = np.abs(laplacian)
-    
+
 #     # Map to values between -1 and 1
 #     laplacian = laplacian/laplacian.max()
-    
+
 #     # smooth with mean filter
 #     laplacian_smooth = filters.rank.mean(skimage.util.img_as_ubyte(laplacian), skimage.morphology.disk(radius_smooth))
-    
+
 #     # binarize
 #     laplacian_bin = np.zeros_like(laplacian_smooth)
 #     laplacian_bin[(laplacian_smooth >= thresh_min) & (laplacian_smooth <= thresh_max)] = 1
@@ -80,7 +80,7 @@
 
 # #     closing_selem = np.zeros((closing_selem_size,closing_selem_size), np.int)+1
 #     closing_selem = skimage.morphology.disk(radius_close)
-    
+
 #     # fill holes
 #     processed_img = skimage.morphology.binary_closing(processed_img, closing_selem)
 
@@ -91,15 +91,15 @@
 #     local_max_mask[tuple(local_max_coords.T)] = True
 #     markers = skimage.measure.label(local_max_mask)
 #     processed_img = skimage.measure.label(processed_img)
-    
+
 #     # watershed
 #     processed_img = segmentation.watershed(-distance, markers, mask=processed_img, watershed_line = True)
-    
+
 #     # remove small objects
 #     processed_img = remove_small_objects(processed_img, min_object_size)
-    
+
 #     '''
 #     TO DO: Remove large objects
 #     '''
-    
+
 #     return processed_img, laplacian

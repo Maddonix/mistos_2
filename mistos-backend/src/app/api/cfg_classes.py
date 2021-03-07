@@ -1,7 +1,8 @@
 from collections import namedtuple
 
 
-channel_measurement_tuple = namedtuple("channel_measurement", ["channel", "sum", "mean", "applied_bg_correction_per_pixel"])
+channel_measurement_tuple = namedtuple("channel_measurement", [
+                                       "channel", "sum", "mean", "applied_bg_correction_per_pixel"])
 
 result_types = [
     "segmentation",

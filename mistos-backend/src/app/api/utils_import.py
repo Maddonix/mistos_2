@@ -13,17 +13,18 @@ import pickle
 
 # Colormaps
 color_multipliers = {
-    "red":[1,0,0],
-    "green": [0,1,0],
-    "blue": [0,0,1],
-    "teal": [0,1,1],
-    "yellow": [1,1,0]
+    "red": [1, 0, 0],
+    "green": [0, 1, 0],
+    "blue": [0, 0, 1],
+    "teal": [0, 1, 1],
+    "yellow": [1, 1, 0]
 }
 cmaps = ["blue", "green", "red", "yellow", "teal"]
 
 
 #  Start Javabridge for bioformats_importer
-javabridge.start_vm(class_path = bioformats.JARS)
+javabridge.start_vm(class_path=bioformats.JARS)
+
 
 def save_zarr(index, array, metadata_dict, metadata_omexml, filepath_zarr, filepath_metadata):
     '''
@@ -33,15 +34,17 @@ def save_zarr(index, array, metadata_dict, metadata_omexml, filepath_zarr, filep
     metadata_img = metadata_dict["images"][index]
     metadata_img["original_filename"] = metadata_dict["original_filename"]
     with open(filepath_metadata, "w") as file:
-        json.dump(metadata_img, file, indent = 3)
-        
-    metadata_string = metadata_omexml.to_xml(encoding = "utf-8")
-    pretty_xml_str = xml.dom.minidom.parseString(metadata_string).toprettyxml(indent = "\t")
+        json.dump(metadata_img, file, indent=3)
+
+    metadata_string = metadata_omexml.to_xml(encoding="utf-8")
+    pretty_xml_str = xml.dom.minidom.parseString(
+        metadata_string).toprettyxml(indent="\t")
     print("_____________________")
     print(f"SAVING METADATA TO: {filepath_metadata}")
-    with open(filepath_metadata.replace("json", "xml"), "w", encoding = "utf-8") as file:
+    with open(filepath_metadata.replace("json", "xml"), "w", encoding="utf-8") as file:
         file.write(pretty_xml_str)
-    
+
+
 def load_zarr(filepath_zarr, filepath_metadata):
     '''
     Loads Image including Metadata
@@ -51,11 +54,12 @@ def load_zarr(filepath_zarr, filepath_metadata):
     img = zarr.convenience.load(filepath_zarr)
     with open(filepath_metadata, "r") as file:
         metadata_dict = json.load(file)
-    
+
     # Make sure we have 4 dimensions
     assert len(img.shape) == 4
-    
+
     return img, metadata_dict
+
 
 def load_metadata_only(filepath_metadata):
     '''
@@ -66,21 +70,23 @@ def load_metadata_only(filepath_metadata):
 
     return metadata_dict
 
+
 def save_label_layer_to_zarr(array, filepath):
     '''
     Saves label array to zarr
-    '''    
+    '''
     _shape = array.shape
     if len(_shape) == 2:
         zarr.save_array(filepath, array)
-    
+
     elif len(_shape) == 3:
         zarr.save_array(filepath, array)
         # saving process will probably be the same, but i want to keep this in mind
-    
+
     else:
         print(f"Array with shape {_shape} not valid as label")
-        
+
+
 def load_label_layer_from_zarr(filepath):
     '''
     Loads label layer and returns a label layer object
@@ -89,42 +95,59 @@ def load_label_layer_from_zarr(filepath):
 
     return array
 
+
 def acquire_image_metadata_dict(metadata_OMEXML, filename):
     n_series = get_number_of_series(metadata_OMEXML)
-    
+
     my_features = {
         "n_series": n_series,
         "original_filename": filename,
         "images": {i: {} for i in range(n_series)}
     }
-        
+
     for i in range(n_series):
         my_features["images"][i]["image_name"] = metadata_OMEXML.image(i).Name
-        my_features["images"][i]["image_ID"] = metadata_OMEXML.image(i).ID.replace(":", "_")
-        my_features["images"][i]["image_acquisition_date"] = metadata_OMEXML.image(i).AcquisitionDate
+        my_features["images"][i]["image_ID"] = metadata_OMEXML.image(
+            i).ID.replace(":", "_")
+        my_features["images"][i]["image_acquisition_date"] = metadata_OMEXML.image(
+            i).AcquisitionDate
 
-        my_features["images"][i]["pixel_dimensions"] = metadata_OMEXML.image(i).Pixels.DimensionOrder
-        my_features["images"][i]["pixel_type"] = metadata_OMEXML.image(i).Pixels.PixelType
-        my_features["images"][i]["pixel_size_x"] = metadata_OMEXML.image(i).Pixels.SizeX
-        my_features["images"][i]["pixel_size_y"] = metadata_OMEXML.image(i).Pixels.SizeY
-        my_features["images"][i]["pixel_size_z"] = metadata_OMEXML.image(i).Pixels.SizeZ
-        my_features["images"][i]["pixel_size_slices"] = metadata_OMEXML.image(i).Pixels.SizeC
-        my_features["images"][i]["pixel_size_physical_x"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeX
-        my_features["images"][i]["pixel_size_physical_y"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeY
-        my_features["images"][i]["pixel_size_physical_z"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeZ
-        my_features["images"][i]["pixel_size_physical_unit_x"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeXUnit
-        my_features["images"][i]["pixel_size_physical_unit_y"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeYUnit
-        my_features["images"][i]["pixel_size_physical_unit_z"] = metadata_OMEXML.image(i).Pixels.PhysicalSizeZUnit
+        my_features["images"][i]["pixel_dimensions"] = metadata_OMEXML.image(
+            i).Pixels.DimensionOrder
+        my_features["images"][i]["pixel_type"] = metadata_OMEXML.image(
+            i).Pixels.PixelType
+        my_features["images"][i]["pixel_size_x"] = metadata_OMEXML.image(
+            i).Pixels.SizeX
+        my_features["images"][i]["pixel_size_y"] = metadata_OMEXML.image(
+            i).Pixels.SizeY
+        my_features["images"][i]["pixel_size_z"] = metadata_OMEXML.image(
+            i).Pixels.SizeZ
+        my_features["images"][i]["pixel_size_slices"] = metadata_OMEXML.image(
+            i).Pixels.SizeC
+        my_features["images"][i]["pixel_size_physical_x"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeX
+        my_features["images"][i]["pixel_size_physical_y"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeY
+        my_features["images"][i]["pixel_size_physical_z"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeZ
+        my_features["images"][i]["pixel_size_physical_unit_x"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeXUnit
+        my_features["images"][i]["pixel_size_physical_unit_y"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeYUnit
+        my_features["images"][i]["pixel_size_physical_unit_z"] = metadata_OMEXML.image(
+            i).Pixels.PhysicalSizeZUnit
 
-        my_features["images"][i]["n_channels"] = metadata_OMEXML.image(i).Pixels.channel_count # Returns Number of Channels
-        my_features["images"][i]["channel_names"] = [metadata_OMEXML.image(i).Pixels.Channel(n_channel).Name for n_channel in range(my_features["images"][i]["n_channels"])]
-        
+        my_features["images"][i]["n_channels"] = metadata_OMEXML.image(
+            i).Pixels.channel_count  # Returns Number of Channels
+        my_features["images"][i]["channel_names"] = [metadata_OMEXML.image(i).Pixels.Channel(
+            n_channel).Name for n_channel in range(my_features["images"][i]["n_channels"])]
+
         my_features["images"][i]["custom_channel_names"] = my_features["images"][i]["channel_names"]
-        
-        
+
     return my_features
 
-def get_number_of_series(metadata_OMEXML): 
+
+def get_number_of_series(metadata_OMEXML):
     '''
     Iterates over images in metadata_omexml. Returns number of images in series.
     '''
@@ -136,14 +159,15 @@ def get_number_of_series(metadata_OMEXML):
             break
     return i
 
-def read_image_of_series(path, metadata_dict, n_series = 0):
+
+def read_image_of_series(path, metadata_dict, n_series=0):
     '''
     Reads image number n of series from path. 
     Intensity values are rescaled to floats between 0 and 1.
     Returns zarr of shape (z,c,y,x) and metadata_dict.
     '''
     tmp_reader_key = "_"
-    
+
     z_dim = metadata_dict["images"][n_series]["pixel_size_z"]
     x_dim = metadata_dict["images"][n_series]["pixel_size_x"]
     y_dim = metadata_dict["images"][n_series]["pixel_size_y"]
@@ -156,54 +180,57 @@ def read_image_of_series(path, metadata_dict, n_series = 0):
         c_dim,
         y_dim,
         x_dim
-        ), dtype = float 
+    ), dtype=float
     )
-    
+
     for z in range(metadata_dict["images"][n_series]["pixel_size_z"]):
         with bioformats.get_image_reader(tmp_reader_key, path) as reader:
 
-            image = reader.read(series = n_series, z = z, rescale = True)
+            image = reader.read(series=n_series, z=z, rescale=True)
             dim_order = reader.rdr.getDimensionOrder()
-            bioformats.release_image_reader(tmp_reader_key)  
-            
+            bioformats.release_image_reader(tmp_reader_key)
+
         # Special Case: Greyscale Image is read as rgb
         # We transform the "rgb" image to a greyscale image
         if c_dim == 1 and pixel_size_channels == 3:
-            image = skimage.color.rgb2gray(image)            
+            image = skimage.color.rgb2gray(image)
 
         # Special Case: greyscale image
         # Greyscale images will not have a c dimension, we add it
         if c_dim == 1:
-            image = image[:,:, np.newaxis] # Has shape (x,y,c)
-            
-        image = np.moveaxis(image, -1, 0) # Rearrange to fit our dimension convention (c,y,x)
-        
+            image = image[:, :, np.newaxis]  # Has shape (x,y,c)
+
+        # Rearrange to fit our dimension convention (c,y,x)
+        image = np.moveaxis(image, -1, 0)
+
         z_stack[z] = image
-    
+
     return (z_stack, n_series)
 
-def read_image_file(path, n_series = -1, big_file = False):
+
+def read_image_file(path, n_series=-1, big_file=False):
     '''
     Function expects a filepath to a compatible image file (may be series or single image). Returns list of tuples (zarr, metadata_dict,  original_metadata)
     '''
     # First we read the metadata of our image to see what exactly we are expecting
-    # Exit the function if metadata can not be read    
+    # Exit the function if metadata can not be read
     try:
         metadata_string = bioformats.get_omexml_metadata(path)
         metadata_OMEXML = bioformats.OMEXML(metadata_string)
-    except: 
+    except:
         print(f"Could not read image file at {path}")
         print("Make sure it is a compatible file format!")
         return
-    
+
     filename = path.split("/")[-1]
     # Check file size
-    file_size = os.path.getsize(path)/10e5 
+    file_size = os.path.getsize(path)/10e5
     if file_size > 1000:
         big_file = True
         if n_series == -1:
-            print(f"warning, big file with size {os.path.getsize(path)/10e5} mb detected!\nIf you import an image series consider importing only single images to prevent crashes.")
-    
+            print(
+                f"warning, big file with size {os.path.getsize(path)/10e5} mb detected!\nIf you import an image series consider importing only single images to prevent crashes.")
+
     # Create metadata dictionary
     metadata_dict = acquire_image_metadata_dict(metadata_OMEXML, filename)
     _n_series = metadata_dict["n_series"]
@@ -215,14 +242,15 @@ def read_image_file(path, n_series = -1, big_file = False):
     image_list = []
     if n_series == -1:
         for i in range(_n_series):
-            image = read_image_of_series(path, metadata_dict, n_series = i)
+            image = read_image_of_series(path, metadata_dict, n_series=i)
             image_list.append(image)
-            
+
     else:
-        image = read_image_of_series(path, metadata_dict, n_series = n_series)
+        image = read_image_of_series(path, metadata_dict, n_series=n_series)
         image_list.append(image)
-    
+
     return image_list, metadata_dict, metadata_OMEXML
+
 
 def fix_image_metadata(metadata_dict):
     if not metadata_dict["pixel_size_physical_x"]:
@@ -234,12 +262,15 @@ def fix_image_metadata(metadata_dict):
     # dont change z
     if not len(metadata_dict["channel_names"]) == metadata_dict["n_channels"] or None in metadata_dict["channel_names"]:
         print("Channel names do not match channels!")
-        metadata_dict["channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
-        metadata_dict["custom_channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
-        
+        metadata_dict["channel_names"] = [
+            f"not_named {i}" for i in range(metadata_dict["n_channels"])]
+        metadata_dict["custom_channel_names"] = [
+            f"not_named {i}" for i in range(metadata_dict["n_channels"])]
+
     return metadata_dict
 
-def generate_thumbnail(img, cmap_list = cmaps):
+
+def generate_thumbnail(img, cmap_list=cmaps):
     '''
     Function expects an object of shape (z,c,y,x). To generate a thumbnail, the image is c-projected and standard color maps are applied.
     Only a maximum of 5 channels are included in the thumbnail.
@@ -248,7 +279,7 @@ def generate_thumbnail(img, cmap_list = cmaps):
     img -- numpy array of shape (z,c,y,x)
     cmap_list -- (optional) list of colormaps to apply like:  ["blue", "green", "red", "yellow", "teal"]. By changing the order, diffrent channels will get diffrent colormaps.
     '''
-    img = np.array(img).max(axis = 0)
+    img = np.array(img).max(axis=0)
 
     new_shape = (img.shape[1], img.shape[2], 3)
     color_image = np.zeros(new_shape)
@@ -261,7 +292,7 @@ def generate_thumbnail(img, cmap_list = cmaps):
         cmap = color_multipliers[cmaps[channel]]
         img_channel_colored = skimage.color.gray2rgb(img_channel) * cmap
         color_image += img_channel_colored
-        
+
     for _color in range(color_image.shape[2]):
         _color_image = color_image[..., _color]
         _max = _color_image.max()
@@ -271,15 +302,16 @@ def generate_thumbnail(img, cmap_list = cmaps):
             color_image[..., _color] = _color_image
 
     # enhance contrast
-    try: 
-        color_image = exposure.equalize_adapthist(img, clip_limit = 0.1)
-    except: 
+    try:
+        color_image = exposure.equalize_adapthist(img, clip_limit=0.1)
+    except:
         color_image = (color_image + 0.01)/1.01
 
     color_image = (color_image*255).astype(np.uint8)
     return color_image
 
-def import_mistos_image(input, for_experiment = False):
+
+def import_mistos_image(input, for_experiment=False):
     '''
     Expects a path pointing to a valid exported image object file (.pkl) if for_experiment is false.
     Otherwise, expects int_image_object
@@ -298,10 +330,10 @@ def import_mistos_image(input, for_experiment = False):
     layers = int_image.image_result_layers
     measurements = int_image.result_measurements
 
-    #Creating Layers dict: key = old_id, value = new_id
+    # Creating Layers dict: key = old_id, value = new_id
     old_image_id = int_image.uid
     id_dict = {
-        "image": {old_image_id:None},
+        "image": {old_image_id: None},
         "layers": {}
     }
 
@@ -332,6 +364,7 @@ def import_mistos_image(input, for_experiment = False):
 
     return int_image, id_dict
 
+
 def import_mistos_experiment(path):
     '''
     Expects filepath, reads archived experiment file.
@@ -345,11 +378,11 @@ def import_mistos_experiment(path):
         int_experiment = pickle.load(file)
 
     new_experiment = c_int.IntExperiment(
-        uid = -1,
-        name = int_experiment.name, 
-        hint = int_experiment.hint,
-        description = int_experiment.description,
-        tags = int_experiment.tags
+        uid=-1,
+        name=int_experiment.name,
+        hint=int_experiment.hint,
+        description=int_experiment.description,
+        tags=int_experiment.tags
     )
 
     new_experiment.on_init()
@@ -361,18 +394,18 @@ def import_mistos_experiment(path):
         for image in experiment_group.images:
             # id dicts are defined in import_mistos_image
             imported_image_ids.append(image.uid)
-            image, id_dict = import_mistos_image(image, for_experiment = True)
+            image, id_dict = import_mistos_image(image, for_experiment=True)
             group_image_ids.append(image.uid)
             for layer_id in experiment_group.result_layer_ids:
                 if layer_id in id_dict["layers"]:
                     group_layer_ids.append(id_dict["layers"][layer_id])
 
         new_group = c_int.IntExperimentGroup(
-            uid = -1,
-            experiment_id = new_experiment.uid,
-            name = experiment_group.name,
-            hint = experiment_group.hint,
-            description = experiment_group.description
+            uid=-1,
+            experiment_id=new_experiment.uid,
+            name=experiment_group.name,
+            hint=experiment_group.hint,
+            description=experiment_group.description
         )
         new_group.on_init()
         for image_id in group_image_ids:
@@ -384,4 +417,3 @@ def import_mistos_experiment(path):
         #     new_group.calculate_result()
         # except:
         #     pass
-        
