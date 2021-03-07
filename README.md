@@ -1,4 +1,4 @@
-# mistos
+# Mistos
 Microscopy Image Storing-and-Processing System
 
 ## Voraussetzungen
@@ -27,6 +27,10 @@ Microscopy Image Storing-and-Processing System
 - Download and install: 
     - https://www.oracle.com/de/java/technologies/javase-jdk15-downloads.html
     - choose appropriate version (e.g. Windows 64 bit)
+
+### Visual Studio 
+- If you already have a Visual C++ Redistributable ( >14.0 ) you may skip this step
+- Otherwise visit https://www.microsoft.com/de-de/download/details.aspx?id=48145 , download and install 
 
 ### Anaconda
 - If you already have an up-to-date version of anaconda installed, you may skip this section (make sure conda is accessable from commandline!)
@@ -73,6 +77,11 @@ Microscopy Image Storing-and-Processing System
 - run "python python main.py"
 - allow network access for private networks if requested
 
+## Start App After the First Time
+ - Double-click "start_mistos.bat"
+
+## Update Environment
+- Double-click "update_mistos.bat"
 
 ## Troubleshooting
 - Anaconda not added to PATH correctly
