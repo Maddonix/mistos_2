@@ -3,6 +3,7 @@ from app.database import engine
 from . import db_models
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
+from app.api.dependencies import get_db
 
 import app.api.utils_paths as utils_paths
 import app.api.utils_db as utils_db

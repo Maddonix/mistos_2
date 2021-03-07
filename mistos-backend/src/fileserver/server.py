@@ -10,7 +10,6 @@ default_fileserver_dir = default_mistos_dir.joinpath("working_directory")
 using_default = False
 
 path_cfg = pathlib.Path(pathlib.Path.cwd()).parents[1].joinpath("config.json")
-print(path_cfg)
 with open(path_cfg, "r") as _file:
     custom_paths = json.load(_file)
 
@@ -20,8 +19,7 @@ if fileserver.as_posix() == ".":
     using_default = True
     fileserver = default_fileserver_dir
     print(f"fileserver Directory is: {default_fileserver_dir.as_posix()}")
-elif not fileserver.exists():
-    using_default = True
+elif fileserver.exists() == False:
     print("WARNING: fileserver path was set to:")
     print(fileserver.as_posix())
     print("Path doesn't exist, using default fileserver directory")

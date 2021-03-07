@@ -71,10 +71,18 @@ async def predict_images(predict_images_request: PredictImagesRequest):
 
     utils_deepflash.predict_image_list(classifier_id, image_ids, use_tta)
 
-  
-    
+@router.post("/api/deepflash/predict_images_3d", status_code=200)
+async def predict_images_3d(predict_images_request: PredictImagesRequest):
+    '''
+    API Request to read a deepflash model, apply it to a list of images and save the results as image layers
+    '''
+    classifier_id = predict_images_request.classifier_id
+    image_ids = predict_images_request.image_ids
+    use_tta = predict_images_request.use_tta
+    channel = predict_images_request.channel
 
-    
+    utils_deepflash.predict_image_list(classifier_id, image_ids, use_tta, channel = channel, separate_z_slices = True)
+
 
 ##### TO DO: Adapt to upload and save folder
 # @router.post("/api/deepflash/upload_model", status_code = 201)

@@ -73,5 +73,6 @@ class EstimateGroundTruthRequest(BaseModel):
 
 class PredictImagesRequest(BaseModel):
     classifier_id: int
+    channel:int
     image_ids: List[int]
     use_tta: bool = False

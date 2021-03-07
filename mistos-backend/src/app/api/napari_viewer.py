@@ -6,9 +6,12 @@ from typing import List
 from magicgui import magicgui
 import skimage.filters as filters
 import skimage.morphology as morphology
+from skimage import img_as_ubyte, img_as_bool, img_as_uint
+from skimage.morphology import binary_dilation, binary_erosion
 from stardist import random_label_cmap
 from stardist.models import StarDist2D
 import numpy as np
+import os
 
 from app import crud
 from app.api import utils_napari
@@ -17,6 +20,10 @@ from app.api import classes_internal as c_int
 from app.api import utils_segmentation_random_forest as utils_seg_rf
 from app.api import utils_transformations
 
+
+# Activate experimental napari features: async and octree
+os.environ["NAPARI_OCTREE"]="1"
+os.environ["NAPARI_ASYNC"]="1"
 
 lbl_cmap = random_label_cmap()
 
@@ -31,17 +38,11 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
     metadata = intImage.metadata
     image_scale = intImage.get_image_scaling()
     channel_names = intImage.metadata["channel_names"]
-    n_channels = metadata["pixel_size_slices"]
     __ACTIVE_LAYER__ = None
     rf_classifiers = intImage.get_classifiers("rf_segmentation")
 
     if len(channel_names) != image.shape[1]: # axis 1 is channel axis
         channel_names = None
-    
-    # if display_bg_layer == True:
-    #     pass 
-    #     # Currently not needed as bg_layer is part of segmentation layers 
-    #     # intImageResultLayerList.append(self.bg_layer)
 
     if display_segmentation_layers == True:
         intImageResultLayerList.extend(intImage.image_result_layers)
@@ -60,13 +61,15 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
                     call_button = "Nuclei Segmentation", layout = "horizontal"
                 )
         def apply_stardist(): # -> napari.types.LabelsData: #With this syntax we could directly return the layer to the viewer. Since we need to scale it first, this doesn't work
-            """Apply StarDist2D Nuclei Segmentation"""
+            """
+            Apply StarDist2D Nuclei Segmentation
+            """
             layer = viewer.active_layer
-            mode = "max_z"
+            mode = "2D"
 
             if layer:
                 # Max Z Projection
-                if mode == "max_z":
+                if mode == "2D":
                     # Load Model
                     model = StarDist2D.from_pretrained("2D_versatile_fluo")
                     # Max Z
@@ -104,21 +107,27 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
             layer = viewer.active_layer
 
             if layer:
-                print(f"Saving Layer with shape {layer.data.shape} for image with shape {intImage.data.shape}")
+                # Get maximum layer amount to set layers datatype
+                n_labels = layer.data.max()
+                if n_labels == 1:
+                    label_array = img_as_bool(layer.data)
+                elif n_labels <= 255:
+                    label_array = img_as_ubyte(layer.data)
+                else:
+                    label_array = img_as_uint(layer.data)
+
                 new_label_layer = c_int.IntImageResultLayer(
                     uid = -1,
                     name = layer.name,
                     image_id = intImage.uid,
                     layer_type = "labels",
-                    data = layer.data
+                    data = label_array
                 )
 
                 new_label_layer.on_init()
                 intImage.refresh_from_db()
                 # measure layer
                 measurement = intImage.measure_mask_in_image(new_label_layer.uid)
-                print("napari viewer save label layer")
-                print(measurement)
                 refresh()
 
         # @magicgui(call_button = "Delete Label", layout = "horizontal")
@@ -347,10 +356,67 @@ def view(intImage: c_int.IntImage, display_segmentation_layers = False, intImage
 
         # Shortcuts
         # print active layer
-        # @viewer.bind_key('p')
-        # def print_active_layer(viewer):
-        #     print("P pressed")
-        #     print(viewer.active_layer)
+        @viewer.bind_key('p')
+        def print_active_layer(viewer):
+            print("P pressed")
+            print(viewer.active_layer)
+
+        @viewer.bind_key('Control-n')
+        def zoom_on_next_label(viewer):
+            is_label_layer = type(viewer.active_layer) == napari.layers.labels.labels.Labels
+
+            if viewer.active_layer and is_label_layer:
+                # Make sure we have a panzoomcamera
+                assert str(type(viewer.window.qt_viewer.view.camera)) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
+                viewer.active_layer.selected_label += 1
+                layer = np.where(viewer.active_layer.data == viewer.active_layer.selected_label, 1, 0)
+                _zoom_view = utils_napari.get_zoom_view_on_label(layer, image_scale)
+                viewer.window.qt_viewer.view.camera.set_state(_zoom_view)
+                print(image_scale)
+
+
+        @viewer.bind_key('Control-b')
+        def zoom_on_previous_label(viewer):
+            is_label_layer = type(viewer.active_layer) == napari.layers.labels.labels.Labels
+
+            if viewer.active_layer and is_label_layer:
+                # Make sure we have a panzoomcamera
+                assert str(type(viewer.window.qt_viewer.view.camera)) == "<class 'vispy.scene.cameras.panzoom.PanZoomCamera'>"
+                viewer.active_layer.selected_label -= 1
+                layer = np.where(viewer.active_layer.data == viewer.active_layer.selected_label, 1, 0)
+                _zoom_view = utils_napari.get_zoom_view_on_label(layer, image_scale)
+                viewer.window.qt_viewer.view.camera.set_state(_zoom_view)
+
+        @viewer.bind_key('Control-d')
+        def delete_label(viewer):
+            active_layer = viewer.active_layer.selected_label
+            viewer.active_layer.data = np.where(viewer.active_layer.data == active_layer, 0, viewer.active_layer.data)
+
+        @viewer.bind_key('Control-e')
+        def expand_label(viewer):
+            active_layer = viewer.active_layer
+            if active_layer:
+                labels = active_layer.data
+                active_label = viewer.active_layer.selected_label
+                _labels = np.where(labels == active_label, 1, 0)
+                for z in range(labels.shape[0]):
+                    _labels[z, ...] = binary_dilation(_labels[z, ...])
+                labels = np.where(_labels == 1, active_label, labels)
+                viewer.active_layer.data = labels
+
+        @viewer.bind_key('Control-r')
+        def shrink_label(viewer):
+            active_layer = viewer.active_layer
+            if active_layer:
+                labels = active_layer.data
+                active_label = viewer.active_layer.selected_label
+                _labels = np.where(labels == active_label, 1, 0)
+                for z in range(labels.shape[0]):
+                    _labels[z, ...] = binary_erosion(_labels[z, ...])
+                labels = np.where(labels == active_label, 0, labels)
+                labels = np.where(_labels == 1, active_label, labels)
+                viewer.active_layer.data = labels
+        
 
         # Build UI
         viewer.window.add_dock_widget(save_label_layer, area = "top")

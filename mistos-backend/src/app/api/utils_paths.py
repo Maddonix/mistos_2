@@ -137,6 +137,9 @@ def make_clf_test_train_path(uid):
     return path
 
 def make_tmp_file_path(filename):
+    '''
+    Exoects filename, returns enumerated filename in tmp_folder
+    '''
     filelist = [_ for _ in tmp_folder.glob("*")]
     path = tmp_folder.joinpath(f"{len(filelist)}_{filename}").as_posix()
     return path

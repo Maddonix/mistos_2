@@ -1,34 +1,53 @@
 import napari
+from skimage.measure import regionprops
+from vispy.geometry.rect import Rect
+
 
 def add_layer_from_int_layer(viewer, intImageResultLayer, image_scale, visible):
     _name = intImageResultLayer.name
     _type = intImageResultLayer.layer_type
     _data = intImageResultLayer.data
-    
+
     if _type == "labels":
-        viewer.add_labels(_data, name = _name, scale = image_scale, visible = visible)
+        viewer.add_labels(_data, name=_name,
+                          scale=image_scale, visible=visible)
     elif _type == "points":
-        viewer.add_points(_data, name = _name, scale = image_scale, visible = visible)
+        viewer.add_points(_data, name=_name,
+                          scale=image_scale, visible=visible)
     elif _type == "shapes":
-        viewer.add_shapes(_data, name = _name, scale = image_scale, visible = visible)
-             
-def make_image_layer(data, name, image_scale = None, rgb = False, blending = "additive", colormap = "Greys"):
-    layer = napari.layers.image.Image(data, name = name, rgb = False, scale = image_scale, blending = blending, colormap = colormap)
+        viewer.add_shapes(_data, name=_name,
+                          scale=image_scale, visible=visible)
+
+
+def make_image_layer(data, name, image_scale=None, rgb=False, blending="additive", colormap="Greys"):
+    layer = napari.layers.image.Image(
+        data, name=name, rgb=False, scale=image_scale, blending=blending, colormap=colormap)
     return layer
 
 
-# def save_label_layer_to_file(array):
+def get_zoom_view_on_label(layer, image_scale):
+    '''
+    Expects a binary mask with only the label you want to zoom into and a image_scale tuple (z,y,x). Draws bounding box around label, with 1.5 times the width and heigth of the smallest possible bounding box.
+    Returns dictionary suitable to pass to set state of Napari viewer
+    '''
+    layer = layer.max(axis=0)  # max z project
+    _bbox = regionprops(layer)[0].bbox
+    _bbox = [_ for _ in _bbox]
+    print(f"Bounding Box = {_bbox}")
+    _bbox[0] = _bbox[0]*image_scale[-2]
+    _bbox[2] = _bbox[2]*image_scale[-2]
+    _bbox[1] = _bbox[1]*image_scale[-1]
+    _bbox[3] = _bbox[3]*image_scale[-1]
 
+    print(f"Bounding Box after scaling = {_bbox}")
 
-
-# ('Diverging', [
-#             'PiYG', 'PRGn', 'BrBG', 'PuOr', 'RdGy', 'RdBu',
-#             'RdYlBu', 'RdYlGn', 'Spectral', 'coolwarm', 'bwr', 'seismic']),
-# ('Sequential', [
-# 'Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
-# 'YlOrBr', 'YlOrRd', 'OrRd', 'PuRd', 'RdPu', 'BuPu',
-# 'GnBu', 'PuBu', 'YlGnBu', 'PuBuGn', 'BuGn', 'YlGn']),
-# ('Sequential (2)', [
-# 'binary', 'gist_yarg', 'gist_gray', 'gray', 'bone', 'pink',
-# 'spring', 'summer', 'autumn', 'winter', 'cool', 'Wistia',
-# 'hot', 'afmhot', 'gist_heat', 'copper']),
+    x = _bbox[1]
+    y = _bbox[0]
+    w = _bbox[3] - x
+    h = _bbox[2] - y
+    x = x-0.25*w
+    w = 1.5 * w
+    y = y-0.25*h
+    h = 1.5 * h
+    print(Rect(x, y, w, h))
+    return {"rect": Rect(x, y, w, h)}

@@ -11,6 +11,10 @@
                   </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-form-field appearance="fill" style="margin-left: 10px">
+                <mat-label for="selectChannel">Channel (0 to n)</mat-label>
+                <input matInput id="channel" type="number" formControlName="channel">
+            </mat-form-field>
         </form>
     </div>
 </div>
@@ -37,4 +41,5 @@
 </mat-grid-list>
 <hr>
 <button mat-raised-button color="primary" (click)="onPredict()">Predict</button>
+<button mat-raised-button style = "margin-left:5px" color="primary" (click)="onPredict3D()">Predict 3D</button>
 

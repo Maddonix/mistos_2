@@ -28,14 +28,14 @@ def delete_file(path):
         os.remove(path)
     except:
         print(f"file {path} could not be deleted. Add to garbage collection")
-        utils_garbage.add_folder_to_garbage(path)
+        # utils_garbage.add_folder_to_garbage(path)
 
 def delete_folder(path):
     try:
         shutil.rmtree(path)
     except:
         print(f"folder {path} could not be deleted. Add to garbage collection")
-        utils_garbage.add_folder_to_garbage(path)
+        # utils_garbage.add_folder_to_garbage(path)
 
 def save_deepflash_model(model_input_paths, path):
     '''
@@ -69,9 +69,6 @@ def save_thumbnail(image, path):
     imageio.imwrite(path, image)
 
 def save_measurement(measurement, path):
-    print(measurement)
-    print(type(measurement))
-    print(measurement.shape)
     zarr.save_array(path, measurement)
     
 def load_measurement(path):

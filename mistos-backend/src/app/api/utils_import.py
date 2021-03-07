@@ -149,7 +149,7 @@ def read_image_of_series(path, metadata_dict, n_series = 0):
     y_dim = metadata_dict["images"][n_series]["pixel_size_y"]
     c_dim = metadata_dict["images"][n_series]["n_channels"]
     pixel_size_channels = metadata_dict["images"][n_series]["pixel_size_slices"]
-    
+
     # Set dimensions of z stack
     z_stack = np.zeros((
         z_dim,
@@ -232,7 +232,8 @@ def fix_image_metadata(metadata_dict):
         metadata_dict["pixel_size_physical_y"] = 1
         metadata_dict["pixel_size_physical_unit_y"] = "px"
     # dont change z
-    if not len(metadata_dict["channel_names"]) == metadata_dict["n_channels"]:
+    if not len(metadata_dict["channel_names"]) == metadata_dict["n_channels"] or None in metadata_dict["channel_names"]:
+        print("Channel names do not match channels!")
         metadata_dict["channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
         metadata_dict["custom_channel_names"] = [f"not_named {i}" for i in range(metadata_dict["n_channels"])]
         
@@ -286,16 +287,6 @@ def import_mistos_image(input, for_experiment = False):
         - Image data
         - c_int_metadata json
         - Image Metadata (xml and json)
-
-    tbd:
-    - MF: make upload mask for images and experiments (Just Filepaths)
-    - read image, 
-    - read layers into list
-    - read measurements into list
-    - make c_int image and init
-    - make layers and init
-    - make measurements and init
-    - add layers to image
     '''
     if for_experiment == False:
         path = input

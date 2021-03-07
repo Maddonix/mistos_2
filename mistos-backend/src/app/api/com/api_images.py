@@ -92,13 +92,13 @@ async def upload_image(file:UploadFile = File(...)):
 
 
     image_list, metadata_dict, metadata_OMEXML = utils_import.read_image_file(path)
+    print(metadata_dict)
     for image, i in image_list:
             img_zarr = zarr.creation.array(image)
-
             int_image = c_int.IntImage(
                 uid = -1,
                 series_index = i,
-                name = metadata_dict["original_filename"],
+                name = metadata_dict["original_filename"],#.replace("\#", "_"),
                 metadata = metadata_dict, # This is not the finished metadata!
                 data = img_zarr,
                 metadata_omexml = metadata_OMEXML

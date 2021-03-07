@@ -21,6 +21,7 @@ export class PredictComponent implements OnInit {
   thumbnailPaths:string[] = [];
   // Define Dialog Configuration
   dialogConfig = new MatDialogConfig();
+  channel: number = 0;
 
   /////////////////////////// TO DO: GET MODELS FROM BACKEND ///////////////////////////////////////
 
@@ -36,7 +37,8 @@ export class PredictComponent implements OnInit {
       this.imageList = data["imageList"];
       this.models = data["dfClassifierList"];
       this.optionsForm = this.formBuilder.group({
-        "model": new FormControl(null, Validators.required)
+        "model": new FormControl(null, Validators.required),
+        "channel": new FormControl(0)
       });
     });
 
@@ -81,14 +83,26 @@ export class PredictComponent implements OnInit {
   }
 
   onPredict() {
-    console.log(this.optionsForm.value.model);
-    console.log(this.predictImageList);
     let idList = [];
     for (let image of this.predictImageList) {
       idList.push(image.uid);
     };
     this.comService.deepflashPredictImages(
       this.optionsForm.value.model,
+      idList,
+    ).subscribe()
+  }
+
+  onPredict3D() {
+    console.log(this.optionsForm.value.model);
+    console.log(this.predictImageList);
+    let idList = [];
+    for (let image of this.predictImageList) {
+      idList.push(image.uid);
+    };
+    this.comService.deepflashPredictImages3D(
+      this.optionsForm.value.model,
+      this.optionsForm.value.channel,
       idList,
     ).subscribe()
   }

@@ -401,6 +401,19 @@ export class ComService {
             this.serverURL.concat("deepflash/predict_images"),
             {
                 "classifier_id": classifierId,
+                "channel": 0,
+                "image_ids": imageIds,
+                "use_tta": false
+            }
+        )
+    }
+
+    deepflashPredictImages3D(classifierId:number, channel:number, imageIds:number[]) {
+        return this.httpClient.post(
+            this.serverURL.concat("deepflash/predict_images_3d"),
+            {
+                "classifier_id": classifierId,
+                "channel": channel,
                 "image_ids": imageIds,
                 "use_tta": false
             }
