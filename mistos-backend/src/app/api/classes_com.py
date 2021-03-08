@@ -1,8 +1,7 @@
 # pylint:disable=no-name-in-module, import-error
 from pydantic import BaseModel, constr
-from typing import List, Optional, Set, Dict
 from app.api import cfg_classes
-from app.api import classes_db as c_db
+from typing import List, Optional
 
 
 class ComImageResultLayer(BaseModel):
@@ -71,11 +70,6 @@ class ComExperiment(BaseModel):
     description: str
     tags: List[str]
     experimentGroups: List[ComExperimentGroup] = []
-
-    def to_db_class(self):
-        kwargs = self.dict()
-
-        return c_db.DbExperiment(**kwargs)
 
 
 class ComClassifier(BaseModel):

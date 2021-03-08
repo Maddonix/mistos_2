@@ -34,7 +34,7 @@ async def fetch_all_classifiers():
     """
     API request to return a list of all ComImage objects
     """
-    clf_list = utils_com.get_com_clf_list(_type=None)
+    clf_list = utils_com.get_com_clf_list(clf_type=None)
     return clf_list
 
 
@@ -43,7 +43,7 @@ async def fetch_all_df_classifiers():
     """
     API request to return a list of all ComImage objects
     """
-    clf_list = utils_com.get_com_clf_list(_type="deepflash_model")
+    clf_list = utils_com.get_com_clf_list(clf_type="deepflash_model")
     return clf_list
 
 

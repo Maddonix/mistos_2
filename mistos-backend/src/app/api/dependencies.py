@@ -16,6 +16,13 @@ def get_db():
         db.close()
 
 
+def check_sess(sess):
+    '''If session is None, default session is returned, else, session is returned'''
+    if sess == None:
+        sess = get_db().__next__()
+    return sess
+
+
 def override_get_db():
     print("Called test override_get_db method")
     try:

@@ -1,11 +1,11 @@
 # pylint:disable=no-name-in-module, import-error
-from fastapi import APIRouter, Header, Response
+from fastapi import APIRouter, Response
 import app.api.utils_com as utils_com
 import app.api.utils_export as utils_export
 import app.api.utils_import as utils_import
 import pathlib
-from typing import Any
 from app import crud
+from app.api.db_classes.db_experiment import DbExperiment
 from app.api.com.api_request_models import (CreateExperimentRequest, DeleteExperimentGroupRequest, NewExperimentGroupRequest,
                                             DeleteExperimentRequest, UpdateHintRequest, UpdateDescriptionRequest, UpdateNameRequest, UpdateExperimentGroupImagesRequest,
                                             DeleteImageFromExperimentGroupRequest, AddLayerToGroupRequest, ReadFromPathRequest, CalculateExperimentResultsRequest, ExportExperimentRequest)
@@ -44,7 +44,8 @@ async def create_experiment(data: CreateExperimentRequest):
     '''
     API request to create a new experiment
     '''
-    db_experiment = data.experiment.to_db_class()
+    db_experiment_kwargs = data.experiment.dict()
+    db_experiment = DbExperiment(**db_experiment_kwargs)
     db_experiment.create_in_db()
     print("api experiments, create experiment:")
     print(db_experiment)
