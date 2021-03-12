@@ -1,6 +1,9 @@
 import napari
 from skimage.measure import regionprops
 from vispy.geometry.rect import Rect
+import numpy as np
+import skimage.morphology as morphology
+from app.api import utils_transformations
 
 
 def add_layer_from_int_layer(viewer, intImageResultLayer, image_scale, visible):
@@ -51,3 +54,39 @@ def get_zoom_view_on_label(layer, image_scale):
     h = 1.5 * h
     print(Rect(x, y, w, h))
     return {"rect": Rect(x, y, w, h)}
+
+
+def _remove_small_objects(segmentation_labels, px: int, conn: int):
+    '''
+    Method to remove instances with less pixels (grouping by connectivity) than px.
+    Returns label array without these instances.
+
+    Parameters:
+
+        - segmentation labels: array of shape z,y,x
+        - px: labels smaller than px will be deleted
+        - conn: connectivity used
+
+    '''
+    shape = segmentation_labels.shape
+    if segmentation_labels.max() == 1:
+        segmentation_labels = segmentation_labels.astype(bool)
+    _segmentation_labels = morphology.remove_small_objects(
+        segmentation_labels, px, conn)
+    assert shape == segmentation_labels.shape
+    return _segmentation_labels
+
+
+def _remove_small_holes(segmentation_labels, px: int, conn: int):
+    shape = segmentation_labels.shape
+    if segmentation_labels.max() == 1:
+        is_binary = True
+    else:
+        is_binary = False
+    segmentation_labels = morphology.remove_small_holes(
+        segmentation_labels, px, conn)
+    if is_binary == False:
+        segmentation_labels, _classes = utils_transformations.binary_mask_to_multilabel(
+            segmentation_labels)
+    assert shape == segmentation_labels.shape
+    return segmentation_labels

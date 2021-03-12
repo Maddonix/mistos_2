@@ -14,17 +14,22 @@ export class ExportExperimentComponent implements OnInit {
     private formbuilder: FormBuilder,
     private dialogRef: MatDialogRef<ExportExperimentComponent>
     // @Inject(MAT_DIALOG_DATA) public data: any //like this we could inject data into our dialog
-  ) {}
+  ) { }
 
 
-    
+
   ngOnInit(): void {
     this.form = this.formbuilder.group({
       images: false,
       masks: false,
+      rois: false,
       rescaled: false,
-      xDim: new FormControl(1024),
-      yDim: new FormControl(1024)
+      z_projection: false,
+      masks_binary: false,
+      masks_png: false,
+      images_single_channel: new FormControl(-1), //Add validator to make only integers from -1 (means no single channel export) to n_channels-1 available!
+      x_dim: new FormControl(1024),
+      y_dim: new FormControl(1024)
     })
     this.form.enable();
   }

@@ -1,8 +1,24 @@
 app.api package
 ===============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   app.api.classes
+
 Submodules
 ----------
+
+app.api.cfg\_classes module
+---------------------------
+
+.. automodule:: app.api.cfg_classes
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 app.api.classes\_com module
 ---------------------------
@@ -12,18 +28,10 @@ app.api.classes\_com module
    :undoc-members:
    :show-inheritance:
 
-app.api.classes\_db module
---------------------------
+app.api.dependencies module
+---------------------------
 
-.. automodule:: app.api.classes_db
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-app.api.classes\_internal module
---------------------------------
-
-.. automodule:: app.api.classes_internal
+.. automodule:: app.api.dependencies
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,10 +44,50 @@ app.api.napari\_viewer module
    :undoc-members:
    :show-inheritance:
 
-app.api.utils\_classes module
+app.api.napari\_widgets module
+------------------------------
+
+.. automodule:: app.api.napari_widgets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.api.utils\_com module
+-------------------------
+
+.. automodule:: app.api.utils_com
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.api.utils\_db module
+------------------------
+
+.. automodule:: app.api.utils_db
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.api.utils\_deepflash module
+-------------------------------
+
+.. automodule:: app.api.utils_deepflash
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.api.utils\_export module
+----------------------------
+
+.. automodule:: app.api.utils_export
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+app.api.utils\_garbage module
 -----------------------------
 
-.. automodule:: app.api.utils_classes
+.. automodule:: app.api.utils_garbage
    :members:
    :undoc-members:
    :show-inheritance:

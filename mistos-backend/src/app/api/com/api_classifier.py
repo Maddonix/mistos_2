@@ -32,7 +32,7 @@ async def fetch_rf_classifier_by_id(
 @router.get("/api/classifier/fetch_all", status_code=200)
 async def fetch_all_classifiers():
     """
-    API request to return a list of all ComImage objects
+    API request to return a list of all ComClassifier objects
     """
     clf_list = utils_com.get_com_clf_list(clf_type=None)
     return clf_list

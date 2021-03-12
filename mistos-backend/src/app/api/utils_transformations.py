@@ -41,7 +41,7 @@ def multiclass_mask_to_binary(mask):
     return mask, classes
 
 
-def binary_mask_to_multilabel(mask, watershed=True):
+def binary_mask_to_multilabel(mask):
     '''
     Expects a mask of type boolean and shape (z,y,x).
     Returns a multiclass mask and a list of unique labels. Classes are integers for each calculated individual object. 
@@ -78,9 +78,9 @@ def binary_closing(mask, d):
 
 def z_project(image_array, mode="max"):
     '''
-    Expects an image array of shape (z,c,y,x) and a mode.
+    Expects an image array of shape (z,c,y,x) or (z,y,x) and a mode.
     Mode must a value of ["max", "min"].
-    Returns an array of shape (c,y,x)
+    Returns an array of shape (1,c,y,x)
     '''
 
     # axis for z projection is 0
@@ -93,5 +93,25 @@ def z_project(image_array, mode="max"):
             f"{mode} is not a valid mode.\nvalue must be one of: ['max', 'min']")
         print("Defaulting to max z projection")
         image_array_projected = image_array.max(axis=0)
-
+    image_array_projected = image_array_projected[np.newaxis, ...]
     return image_array_projected
+
+
+def rescale_image(image_array, x_dim: int, y_dim: int):
+    '''
+    Method expects image array (z,c,y,x) and x and y dimensions. if x and y dimensions are larger than image, image is zero padded at array ends. else, image is cropped at array ends.
+    Returns array of shape (z,c, y_dim, x_dim)
+    '''
+    image_array_shape = image_array.shape
+    image_array_resized = np.zeros((
+        image_array_shape[0],
+        image_array_shape[1],
+        y_dim,
+        x_dim
+    ))
+    if x_dim > image_array_shape[2]:
+        x_dim = image_array_shape[2]
+    if y_dim > image_array_shape[-1]:
+        y_dim = image_array_shape[-1]
+    image_array_resized = image_array[:, :, :y_dim, :x_dim]
+    return image_array_resized

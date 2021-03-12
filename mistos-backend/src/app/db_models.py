@@ -7,7 +7,8 @@ from .database import Base
 experiment_groups_images_association_table = Table(
     "experiment_groups_images_association_table",
     Base.metadata,
-    Column("experiment_group_ids", ForeignKey("experiment_group.id")),
+    Column("experiment_group_ids", ForeignKey(
+        "experiment_group.id")),
     Column("image_ids", ForeignKey("image.id"))
 )
 

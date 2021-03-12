@@ -5,7 +5,7 @@ import app.api.utils_export as utils_export
 import app.api.utils_import as utils_import
 import pathlib
 from app import crud
-from app.api.db_classes.db_experiment import DbExperiment
+from app.api.classes import DbExperiment
 from app.api.com.api_request_models import (CreateExperimentRequest, DeleteExperimentGroupRequest, NewExperimentGroupRequest,
                                             DeleteExperimentRequest, UpdateHintRequest, UpdateDescriptionRequest, UpdateNameRequest, UpdateExperimentGroupImagesRequest,
                                             DeleteImageFromExperimentGroupRequest, AddLayerToGroupRequest, ReadFromPathRequest, CalculateExperimentResultsRequest, ExportExperimentRequest)
@@ -51,7 +51,7 @@ async def create_experiment(data: CreateExperimentRequest):
     print(db_experiment)
 
 
-@router.post("/api/experiments/new_group_by_id", status_code=200)
+@router.post("/api/experiments/new_group_by_id", status_code=201)
 async def new_experiment_group_by_id(new_experiment_group_request: NewExperimentGroupRequest):
     '''
     API request to create a new experiment group. Expects an 
@@ -71,8 +71,6 @@ async def delete_experiment_group_by_id(delete_experiment_group_request: DeleteE
     '''
     API request to delete an experiment group. Expects an DeleteExperimentGroupRequest
     '''
-    print("api experiments_delete experiment group")
-    print(delete_experiment_group_request)
     db_experiment = crud.read_experiment_by_uid(
         delete_experiment_group_request.experiment_id)
     db_experiment.delete_experiment_group(
@@ -84,7 +82,6 @@ async def delete_experiment_by_id(delete_experiment_request: DeleteExperimentReq
     '''
     API request to delete an experiment. Expects an DeleteExperimentRequest
     '''
-    print("api experiments_delete experiment group")
     db_experiment = crud.read_experiment_by_uid(
         delete_experiment_request.experiment_id)
     db_experiment.delete()
@@ -195,25 +192,34 @@ async def delete_image_from_experiment_group(delete_image_from_experiment_group_
         delete_image_from_experiment_group_request.image_id)
 
 
-@router.post("/api/experiments/export_experiment", status_code=200)
+@router.post("/api/experiments/export_experiment", status_code=201)
 async def export_experiment(export_experiment_request: ExportExperimentRequest):
     '''
     API Request to export an experiment
+
+    export_experiment_request.export_request must include:
+        export_types: dict
+        images: bool
+        masks: bool
+        rois: bool
+        rescaled: bool
+        x_dim: int
+        y_dim: int
     '''
     print(export_experiment_request)
     int_experiment = crud.read_experiment_by_uid(
         export_experiment_request.experiment_id).to_int_class()
 
-    int_experiment.export_experiment(
-        **export_experiment_request.export_request)
+    int_experiment.export_experiment(export_experiment_request.export_request)
 
 
-@router.get("/api/experiments/export_mistos_experiment/{experiment_id}")
+@router.get("/api/experiments/export_mistos_experiment/{experiment_id}", status_code=201)
 async def export_mistos_experiment(experiment_id: str):
     '''
     API request to export a mistos experiment to the export folder
     '''
-    utils_export.export_mistos_experiment(int(experiment_id))
+    path = utils_export.export_mistos_experiment(int(experiment_id)).as_posix()
+    return {"path": path}
 
 
 @router.post("/api/experiments/import_mistos_experiment", status_code=201)

@@ -5,11 +5,17 @@ import bioformats
 import numpy as np
 import json
 import xml
-import app.api.classes_internal as c_int
+from app.api import utils_transformations
+import app.api.classes as classes
 import skimage
 from skimage import exposure
 import os
 import pickle
+from pathlib import Path
+import warnings
+from skimage.io import imread
+import roifile
+from skimage.draw import polygon2mask
 
 # Colormaps
 color_multipliers = {
@@ -21,44 +27,50 @@ color_multipliers = {
 }
 cmaps = ["blue", "green", "red", "yellow", "teal"]
 
-
-#  Start Javabridge for bioformats_importer
 javabridge.start_vm(class_path=bioformats.JARS)
 
 
-def save_zarr(index, array, metadata_dict, metadata_omexml, filepath_zarr, filepath_metadata):
-    '''
-    Saves Image including Metadata
-    '''
-    zarr.save_array(filepath_zarr, array)
-    metadata_img = metadata_dict["images"][index]
-    metadata_img["original_filename"] = metadata_dict["original_filename"]
-    with open(filepath_metadata, "w") as file:
-        json.dump(metadata_img, file, indent=3)
-
-    metadata_string = metadata_omexml.to_xml(encoding="utf-8")
-    pretty_xml_str = xml.dom.minidom.parseString(
-        metadata_string).toprettyxml(indent="\t")
-    print("_____________________")
-    print(f"SAVING METADATA TO: {filepath_metadata}")
-    with open(filepath_metadata.replace("json", "xml"), "w", encoding="utf-8") as file:
-        file.write(pretty_xml_str)
+def start_jvm():
+    javabridge.start_vm(class_path=bioformats.JARS)
 
 
-def load_zarr(filepath_zarr, filepath_metadata):
-    '''
-    Loads Image including Metadata
-    '''
-    # id will be passed from db in future
-    # hint and description will be passed as string or filepath to textfile from db
-    img = zarr.convenience.load(filepath_zarr)
-    with open(filepath_metadata, "r") as file:
-        metadata_dict = json.load(file)
+def kill_jvm():
+    javabridge.kill_jvm()
 
-    # Make sure we have 4 dimensions
-    assert len(img.shape) == 4
 
-    return img, metadata_dict
+def read_mask(path: Path):
+    # experimental feature!
+    warnings.warn("Experimental Feature!")
+    try:
+        mask = imread(path)
+    except:
+        warnings.warn("Could not load image!")
+
+    _shape = mask.shape
+    print(f"shape: {_shape}")
+    if len(_shape) == 6:
+        mask = mask[0, :, 0, :, :, 0]
+        return mask
+    elif len(_shape) == 2:
+        mask = mask[np.newaxis, ...]
+        mask = utils_transformations.binary_mask_to_multilabel(mask)[0]
+        return mask
+    else:
+        return None
+
+
+def read_roi(path: Path, image_shape):
+    rois = roifile.ImagejRoi.fromfile(path)
+    if path.suffix == ".roi":
+        rois = [rois]
+    polys = [_.coordinates() for _ in rois]
+    mask_shape_2d = (image_shape[-2], image_shape[-1])
+    mask = np.zeros(mask_shape_2d)
+    for i, polygon in enumerate(polys):
+        polygon_mask = polygon2mask(mask_shape_2d, np.flip(polygon, axis=1))
+        mask[polygon_mask] = i+1
+    mask = mask[np.newaxis, ...]
+    return mask
 
 
 def load_metadata_only(filepath_metadata):
@@ -69,31 +81,6 @@ def load_metadata_only(filepath_metadata):
         metadata_dict = json.load(file)
 
     return metadata_dict
-
-
-def save_label_layer_to_zarr(array, filepath):
-    '''
-    Saves label array to zarr
-    '''
-    _shape = array.shape
-    if len(_shape) == 2:
-        zarr.save_array(filepath, array)
-
-    elif len(_shape) == 3:
-        zarr.save_array(filepath, array)
-        # saving process will probably be the same, but i want to keep this in mind
-
-    else:
-        print(f"Array with shape {_shape} not valid as label")
-
-
-def load_label_layer_from_zarr(filepath):
-    '''
-    Loads label layer and returns a label layer object
-    '''
-    array = zarr.convenience.load(filepath)
-
-    return array
 
 
 def acquire_image_metadata_dict(metadata_OMEXML, filename):
@@ -166,6 +153,8 @@ def read_image_of_series(path, metadata_dict, n_series=0):
     Intensity values are rescaled to floats between 0 and 1.
     Returns zarr of shape (z,c,y,x) and metadata_dict.
     '''
+    #  Start Javabridge for bioformats_importer
+
     tmp_reader_key = "_"
 
     z_dim = metadata_dict["images"][n_series]["pixel_size_z"]
@@ -377,7 +366,7 @@ def import_mistos_experiment(path):
     with open(path, "rb") as file:
         int_experiment = pickle.load(file)
 
-    new_experiment = c_int.IntExperiment(
+    new_experiment = classes.IntExperiment(
         uid=-1,
         name=int_experiment.name,
         hint=int_experiment.hint,
@@ -400,7 +389,7 @@ def import_mistos_experiment(path):
                 if layer_id in id_dict["layers"]:
                     group_layer_ids.append(id_dict["layers"][layer_id])
 
-        new_group = c_int.IntExperimentGroup(
+        new_group = classes.IntExperimentGroup(
             uid=-1,
             experiment_id=new_experiment.uid,
             name=experiment_group.name,

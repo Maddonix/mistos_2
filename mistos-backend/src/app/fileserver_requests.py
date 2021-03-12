@@ -6,42 +6,24 @@ import zarr
 import pathlib
 import pandas as pd
 import imageio
-from app.api import utils_garbage
 from shutil import copyfile
+from typing import List
+import xml
 
 
-def create_folder(path):
+def create_folder(path: pathlib.Path):
     os.mkdir(path)
 
 
-def check_path_exists(path):
-    '''
-    if path leads to file or folder, return true
-    '''
-    _path = pathlib.Path(path)
-    if _path.exists():
-        return True
-    else:
-        return False
+def delete_file(path: pathlib.Path):
+    os.remove(path)
 
 
-def delete_file(path):
-    try:
-        os.remove(path)
-    except:
-        print(f"file {path} could not be deleted. Add to garbage collection")
-        # utils_garbage.add_folder_to_garbage(path)
+def delete_folder(path: pathlib.Path):
+    shutil.rmtree(path)
 
 
-def delete_folder(path):
-    try:
-        shutil.rmtree(path)
-    except:
-        print(f"folder {path} could not be deleted. Add to garbage collection")
-        # utils_garbage.add_folder_to_garbage(path)
-
-
-def save_deepflash_model(model_input_paths, path):
+def save_deepflash_model(model_input_paths: List[pathlib.Path], path: pathlib.Path):
     '''
     keyword arguments:
     model_input_paths -- list of pathlib.Path objects pointing to model files
@@ -58,81 +40,105 @@ def save_deepflash_model(model_input_paths, path):
         copyfile(input_path, model_path)
 
 
-def load_deepflash_model(path):
+def load_deepflash_model(path: pathlib.Path):
     with open(path, "rb") as _file:
         model = pickle.load(_file)
     return model
 
 
-def save_zarr(array, path):
+def save_zarr(array, path: pathlib.Path):
+    path = path.as_posix()
     zarr.save_array(path, array)
 
 
-def save_json(dictionary, path):
+def load_zarr(path: pathlib.Path):
+    path = path.as_posix()
+    return zarr.convenience.load(path)
+
+
+def save_json(dictionary: dict, path: pathlib.Path):
     with open(path, "w") as file:
         json.dump(dictionary, file, indent=3)
 
 
-def save_thumbnail(image, path):
+def load_json(path):
+    with open(path, "r") as file:
+        dictionary = json.load(file)
+    return dictionary
+
+
+def save_thumbnail(image, path: pathlib.Path):
+    '''
+    image format?
+    '''
     imageio.imwrite(path, image)
 
 
-def save_measurement(measurement, path):
+def save_measurement(measurement, path: pathlib.Path):
+    '''
+    format?
+    '''
+    path = path.as_posix()
     zarr.save_array(path, measurement)
 
 
-def load_measurement(path):
+def load_measurement(path: pathlib.Path):
+    path = path.as_posix()
     measurement = zarr.convenience.load(path)
     return measurement
 
 
-def save_measurement_summary(measurement_summary, path):
+def save_measurement_summary(measurement_summary, path: pathlib.Path):
     with open(path, "w") as _file:
         json.dump(measurement_summary, _file)
 
 
-def load_measurement_summary(path):
+def load_measurement_summary(path: pathlib.Path):
     with open(path, "r") as _file:
         measurement_summary = json.load(_file)
     return measurement_summary
 
 
-def save_result_df(result_df, path):
+def save_result_df(result_df, path: pathlib.Path):
     result_df.to_excel(path)
 
 
-def load_result_df(path):
+def load_result_df(path: pathlib.Path):
     return pd.read_excel(path, index_col=0)
 
 
-def load_metadata(path):
-    with open(path, "r") as _file:
-        metadata = json.load(_file)
-    return metadata
-
-
-def save_metadata(metadata, path):
+def save_metadata(metadata, path: pathlib.Path):
     with open(path, "w") as _file:
         json.dump(metadata, _file)
 
 
-def save_classifier(clf, path):
+def save_metadata_xml(metadata: str, path: pathlib.Path):
+    with open(path, "w", encoding="utf-8") as file:
+        file.write(metadata)
+
+
+def load_metadata_xml(path: pathlib.Path):
+    path = path.as_posix()
+    return xml.dom.minidom.parse(path)
+
+
+def save_classifier(clf, path: pathlib.Path):
     with open(path, "wb") as _file:
         pickle.dump(clf, _file)
 
 
-def load_classifier(path):
+def load_classifier(path: pathlib.Path):
     with open(path, "rb") as _file:
         clf = pickle.load(_file)
     return clf
 
 
-def save_classifier_test_train(test_train, path):
+def save_classifier_test_train(test_train, path: pathlib.Path):
     with open(path, "wb") as _file:
         pickle.dump(test_train, _file)
 
 
-def load_classifier_test_train(path):
+def load_classifier_test_train(path: pathlib.Path):
     with open(path, "rb") as _file:
         test_train = pickle.load(_file)
     return test_train

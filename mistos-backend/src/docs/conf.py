@@ -18,8 +18,11 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'Mistos'
-copyright = '2021, Thomas Joachim Lux'
-author = 'Thomas Joachim Lux'
+copyright = '2021, Thomas J. Lux'
+author = 'Thomas J. Lux'
+
+# The full version, including alpha/beta/rc tags
+release = '12.03.2021'
 
 
 # -- General configuration ---------------------------------------------------

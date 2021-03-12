@@ -4,24 +4,41 @@
     <form [formGroup]="form">
         <!-- name -->
         <div>
-            <mat-checkbox formControlName="images">Include Images</mat-checkbox>
+            <mat-checkbox formControlName="images">Include Images?</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="masks">Include Masks</mat-checkbox>
+            <mat-checkbox formControlName="masks">Include Masks?</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="rescaled">Include rescaled Images and Masks</mat-checkbox>
+            <mat-checkbox formControlName="rescaled">Include rescaled Images and Masks?</mat-checkbox>
+        </div>
+        <div>
+            <mat-checkbox formControlName="z_projection">Export as max-z-projection?</mat-checkbox>
+        </div>
+        <div>
+            <mat-checkbox formControlName="masks_binary">Export masks as binary labelled masks?</mat-checkbox>
+        </div>
+        <div>
+            <mat-checkbox formControlName="masks_png">Export masks as .png files?</mat-checkbox>
         </div>
         <div>
             <mat-form-field>
-                <mat-label for="xDim">x-dimension</mat-label>
-                <input matInput id="xDim" type="number" formControlName="xDim">
+                <mat-label for="images_single_channel"
+                    matTooltip="-1 will export all channels, all other option just a single channel. For an image with 3 channels, valid options are -1,0,1,2">
+                    Channel to export</mat-label>
+                <input matInput id="images_single_channel" type="number" formControlName="images_single_channel">
             </mat-form-field>
         </div>
         <div>
             <mat-form-field>
-                <mat-label for="yDim">y-dimension</mat-label>
-                <input matInput id="yDim" type="number" formControlName="yDim">
+                <mat-label for="x_dim">x-dimension</mat-label>
+                <input matInput id="x_dim" type="number" formControlName="x_dim">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label for="y_dim">y-dimension</mat-label>
+                <input matInput id="y_dim" type="number" formControlName="y_dim">
             </mat-form-field>
         </div>
     </form>

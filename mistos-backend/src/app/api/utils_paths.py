@@ -17,13 +17,13 @@ export_folder = pathlib.Path(custom_paths["EXPORT_DIRECTORY"])
 if export_folder.as_posix() == ".":
     using_default = True
     export_folder = default_export_dir
-    print(f"Export Directory is: {default_export_dir.as_posix()}")
+    print(f"Export Directory is: {default_export_dir}")
 elif not export_folder.exists():
     using_default = True
     print("WARNING: export path was set to:")
-    print(export_folder.as_posix())
+    print(export_folder)
     print("Path doesn't exist, using default export directory")
-    print(default_export_dir.as_posix())
+    print(default_export_dir)
     using_default = True
     export_folder = default_export_dir
 else:
@@ -35,13 +35,13 @@ fileserver = pathlib.Path(custom_paths["WORKING_DIRECTORY"])
 if fileserver.as_posix() == ".":
     using_default = True
     fileserver = default_fileserver_dir
-    print(f"Export Directory is: {default_fileserver_dir.as_posix()}")
+    print(f"Export Directory is: {default_fileserver_dir}")
 elif not fileserver.exists():
     using_default = True
     print("WARNING: export path was set to:")
-    print(fileserver.as_posix())
+    print(fileserver)
     print("Path doesn't exist, using default export directory")
-    print(default_fileserver_dir.as_posix())
+    print(default_fileserver_dir)
     using_default = True
     fileserver = default_fileserver_dir
 else:
@@ -104,56 +104,61 @@ def assert_path_not_exist(_path, suffix):
 
 
 def make_image_path(uid):
-    path = image_folder.joinpath(f"{uid}.zarr").as_posix()
+    path = image_folder.joinpath(f"{uid}.zarr")
     return path
 
 
 def make_thumbnail_path(uid):
-    path = image_folder.joinpath(f"{uid}.png").as_posix()
+    path = image_folder.joinpath(f"{uid}.png")
     return path
 
 
-def make_metadata_path(uid):
-    path = metadata_folder.joinpath(f"{uid}.json").as_posix()
+def make_metadata_path(uid: int):
+    path = metadata_folder.joinpath(f"{uid}.json")
     return path
+
+
+def make_metadata_xml_path_from_json_path(path: pathlib.Path):
+    ''' Function expects a pathlib.Path and changes extension to ".xml"'''
+    return path.with_suffix(".xml")
 
 
 def make_result_layer_path(uid):
-    path = result_layers_folder.joinpath(f"{uid}.zarr").as_posix()
+    path = result_layers_folder.joinpath(f"{uid}.zarr")
     return path
 
 
 def make_result_path(uid):
-    path = result_folder.joinpath(f"{uid}.xlsx").as_posix()
+    path = result_folder.joinpath(f"{uid}.xlsx")
     return path
 
 
 def make_measurement_path(uid):
-    path = measurement_folder.joinpath(f"{uid}.zarr").as_posix()
+    path = measurement_folder.joinpath(f"{uid}.zarr")
     return path
 
 
 def make_measurement_summary_path(uid):
-    path = measurement_folder.joinpath(f"{uid}.pkl").as_posix()
+    path = measurement_folder.joinpath(f"{uid}.pkl")
     return path
 
 
 def make_clf_path(uid):
-    path = clf_folder.joinpath(f"clf_{uid}.pkl").as_posix()
+    path = clf_folder.joinpath(f"clf_{uid}.pkl")
     return path
 
 
-def make_clf_test_train_path(uid):
-    path = clf_folder.joinpath(f"data_{uid}.pkl").as_posix()
+def make_clf_test_train_path(uid: int):
+    path = clf_folder.joinpath(f"data_{uid}.pkl")
     return path
 
 
-def make_tmp_file_path(filename):
+def make_tmp_file_path(filename: str) -> pathlib.Path:
     '''
     Exoects filename, returns enumerated filename in tmp_folder
     '''
     filelist = [_ for _ in tmp_folder.glob("*")]
-    path = tmp_folder.joinpath(f"{len(filelist)}_{filename}").as_posix()
+    path = tmp_folder.joinpath(f"{len(filelist)}_{filename}")
     return path
 
 
@@ -181,7 +186,7 @@ def make_experiment_export_folder_path(uid, experiment_name):
 def create_experiment_export_folder(uid, experiment_name):
     path = make_experiment_export_folder_path(uid, experiment_name)
     if not path.exists():
-        os.mkdir(path.as_posix())
+        os.mkdir(path)
 
 
 def make_experiment_group_export_folder_path(group_uid, group_name, exp_uid, exp_name):
@@ -197,7 +202,7 @@ def create_experiment_group_export_folder(group_uid, group_name, exp_uid, exp_na
     path = make_experiment_group_export_folder_path(
         group_uid, group_name, exp_uid, exp_name)
     if not path.exists():
-        os.mkdir(path.as_posix())
+        os.mkdir(path)
 
 
 def make_images_export_folder_path(group_uid, group_name, exp_uid, exp_name, rescaled=False):
@@ -211,7 +216,21 @@ def create_images_export_folder(group_uid, group_name, exp_uid, exp_name, rescal
     path = make_images_export_folder_path(
         group_uid, group_name, exp_uid, exp_name, rescaled)
     if not path.exists():
-        os.mkdir(path.as_posix())
+        os.mkdir(path)
+
+
+def make_rois_export_folder_path(group_uid, group_name, exp_uid, exp_name, rescaled=False):
+    if rescaled:
+        return make_experiment_group_export_folder_path(group_uid, group_name, exp_uid, exp_name).joinpath("rois_rescaled")
+    else:
+        return make_experiment_group_export_folder_path(group_uid, group_name, exp_uid, exp_name).joinpath("rois")
+
+
+def create_rois_export_folder(group_uid, group_name, exp_uid, exp_name, rescaled=False):
+    path = make_images_export_folder_path(
+        group_uid, group_name, exp_uid, exp_name, rescaled)
+    if not path.exists():
+        os.mkdir(path)
 
 
 def make_masks_export_folder_path(group_uid, group_name, exp_uid, exp_name, rescaled=False):
@@ -225,27 +244,53 @@ def create_masks_export_folder(group_uid, group_name, exp_uid, exp_name, rescale
     path = make_masks_export_folder_path(
         group_uid, group_name, exp_uid, exp_name, rescaled)
     if not path.exists():
-        os.mkdir(path.as_posix())
+        os.mkdir(path)
 
 
 def make_experiment_export_df_name(uid, experiment_name):
     experiment_export_folder = make_experiment_export_folder_path(
         uid, experiment_name)
     export_name = experiment_export_folder.joinpath(
-        "measurement_summary.xlsx").as_posix()
+        "measurement_summary.xlsx")
     return export_name
 
 
-def make_export_array_name(image_id, image_name, mask, group_uid, group_name, exp_uid, exp_name, rescaled):
+def make_export_array_name(image_id, image_name, mask, group_uid, group_name, exp_uid, exp_name, rescaled, max_z: bool, png=False):
     if mask == False:
         path = make_images_export_folder_path(
             group_uid, group_name, exp_uid, exp_name, rescaled)
     else:
         path = make_masks_export_folder_path(
             group_uid, group_name, exp_uid, exp_name, rescaled)
-
-    export_name = path.joinpath(f"{image_id}_{image_name}.tiff").as_posix()
+    image_name = pathlib.Path(image_name).with_suffix("").as_posix()
+    if mask:
+        image_name += "_mask"
+    if max_z:
+        export_name = path.joinpath(f"{image_id}_{image_name}_max_z")
+    else:
+        export_name = path.joinpath(f"{image_id}_{image_name}")
+    if png:
+        export_name = export_name.with_suffix(".png")
+    else:
+        export_name = export_name.with_suffix(".tiff")
     return export_name
+
+
+def make_export_roi_folder_name(
+        image_id: int,
+        image_name: str,
+        group_uid: int,
+        group_name: str,
+        exp_uid: int,
+        exp_name: int) -> pathlib.Path:
+    path = make_rois_export_folder_path(
+        group_uid, group_name, exp_uid, exp_name, False)
+    image_name = pathlib.Path(image_name).with_suffix("").as_posix()
+    folder_name = path.joinpath(f"{image_id}_{image_name}")
+    if not folder_name.exists():
+        os.mkdir(folder_name)
+    return folder_name
+
 
 # Names
 

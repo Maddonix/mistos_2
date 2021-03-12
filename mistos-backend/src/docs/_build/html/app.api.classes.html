@@ -1,0 +1,2267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app.api.classes package &mdash; Mistos 12.03.2021 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="app.tests package" href="app.tests.html" />
+    <link rel="prev" title="app.api package" href="app.api.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Mistos
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="app.html">app package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="app.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="app.api.html">app.api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.tests.html">app.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#module-app.crud">app.crud module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#module-app.database">app.database module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#module-app.db_models">app.db_models module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#module-app.fileserver_requests">app.fileserver_requests module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app.html#module-app">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cfg.html">cfg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fileserver.html">fileserver package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Mistos</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">src</a> &raquo;</li>
+        
+          <li><a href="app.html">app package</a> &raquo;</li>
+        
+          <li><a href="app.api.html">app.api package</a> &raquo;</li>
+        
+      <li>app.api.classes package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/app.api.classes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="app-api-classes-package">
+<h1>app.api.classes package<a class="headerlink" href="#app-api-classes-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-app.api.classes.classifier">
+<span id="app-api-classes-classifier-module"></span><h2>app.api.classes.classifier module<a class="headerlink" href="#module-app.api.classes.classifier" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.classifier.DbClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.classifier.</code><code class="sig-name descname">DbClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">clf_type</span><span class="p">:</span> <span class="n">app.api.classes.classifier.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">path_clf</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_test_train</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">dict</span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n">dict</span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">set</span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of Classifiers</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>clf_type: str</dt><dd><p>describes type of classifier. Must be one of strings defined in app.api.cfg_classes.classifier_types</p>
+</dd>
+<dt>path_clf<span class="classifier">pathlib.Path, optional</span></dt><dd><p>path to file storage of classifier, will be automatically generated when object is saved to database.</p>
+</dd>
+<dt>path_test_train: pathlib.Path, optional</dt><dd><p>path to file storage of test_train data, will be automatically generated when object is saved to database (currently just for random forest classifiers).</p>
+</dd>
+<dt>params: dict = {}</dt><dd><p>currently a not further specified dictionary to store information of parameters the classifier was trained with</p>
+</dd>
+<dt>metrics: dict = {}</dt><dd><p>currently a not further specified dictionary to store information of the classifiers evaluation metrics</p>
+</dd>
+<dt>tags: set = set()</dt><dd><p>set of string keywords to easily categorize objects in frontend.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntClassifier:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComClassifier:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>delete(sess = None):</dt><dd><p>deletes object in database and file storage. Uses default session if none is passed.</p>
+</dd>
+<dt>update_name(new_name: str, sess = None):</dt><dd><p>updates objects name in database. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.clf_type">
+<code class="sig-name descname">clf_type</code><em class="property">: app.api.classes.classifier.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.clf_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.DbClassifier.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Id is generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.DbClassifier.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a classifier from db and file storage</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_name(str): new name string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.metrics">
+<code class="sig-name descname">metrics</code><em class="property">: dict</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.params">
+<code class="sig-name descname">params</code><em class="property">: dict</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.path_clf">
+<code class="sig-name descname">path_clf</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.path_clf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.path_test_train">
+<code class="sig-name descname">path_test_train</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.path_test_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.tags">
+<code class="sig-name descname">tags</code><em class="property">: set</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.DbClassifier.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ComClassifier Object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.DbClassifier.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns IntClassifier object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.DbClassifier.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.DbClassifier.update_name">
+<code class="sig-name descname">update_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.DbClassifier.update_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls crud.update_result_layer_name to update name.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_name(str): new name string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.classifier.IntClassifier">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.classifier.</code><code class="sig-name descname">IntClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">clf_type</span><span class="p">:</span> <span class="n">app.api.classes.classifier.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">classifier</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_train_data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">set</span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.IntClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with experiments.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>clf_type<span class="classifier">str</span></dt><dd><p>describes type of classifier, must be in app.api.cfg_classes.clf_types</p>
+</dd>
+</dl>
+<p>test_train_data : Any
+params : dict
+metrics : dict
+tags : set</p>
+<blockquote>
+<div><p>empty set by default. Keywords to be used in frontend</p>
+</div></blockquote>
+<dl class="simple">
+<dt>onInit():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>to_db_class() -&gt; app.api.classes_db.DbClassifier:</dt><dd><p>Returns db class representation</p>
+</dd>
+<dt>is_multichannel():</dt><dd><p>helper method for rf segmentation, will be depreceated</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.classifier">
+<code class="sig-name descname">classifier</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.classifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.clf_type">
+<code class="sig-name descname">clf_type</code><em class="property">: app.api.classes.classifier.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.clf_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.IntClassifier.is_multichannel">
+<code class="sig-name descname">is_multichannel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.is_multichannel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.metrics">
+<code class="sig-name descname">metrics</code><em class="property">: dict</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.IntClassifier.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.on_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.params">
+<code class="sig-name descname">params</code><em class="property">: dict</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.tags">
+<code class="sig-name descname">tags</code><em class="property">: set</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.test_train_data">
+<code class="sig-name descname">test_train_data</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.test_train_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.classifier.IntClassifier.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.classifier.IntClassifier.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.classifier.IntClassifier.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.experiment">
+<span id="app-api-classes-experiment-module"></span><h2>app.api.classes.experiment module<a class="headerlink" href="#module-app.api.classes.experiment" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.experiment.DbExperiment">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment.</code><code class="sig-name descname">DbExperiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">experiment_groups</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.experiment_group.DbExperimentGroup" title="app.api.classes.experiment_group.DbExperimentGroup">app.api.classes.experiment_group.DbExperimentGroup</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of Experiments</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>description<span class="classifier">str</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>tags<span class="classifier">Set[str] = []</span></dt><dd><p>set of string keywords to easily categorize objects in frontend.</p>
+</dd>
+<dt>experiment_groups: Optional[List[DbExperimentGroup]] = []</dt><dd><p>emtpy list by default. List of all associated DbExperimentGroup objects</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntImage:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComImage:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>refresh_from_db() -&gt; DbImage</dt><dd><p>Fetches image from database and returns DbImage object.</p>
+</dd>
+<dt>update_name(new_name: str, sess = None):</dt><dd><p>updates objects name in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_hint(new_hint: str, sess = None):</dt><dd><p>updates objects hint in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_description(new_description: str, sess = None):</dt><dd><p>updates objects description in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_tags: </dt><dd><p>TO BE DONE</p>
+</dd>
+<dt>delete_experiment_group(experiment_group_id: int, sess=None):</dt><dd><p>Function deletes an experiment group from storage and this experiment by uid. Uses default session if none is passed.</p>
+</dd>
+<dt>delete(sess=None): </dt><dd><p>Function deletes the experiment from the db. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Id is generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function deletes the experiment from the db</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.delete_experiment_group">
+<code class="sig-name descname">delete_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.delete_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function deletes an experiment group by uid.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>experiment_group_id(int): id of the experiment group to be deleted</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><em class="property">: Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#app.api.classes.experiment_group.DbExperimentGroup" title="app.api.classes.experiment_group.DbExperimentGroup">app.api.classes.experiment_group.DbExperimentGroup</a><span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.tags">
+<code class="sig-name descname">tags</code><em class="property">: Set<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ComExperiment object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns IntExperiment object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.DbExperiment.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.update_description">
+<code class="sig-name descname">update_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.update_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new description as string and calls crud.update_experiment_description to update the description.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_description(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.update_hint">
+<code class="sig-name descname">update_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.update_hint" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new hint as string and calls crud.update_experiment_hint to update the hint.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_hint(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.update_name">
+<code class="sig-name descname">update_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.update_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new name as string and calls crud.update_experiment_name to update the name.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_name(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.DbExperiment.update_tags">
+<code class="sig-name descname">update_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_tags</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.DbExperiment.update_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>to be done</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.experiment.IntExperiment">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment.</code><code class="sig-name descname">IntExperiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">experiment_groups</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.experiment_group.IntExperimentGroup" title="app.api.classes.experiment_group.IntExperimentGroup">app.api.classes.experiment_group.IntExperimentGroup</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with experiments.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>description<span class="classifier">str</span></dt><dd><p>empty string by default. Detailed description of the object.</p>
+</dd>
+<dt>tags<span class="classifier">set</span></dt><dd><p>empty set by default. Keywords to be used in frontend</p>
+</dd>
+<dt>experimentGroups<span class="classifier">List[app.api.classes_internal.IntExperimentGroup]</span></dt><dd><p>empty list by default. List of all associated experiment groups.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>onInit():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>to_db_class() -&gt; app.api.classes_db.DbExperiment:</dt><dd><p>Returns db class representation</p>
+</dd>
+<dt>add_experiment_group(experiment_group_name:str, hint:str=””, description:str=””):</dt><dd><p>creates new experiment group and saves it to experiment and database.</p>
+</dd>
+<dt>calculate_results():</dt><dd><p>calls calculate result method of each experiment group</p>
+</dd>
+<dt>export_experiment():</dt><dd><p>exporter module to handle experiment result export</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.experiment.IntExperiment.add_experiment_group">
+<code class="sig-name descname">add_experiment_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_group_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.add_experiment_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new experiment group and adds it to the experiment object and in the database.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>experiment_group_name(str): name of the new group</p></li>
+<li><p>hint(str): empty string by default. brief description of the group</p></li>
+<li><p>description(str): empty string by default. detailed description of the group</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.IntExperiment.calculate_results">
+<code class="sig-name descname">calculate_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.calculate_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calls every experiment_group and calculates the corresponding result object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.experiment_groups">
+<code class="sig-name descname">experiment_groups</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.experiment_group.IntExperimentGroup" title="app.api.classes.experiment_group.IntExperimentGroup">app.api.classes.experiment_group.IntExperimentGroup</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.experiment_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.IntExperiment.export_experiment">
+<code class="sig-name descname">export_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">export_types</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.export_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function exports the experiment.
+To be done: Exports currently depend on local paths, should be returned as file stream to frontend.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>export_types(dict): dictionary holding boolean values for all strings (except a list of integers for images_single_channel) of app.api.cfg_classes.export_types. Specifies what exports should be performed.</dt><dd><p>images - bool
+masks - bool
+rois - bool, will only be exported in original format
+rescaled - bool
+z_projection - bool
+masks_binary - bool
+masks_png - bool
+images_single_channel - int
+x_dim - int
+y_dim - int</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.IntExperiment.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.on_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes object and saves it to db</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.tags">
+<code class="sig-name descname">tags</code><em class="property">: Set<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment.IntExperiment.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object’s db_class representation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment.IntExperiment.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment.IntExperiment.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.experiment_group">
+<span id="app-api-classes-experiment-group-module"></span><h2>app.api.classes.experiment_group module<a class="headerlink" href="#module-app.api.classes.experiment_group" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment_group.</code><code class="sig-name descname">DbExperimentGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">experiment_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">images</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image.DbImage" title="app.api.classes.image.DbImage">app.api.classes.image.DbImage</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">result_layer_ids</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">measurement_ids</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of Experiment Groups.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier.</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name.</p>
+</dd>
+<dt>hint<span class="classifier">str = “”</span></dt><dd><p>empty string by default. brief description of the object.</p>
+</dd>
+<dt>description<span class="classifier">str = “”</span></dt><dd><p>empty string by default. detailed description of the object.</p>
+</dd>
+<dt>experiment_id<span class="classifier">int</span></dt><dd><p>uid of associated experiment.</p>
+</dd>
+<dt>images<span class="classifier">List[DbImage] = []</span></dt><dd><p>List of the experiment groups images as db_class</p>
+</dd>
+<dt>result_layer_ids: List[int] = []</dt><dd><p>emtpy list by default. List of all associated DbImageResultLayer objects’ ids.</p>
+</dd>
+<dt>measurement_ids: List[int] = []</dt><dd><p>emtpy list by default. List of all associated DbResultMeasurement objects’ ids.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntExperimentGroup:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComExperimetnGroup:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>add_image_by_uid(image_uid: int, sess = None)</dt><dd><p>adds image to experiment group. Uses default session if none is passed.</p>
+</dd>
+<dt>remove_image_by_uid(image_uid: int, sess = None)</dt><dd><p>removes image from experiment group. Uses default session if none is passed.</p>
+</dd>
+<dt>add_result_layer_uid(result_layer_uid: int, sess = None)</dt><dd><p>adds result layer to group by uid. Uses default session if none is passed.</p>
+</dd>
+<dt>add_measurement(measurement_uid: int, sess = None):</dt><dd><p>Adds measurement with given measurement_uid to group. Uses default session if none is passed.</p>
+</dd>
+<dt>delete(sess = None):</dt><dd><p>deletes object in database and file storage. Uses default session if none is passed.</p>
+</dd>
+<dt>update_name(new_name: str, sess = None):</dt><dd><p>updates objects name in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_hint(new_hint: str, sess = None):</dt><dd><p>updates objects hint in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_description(new_description: str, sess = None):</dt><dd><p>updates objects description in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_images(image_id_list: List[int], sess = None):</dt><dd><p>This function expects a list of image ids and calls crud.update_experiment_group_images to update the associated images. Uses default session if none is passed.</p>
+</dd>
+<dt>remove_image(image_uid: int, sess = None):</dt><dd><p>Function expects an image id. Removes image from the group. Also removes result layer of this image from the group. Uses default session if none is passed.</p>
+</dd>
+<dt>remove_measurement(measurement_uid: int, sess = None):</dt><dd><p>Function expects an result_layer_uid. Removes result_layer from the group. Uses default session if none is passed.</p>
+</dd>
+<dt>remove_measurement(measurement_uid: int, sess = None):</dt><dd><p>Function expects an measurement_uid. Removes measurement from the group. Uses default session if none is passed.</p>
+</dd>
+<dt>refresh_from_db(sess = None) -&gt; DbExperimentGroup: </dt><dd><p>Fetches expperiment group from and returns it as DbExperimentGroup object. Does not update the object itself. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.add_image_by_uid">
+<code class="sig-name descname">add_image_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.add_image_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds image with given image_uid to group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_uid(int): uid of image to be added to group.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.add_measurement">
+<code class="sig-name descname">add_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.add_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds measurement with given measurement_uid to group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>measurement_uid(int): uid of measurement to be added to group.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.add_result_layer">
+<code class="sig-name descname">add_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_layer_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.add_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a layer uid.
+It retrieves the group’s layer list and checks if another layer with of the same image is present in this experiment group. 
+If so, the other layer is removed first, then the current layer is added.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>result_layer_uid(int): uid of result layer to be added to group.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Id is generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.experiment_id">
+<code class="sig-name descname">experiment_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.images">
+<code class="sig-name descname">images</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image.DbImage" title="app.api.classes.image.DbImage">app.api.classes.image.DbImage</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.measurement_ids">
+<code class="sig-name descname">measurement_ids</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.measurement_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.refresh_from_db">
+<code class="sig-name descname">refresh_from_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches expperiment group from and returns it as DbExperimentGroup object. Does not update the object itself.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.remove_image">
+<code class="sig-name descname">remove_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.remove_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function expects an image id. Removes image from the group. Also removes result layer of this image from the group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_uid(int): image id to be removed from group</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.remove_image_by_uid">
+<code class="sig-name descname">remove_image_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.remove_image_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes image with given image_uid from group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_uid(int): uid of image to be added to group.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.remove_measurement">
+<code class="sig-name descname">remove_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.remove_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function expects an measurement_uid. Removes measurement from the group</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>measurement_uid(int): measurement_uid to be removed from group</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.remove_result_layer">
+<code class="sig-name descname">remove_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_layer_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.remove_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function expects an result_layer_uid. Removes result_layer from the group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>result_layer_uid(int): result_layer_uid to be removed from group</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.result_layer_ids">
+<code class="sig-name descname">result_layer_ids</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.result_layer_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ComExperimentGroup object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns IntExperimentGroup object</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.update_description">
+<code class="sig-name descname">update_description</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.update_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new description as string and calls crud.update_experiment_group_description to update the description.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_description(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.update_hint">
+<code class="sig-name descname">update_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.update_hint" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new hint as string and calls crud.update_experiment_group_hint to update the hint.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_hint(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.update_images">
+<code class="sig-name descname">update_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_id_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.update_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a list of image ids and calls crud.update_experiment_group_images to update the associated images.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_id_list(List[int]): list of image ids to be saved as associated images.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.DbExperimentGroup.update_name">
+<code class="sig-name descname">update_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.DbExperimentGroup.update_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new name as string and calls crud.update_experiment_group_name to update the name.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_name(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment_group.</code><code class="sig-name descname">IntExperimentGroup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">experiment_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">images</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image.IntImage" title="app.api.classes.image.IntImage">app.api.classes.image.IntImage</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">result_layer_ids</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">measurement_ids</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with experiment groups.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>experiment_id<span class="classifier">int</span></dt><dd><p>the corresponding experiment’s unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str</span></dt><dd><p>empty string by default. Brief description of the experiment group.</p>
+</dd>
+<dt>description<span class="classifier">str</span></dt><dd><p>empty string by default. Detailed description of the experiment group.</p>
+</dd>
+<dt>images<span class="classifier">List[app.api.classes_internal.IntImage]</span></dt><dd><p>empty list by default. List of this groups images</p>
+</dd>
+<dt>result_layer_ids<span class="classifier">List[int]</span></dt><dd><p>empty list by defalut. List of this groups result layers’ ids.</p>
+</dd>
+<dt>measurement_ids<span class="classifier">List[int]</span></dt><dd><p>empty list by defalut. List of this groups measurements’ ids.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>on_init():</dt><dd><p>Initializes object. Object is saved in database.</p>
+</dd>
+<dt>get_experiment_result() -&gt; app.api.classes_internal.IntExperimentResult:</dt><dd><p>Returns corresponding IntExperimentResult.</p>
+</dd>
+<dt>calculate_result() -&gt; pd.DataFrame:</dt><dd><p>Formats measurements of all result layers of this group to one dataframe.</p>
+</dd>
+<dt>refresh_from_db():</dt><dd><p>Fetches object from database and updates all attributes.</p>
+</dd>
+<dt>to_db_class() -&gt; app.api.classes_db.DbExperimentResult:</dt><dd><p>Helper method to return object as DbExperimentGroup</p>
+</dd>
+<dt>add_image_by_uid(image_uid:int):</dt><dd><p>Method to add an image to the experiment_group.</p>
+</dd>
+<dt>add_result_layer(uid:int):</dt><dd><p>Method to add an result_layer to the experiment_group.</p>
+</dd>
+<dt>add_measurement(uid:int):</dt><dd><p>Method to add an measurement to the experiment_group.</p>
+</dd>
+<dt>remove_image(uid:int):</dt><dd><p>Method to remove an image from the experiment_group.</p>
+</dd>
+<dt>remove_result_layer(uid:int):</dt><dd><p>Method to remove an result_layer from the experiment_group.</p>
+</dd>
+<dt>remove_measurement(uid:int):</dt><dd><p>Method to remove an measurement from the experiment_group.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.add_image_by_uid">
+<code class="sig-name descname">add_image_by_uid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.add_image_by_uid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add an image to the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_uid(int): unique identifier of object to add.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.add_measurement">
+<code class="sig-name descname">add_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.add_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add an measurement to the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uid(int): unique identifier of object to add.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.add_result_layer">
+<code class="sig-name descname">add_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.add_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add an result_layer to the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uid(int): unique identifier of object to add.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.calculate_result">
+<code class="sig-name descname">calculate_result</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.calculate_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates a result from all associated result layers. 
+Calls utils_results.calculate_measurement_df_for_result() to get colnames
+Returns result dataframe.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.experiment_id">
+<code class="sig-name descname">experiment_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.get_experiment_result">
+<code class="sig-name descname">get_experiment_result</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#app.api.classes.experiment_result.IntExperimentResult" title="app.api.classes.experiment_result.IntExperimentResult">app.api.classes.experiment_result.IntExperimentResult</a><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.get_experiment_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches experiment result from db. If not available, calculates it first using self.calculate_result.
+Returns app.api.classes_internal.IntExperimentResult</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.images">
+<code class="sig-name descname">images</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image.IntImage" title="app.api.classes.image.IntImage">app.api.classes.image.IntImage</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.measurement_ids">
+<code class="sig-name descname">measurement_ids</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.measurement_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.on_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initialize the object and save it to the database. Generates id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.refresh_from_db">
+<code class="sig-name descname">refresh_from_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to update object from database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.remove_image">
+<code class="sig-name descname">remove_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.remove_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to remove an image from the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uid(int): unique identifier of object to remove.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.remove_measurement">
+<code class="sig-name descname">remove_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.remove_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to remove an measurement from the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uid(int): unique identifier of object to remove.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.remove_result_layer">
+<code class="sig-name descname">remove_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.remove_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to remove an result_layer from the experiment_group.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>uid(int): unique identifier of object to remove.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.result_layer_ids">
+<code class="sig-name descname">result_layer_ids</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.result_layer_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to return object as DbExperimentGroup</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_group.IntExperimentGroup.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_group.IntExperimentGroup.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.experiment_result">
+<span id="app-api-classes-experiment-result-module"></span><h2>app.api.classes.experiment_result module<a class="headerlink" href="#module-app.api.classes.experiment_result" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.experiment_result.DbExperimentResult">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment_result.</code><code class="sig-name descname">DbExperimentResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">experiment_group_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">result_type</span><span class="p">:</span> <span class="n">app.api.classes.experiment_result.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of ExperimentResults</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str</span></dt><dd><p>brief description of the object</p>
+</dd>
+<dt>description<span class="classifier">str</span></dt><dd><p>a detailed description of the experiment result</p>
+</dd>
+<dt>experiment_group_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated experiment group</p>
+</dd>
+<dt>result_type: str</dt><dd><p>describes type of result layer. Must be one of strings defined in app.api.cfg_classes.result_types</p>
+</dd>
+<dt>path<span class="classifier">pathlib.Path, optional</span></dt><dd><p>path to file storage, will be automatically generated when object is saved to database.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntExperimentResult:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComExperimentResult:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>delete(sess = None):</dt><dd><p>deletes object in database and file storage. Uses default session if none is passed.</p>
+</dd>
+<dt>update_hint(new_hint: str, sess = None):</dt><dd><p>updates objects hint in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_name(new_name: str, sess = None):</dt><dd><p>updates objects name in database. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Path and id are generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.experiment_group_id">
+<code class="sig-name descname">experiment_group_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.experiment_group_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.path">
+<code class="sig-name descname">path</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.result_type">
+<code class="sig-name descname">result_type</code><em class="property">: app.api.classes.experiment_result.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.result_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns c_com.ComExperimentResult</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns c_int.IntExperimentResult</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.DbExperimentResult.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_result.DbExperimentResult.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.experiment_result.IntExperimentResult">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.experiment_result.</code><code class="sig-name descname">IntExperimentResult</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">experiment_group_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">result_type</span><span class="p">:</span> <span class="n">app.api.classes.experiment_result.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with ExperimentResults.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. brief description of the object.</p>
+</dd>
+<dt>description<span class="classifier">str, optional</span></dt><dd><p>empty string by default. detailed description of the object.</p>
+</dd>
+<dt>experiment_group_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated experiment_group</p>
+</dd>
+<dt>result_type: str</dt><dd><p>describes type of result. Must be one of strings defined in app.api.cfg_classes.result_types</p>
+</dd>
+<dt>data<span class="classifier">pd.DataFrame, optional</span></dt><dd><p>DataFrame summarizing the result</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>onInit():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>to_db_class():</dt><dd><p>Transforms object to db_class</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.data">
+<code class="sig-name descname">data</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.description">
+<code class="sig-name descname">description</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.experiment_group_id">
+<code class="sig-name descname">experiment_group_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.experiment_group_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.hint">
+<code class="sig-name descname">hint</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.on_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.result_type">
+<code class="sig-name descname">result_type</code><em class="property">: app.api.classes.experiment_result.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.result_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.experiment_result.IntExperimentResult.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.experiment_result.IntExperimentResult.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.image">
+<span id="app-api-classes-image-module"></span><h2>app.api.classes.image module<a class="headerlink" href="#module-app.api.classes.image" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.image.DbImage">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.image.</code><code class="sig-name descname">DbImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">series_index</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">has_bg_layer</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bg_layer_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_metadata</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_image</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image_result_layers</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image_result_layer.DbImageResultLayer" title="app.api.classes.image_result_layer.DbImageResultLayer">app.api.classes.image_result_layer.DbImageResultLayer</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">measurements</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.result_measurement.DbResultMeasurement" title="app.api.classes.result_measurement.DbResultMeasurement">app.api.classes.result_measurement.DbResultMeasurement</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of Images</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>series_index<span class="classifier">int</span></dt><dd><p>index of image if multiple images were imported in a single file</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str = “”</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>has_bg_layer: bool = False</dt><dd><p>indicator if image has an associated background layer.</p>
+</dd>
+<dt>bg_layer_id: int, optional</dt><dd><p>None if no associated background layer, otherwise id of the background layer.</p>
+</dd>
+<dt>path_metadata: pathlib.Path, optional</dt><dd><p>path to the images metadata “.json”. Automatically generated as image is saved to database.</p>
+</dd>
+<dt>path_image: pathlib.Path, optional</dt><dd><p>path to the images array “.zarr” folder. Automatically generated as image is saved to database.</p>
+</dd>
+<dt>image_result_layers: List[DbImageResultLayer] = []</dt><dd><p>emtpy list by default. List of all associated DbImageResultLayer objects</p>
+</dd>
+<dt>measurements: List[DbResultMeasurement] = []</dt><dd><p>emtpy list by default. List of all associated DbResultMeasurement objects</p>
+</dd>
+<dt>tags: Set[str] = []</dt><dd><p>set of string keywords to easily categorize objects in frontend.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntImage:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComImage:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>set_bg_false(sess = None)</dt><dd><p>sets “has_bg_layer” property to False in db.</p>
+</dd>
+<dt>set_bg_true(layer_uid: int, sess = None)</dt><dd><p>sets “has_bg_layer” property to True in db. sets bg_layer_id to given value.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>refresh_from_db() -&gt; DbImage</dt><dd><p>Fetches image from database and returns DbImage object.</p>
+</dd>
+<dt>update_hint(new_hint: str, sess = None):</dt><dd><p>updates objects hint in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_channel_names(channel_names: List[str])</dt><dd><p>edits “custom_channel_names” attribute of image in it’s metadata.json</p>
+</dd>
+<dt>delete_from_system(sess = None):</dt><dd><p>deletes object in database and file storage. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.bg_layer_id">
+<code class="sig-name descname">bg_layer_id</code><em class="property">: Optional<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.bg_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Paths and id are generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.delete_from_system">
+<code class="sig-name descname">delete_from_system</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.delete_from_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>calls crud.delete_image and passed db_image object to delete all associated files and db entries</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.has_bg_layer">
+<code class="sig-name descname">has_bg_layer</code><em class="property">: bool</em><a class="headerlink" href="#app.api.classes.image.DbImage.has_bg_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image.DbImage.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.image_result_layers">
+<code class="sig-name descname">image_result_layers</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image_result_layer.DbImageResultLayer" title="app.api.classes.image_result_layer.DbImageResultLayer">app.api.classes.image_result_layer.DbImageResultLayer</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.image_result_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.measurements">
+<code class="sig-name descname">measurements</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.result_measurement.DbResultMeasurement" title="app.api.classes.result_measurement.DbResultMeasurement">app.api.classes.result_measurement.DbResultMeasurement</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image.DbImage.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.path_image">
+<code class="sig-name descname">path_image</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.path_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.path_metadata">
+<code class="sig-name descname">path_metadata</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.path_metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.refresh_from_db">
+<code class="sig-name descname">refresh_from_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refreshes object image from db.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.series_index">
+<code class="sig-name descname">series_index</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image.DbImage.series_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.set_bg_false">
+<code class="sig-name descname">set_bg_false</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.set_bg_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets imagaes has_bg_layer property to False in database.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.set_bg_true">
+<code class="sig-name descname">set_bg_true</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.set_bg_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets images bg_layer_id property to given value.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>layer_uid(int): uid of result layer to be used as background layer.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.tags">
+<code class="sig-name descname">tags</code><em class="property">: Set<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.DbImage.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns obect as com class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">for_refresh</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object as int class.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>for_refresh(bool = False): If True, image array is not reloaded from file storage.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.DbImage.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image.DbImage.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.update_channel_names">
+<code class="sig-name descname">update_channel_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel_names</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.update_channel_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new channel names as list of strings. opens metadata.json and edits custom_channel_names</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>channel_names(List[str]): List of strings to be saved as channel names.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.DbImage.update_hint">
+<code class="sig-name descname">update_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.DbImage.update_hint" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function expects a new hint as string and calls crud.update_image_hint to update the image hint.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_hint(str): string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.image.IntImage">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.image.</code><code class="sig-name descname">IntImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">series_index</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">metadata</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">experiment_ids</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">image_result_layers</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image_result_layer.IntImageResultLayer" title="app.api.classes.image_result_layer.IntImageResultLayer">app.api.classes.image_result_layer.IntImageResultLayer</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">result_measurements</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#app.api.classes.result_measurement.IntResultMeasurement" title="app.api.classes.result_measurement.IntResultMeasurement">app.api.classes.result_measurement.IntResultMeasurement</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metadata_omexml</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">has_bg_layer</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bg_layer_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with images.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>series_index<span class="classifier">int</span></dt><dd><p>if multiple images are imported via one file (image series), the index of the image is stored here</p>
+</dd>
+<dt>metadata<span class="classifier">dict</span></dt><dd><p>reduced metadata for easy use within mistos. As created by app.api.utils_import.acquire_metadata_dict (creates metadata dict for whole series)
+Series metadatadict is passed into IntImage.on_init(). Thereafter, only image’s metadata will be saved to .json and loaded.</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>experiment_ids: List[int]</dt><dd><p>empty list by default. List of experiments_group ids which use the image.</p>
+</dd>
+<dt>image_result_layers<span class="classifier">List[IntImageResultLayer]</span></dt><dd><p>empty list by default. List of all associated IntImageResultLayer objects.</p>
+</dd>
+<dt>result_measurements<span class="classifier">List[IntResultMeasurement]</span></dt><dd><p>empty list by default. List of all associated IntResultMeasurement objects</p>
+</dd>
+<dt>tags<span class="classifier">Set[str]:</span></dt><dd><p>empty set by default. Set of keywords to work with in the frontend</p>
+</dd>
+<dt>data<span class="classifier">Any   ___TO BE DONE: add custom field type___</span></dt><dd><p>array of shape (z,c,y,x) in which the image is stored. Is loaded from .zarr files, most numpy operations work, some may cause trouble.</p>
+</dd>
+<dt>metadata_omexml<span class="classifier">Any</span></dt><dd><p>original metadata xml data as read by bioformats import when image was imported</p>
+</dd>
+<dt>has_bg_layer<span class="classifier">bool</span></dt><dd><p>False by default. Indicates if image as layer selected as background_layer.</p>
+</dd>
+<dt>bg_layer_id<span class="classifier">int, optional</span></dt><dd><p>None if no bg_layer selected, otherwise it holds the bg_layer_id</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>on_init():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>get_thumbnail_path():</dt><dd><p>Helper function which returns path to the thumbnail on fileserver.</p>
+</dd>
+<dt>get_image_scaling():</dt><dd><p>Returns dimensions normalized scales in array with shape (z,y,x) or None.</p>
+</dd>
+<dt>to_db_class() -&gt; app.api.classes_db.DbImage:</dt><dd><p>Returns object as DbImage object.</p>
+</dd>
+<dt>set_bg_false():</dt><dd><p>Helper function to set has_bg_layer to False and bg_layer_id to None.</p>
+</dd>
+<dt>set_bg_true(image_layer: app.api.classes_int.IntImageResultLayer):</dt><dd><p>Method to set layer as background layer</p>
+</dd>
+<dt>select_channel(channel: int) -&gt; np.array:</dt><dd><p>Helper method expects channel index. Returns deep copy of channel with shape (z,y,x).</p>
+</dd>
+<dt>select_result_layer(uid: int) -&gt; app.api.classes_internal.IntResultLayer | None:</dt><dd><p>Returns layer with corresponding id, returns None if id is not found in self.image_result_layers</p>
+</dd>
+<dt>calculate_background() -&gt; List:</dt><dd><p>Returns list of length n_channels. List holds the mean pixel values for each channel if background layer is defined and zeros if no background layer is defined.</p>
+</dd>
+<dt>measure_mask_in_image(layer_id: int) -&gt; app.api.classes_int.IntMeasurementResult:</dt><dd><p>Returns measurement object for given result layer and saves it to db and file storage.</p>
+</dd>
+<dt>get_classifiers(clf_type: str) -&gt; dict:</dt><dd><p>Fetches all saved classifiers from db, filters for type and returns dictionary of format {“UID_NAME”: UID}</p>
+</dd>
+<dt>refresh_from_db():</dt><dd><p>Fetches data of this image from db and updates the objects attributes.</p>
+</dd>
+<dt>delete_result_layer(layer_id: int):</dt><dd><p>Deletes the layer from database, file storage and the image. If layer was background_layer, corresponding attributes are reset.</p>
+</dd>
+<dt>estimate_ground_truth_layer(layer_id_list: List[int], suffix: str):</dt><dd><p>Fetches given layers and uses SimpleITKs STAPLE algorithm to estimate ground truth. 
+Resulting layer will be initialized as IntResultLayer.</p>
+</dd>
+</dl>
+<p>add_layer_from_roi(path)
+add_layer_from_mask(path)</p>
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.add_layer_from_mask">
+<code class="sig-name descname">add_layer_from_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.add_layer_from_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.add_layer_from_roi">
+<code class="sig-name descname">add_layer_from_roi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.add_layer_from_roi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.bg_layer_id">
+<code class="sig-name descname">bg_layer_id</code><em class="property">: Optional<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.bg_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.calculate_background">
+<code class="sig-name descname">calculate_background</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.calculate_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expects the bg_uid to belong to a result layer of this image.
+Result layer will be turned to binary, assuming all labels &gt; 0 to be background.
+Returns list of length n_channel with mean intensity of measured pixels.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.data">
+<code class="sig-name descname">data</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.image.IntImage.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.delete_result_layer">
+<code class="sig-name descname">delete_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_id</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.delete_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to delete a result layer by uid. 
+If result layer is selected as background layer, the attributes “has_bg_layer” and “bg_layer_id” are set to False and None.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>layer_id(int): Id of result layer to be deleted.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.estimate_ground_truth_layer">
+<code class="sig-name descname">estimate_ground_truth_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_id_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">suffix</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.estimate_ground_truth_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to estimate ground truth from multiple layers with by SimpleITK’s STAPLE probabilities.
+For ground truth estimation layer will be binarized, all labels &gt; 0 will be unified and represented as foreground (==1) for calculation.
+Saves label layer to image, database and file storage.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>layer_id_list(List[int]): List of layer ids to be used for ground truth estimation. Must belong to this image.</p></li>
+<li><p>suffix(str): will be appended to layer name.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.experiment_ids">
+<code class="sig-name descname">experiment_ids</code><em class="property">: List<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.experiment_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.get_classifiers">
+<code class="sig-name descname">get_classifiers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clf_type</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.get_classifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads all classifiers of given type from database.
+Returns dictionary of format {“UID_NAME”: UID}. Mainly for use in napari viewer.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>clf_type(str): Valid classifier type, for available types see app.api.cfg_classes.classifier_types.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.get_image_scaling">
+<code class="sig-name descname">get_image_scaling</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.get_image_scaling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads pixel dimensions and returns relative dimensions.
+Returns dimensions normalized scales in array with shape (z,y,x) or None if no scaling information was provided in metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.get_thumbnail_path">
+<code class="sig-name descname">get_thumbnail_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.get_thumbnail_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function which returns path to the thumbnail on fileserver. 
+Gets gets fileserver path and joins with return value from utils_paths.make_thumbnail_path
+Returns path as pathlib.Path</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.has_bg_layer">
+<code class="sig-name descname">has_bg_layer</code><em class="property">: bool</em><a class="headerlink" href="#app.api.classes.image.IntImage.has_bg_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.hint">
+<code class="sig-name descname">hint</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.image_result_layers">
+<code class="sig-name descname">image_result_layers</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.image_result_layer.IntImageResultLayer" title="app.api.classes.image_result_layer.IntImageResultLayer">app.api.classes.image_result_layer.IntImageResultLayer</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.image_result_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.measure_mask_in_image">
+<code class="sig-name descname">measure_mask_in_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_id</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.measure_mask_in_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to measure mask and save result as ResultMeasurement. Creates measurement object and initializes it (save to db and file storage)
+Returns IntResultMeasurement object:
+measurement.measurement has shape: (n_labels, n_channel, n_features), n_features == 2 (n_pixels, sum_pixels)</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>layer_id(int): uid of the layer to be measured</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.metadata">
+<code class="sig-name descname">metadata</code><em class="property">: dict</em><a class="headerlink" href="#app.api.classes.image.IntImage.metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.metadata_omexml">
+<code class="sig-name descname">metadata_omexml</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.image.IntImage.metadata_omexml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image.IntImage.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.on_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initialize the object. Handles image as new image if “uid” == -1 and as imported Mistos image if “uid” == -2.
+Creates image in database which generates path and id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.refresh_from_db">
+<code class="sig-name descname">refresh_from_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.refresh_from_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests current information from db and updates the object’s attributes accordingly.
+Does not reload image data again</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.result_measurements">
+<code class="sig-name descname">result_measurements</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#app.api.classes.result_measurement.IntResultMeasurement" title="app.api.classes.result_measurement.IntResultMeasurement">app.api.classes.result_measurement.IntResultMeasurement</a><span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.result_measurements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.select_channel">
+<code class="sig-name descname">select_channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.select_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method expects channel index.
+Returns deep copy of channel with shape (z,y,x).</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>channel(int): index of channel to be selected.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.select_result_layer">
+<code class="sig-name descname">select_result_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.select_result_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.series_index">
+<code class="sig-name descname">series_index</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image.IntImage.series_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.set_bg_false">
+<code class="sig-name descname">set_bg_false</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.set_bg_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function to set has_bg_layer to False and bg_layer_id to None.
+Attribute is changed in db, then object attributes are reloaded from db.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.set_bg_true">
+<code class="sig-name descname">set_bg_true</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_layer</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#app.api.classes.image_result_layer.IntImageResultLayer" title="app.api.classes.image_result_layer.IntImageResultLayer">app.api.classes.image_result_layer.IntImageResultLayer</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.set_bg_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to set layer as background layer.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>image_layer(app.api.classes_int.IntImageImageResultLayer): Layer to be selected as background layer.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.tags">
+<code class="sig-name descname">tags</code><em class="property">: Set<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image.IntImage.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image.IntImage.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image.IntImage.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms internal class representation to db class representation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image.IntImage.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image.IntImage.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.image_result_layer">
+<span id="app-api-classes-image-result-layer-module"></span><h2>app.api.classes.image_result_layer module<a class="headerlink" href="#module-app.api.classes.image_result_layer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.image_result_layer.</code><code class="sig-name descname">DbImageResultLayer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">image_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">layer_type</span><span class="p">:</span> <span class="n">app.api.classes.image_result_layer.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of ImageResultLayers</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str</span></dt><dd><p>brief description of the object</p>
+</dd>
+<dt>image_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated image</p>
+</dd>
+<dt>layer_type: str</dt><dd><p>describes type of result layer. Must be one of strings defined in app.api.cfg_classes.layer_types</p>
+</dd>
+<dt>path<span class="classifier">pathlib.Path, optional</span></dt><dd><p>path to file storage, will be automatically generated when object is saved to database.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntImageResultLayer:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComImageResultLayer:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+<dt>delete(sess = None):</dt><dd><p>deletes object in database and file storage. Uses default session if none is passed.</p>
+</dd>
+<dt>update_hint(new_hint: str, sess = None):</dt><dd><p>updates objects hint in database. Uses default session if none is passed.</p>
+</dd>
+<dt>update_name(new_name: str, sess = None):</dt><dd><p>updates objects name in database. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Path and id are generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls crud method to Delete all associated measurements and the layer itself.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.image_id">
+<code class="sig-name descname">image_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.layer_type">
+<code class="sig-name descname">layer_type</code><em class="property">: app.api.classes.image_result_layer.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.layer_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.path">
+<code class="sig-name descname">path</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object as com class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object as com class</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.update_hint">
+<code class="sig-name descname">update_hint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_hint</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.update_hint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls crud.update_result_layer_hint to save string as new hint.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_hint(str): new hint string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.DbImageResultLayer.update_name">
+<code class="sig-name descname">update_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.DbImageResultLayer.update_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls crud.update_result_layer_name to update name.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>new_name(str): new name string to be saved.</p></li>
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db).</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.image_result_layer.</code><code class="sig-name descname">IntImageResultLayer</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">image_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">layer_type</span><span class="p">:</span> <span class="n">app.api.classes.image_result_layer.ConstrainedStrValue</span></em>, <em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with result layers.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>image_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated image</p>
+</dd>
+<dt>layer_type: str</dt><dd><p>describes type of result layer. Must be one of strings defined in app.api.cfg_classes.layer_types</p>
+</dd>
+</dl>
+<p>data : Any</p>
+<dl class="simple">
+<dt>onInit():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>delete():</dt><dd><p>Removes a result_layer as well as the associated measurements</p>
+</dd>
+<dt>to_db_class():</dt><dd><p>Transforms object to db_class</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.data">
+<code class="sig-name descname">data</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.delete">
+<code class="sig-name descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function removes a result_layer as well as the associated measurements</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.hint">
+<code class="sig-name descname">hint</code><em class="property">: Optional<span class="p">[</span>str<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.image_id">
+<code class="sig-name descname">image_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.layer_type">
+<code class="sig-name descname">layer_type</code><em class="property">: app.api.classes.image_result_layer.ConstrainedStrValue</em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.layer_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.on_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initialize the object. Asserts that result layer has 3 dimensions, then calls DbImageResultLayer.create_in_db() to save to db. This generates uid and path to store data
+Then calls stores label layer to file storage as zarr.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms internal class representation to db class representation.</p>
+<p>To be done: db class has no path after transformation?!</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.image_result_layer.IntImageResultLayer.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.image_result_layer.IntImageResultLayer.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes.result_measurement">
+<span id="app-api-classes-result-measurement-module"></span><h2>app.api.classes.result_measurement module<a class="headerlink" href="#module-app.api.classes.result_measurement" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.result_measurement.</code><code class="sig-name descname">DbResultMeasurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">image_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">result_layer_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_summary</span><span class="p">:</span> <span class="n">pathlib.Path</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle database and file storage of ResultMeasurements</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. Brief description of the object</p>
+</dd>
+<dt>image_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated image</p>
+</dd>
+<dt>result_layer_id: int</dt><dd><p>unique identifier of the associated result layer</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>empty string by default. path to file storage. will be automatically generated when object is saved to database.</p>
+</dd>
+<dt>path_summary<span class="classifier">str, optional</span></dt><dd><p>empty string by default. path to file storage of measurement summary. will be automatically generated when object is saved to database.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>to_int_class()-&gt;app.api.classes_internal.IntResultMeasurement:</dt><dd><p>returns object as int_class. Loads layer array from file path in the process.</p>
+</dd>
+<dt>to_com_class()-&gt;app.api.classes_com.ComResultMeasurement:</dt><dd><p>returns object as com_class.</p>
+</dd>
+<dt>create_in_db(sess = None):</dt><dd><p>creates object in database, updates objects path and uid attributes accordingly. Uses default session if none is passed.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.create_in_db">
+<code class="sig-name descname">create_in_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sess</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.create_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object in db. Path, path_summary and id are generated and updated in object.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>sess(sqlalchemy.orm.Session): The database session to be used, if no session is passed default session will be used (app.api.dependencies.get_db)</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.image_id">
+<code class="sig-name descname">image_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.path">
+<code class="sig-name descname">path</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.path_summary">
+<code class="sig-name descname">path_summary</code><em class="property">: Optional<span class="p">[</span>pathlib.Path<span class="p">]</span></em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.path_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.result_layer_id">
+<code class="sig-name descname">result_layer_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.result_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.to_com_class">
+<code class="sig-name descname">to_com_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.to_com_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object as com class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.to_int_class">
+<code class="sig-name descname">to_int_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.to_int_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns object as int class. Loads measurement and summary in the process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.DbResultMeasurement.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.DbResultMeasurement.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement">
+<em class="property">class </em><code class="sig-prename descclassname">app.api.classes.result_measurement.</code><code class="sig-name descname">IntResultMeasurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">uid</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">hint</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">image_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">result_layer_id</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">measurement_summary</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.main.BaseModel</span></code></p>
+<p>A class to handle calculations and other internal operations with result layers.</p>
+<dl class="simple">
+<dt>uid<span class="classifier">int</span></dt><dd><p>the objects unique identifier</p>
+</dd>
+<dt>name<span class="classifier">str </span></dt><dd><p>the objects name</p>
+</dd>
+<dt>hint<span class="classifier">str, optional</span></dt><dd><p>empty string by default. brief description of the object</p>
+</dd>
+<dt>image_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated image</p>
+</dd>
+<dt>result_layer_id<span class="classifier">int</span></dt><dd><p>unique identifier of the associated result_layer</p>
+</dd>
+<dt>measurement<span class="classifier">Any</span></dt><dd><p>array with shape (n_labels, n_channel, n_features), features are defined in app.api.utils_results.features.
+calculated by app.api.utils_results.calculate_measurement()</p>
+</dd>
+<dt>measurement_summary<span class="classifier">Any</span></dt><dd><p>dictionary with summary of the measurement.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>onInit():</dt><dd><p>Initializes object. Object is saved in database and file storage</p>
+</dd>
+<dt>to_db_class():</dt><dd><p>Returns object as DbResultMeasurement object.</p>
+</dd>
+<dt>save_measurement(path: pathlib.Path, path_summary: pathlib.Path):</dt><dd><p>Saves the attributes “measurement” and “measurement_summary” to given paths.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.hint">
+<code class="sig-name descname">hint</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.hint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.image_id">
+<code class="sig-name descname">image_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.image_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.measurement">
+<code class="sig-name descname">measurement</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.measurement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.measurement_summary">
+<code class="sig-name descname">measurement_summary</code><em class="property">: Any</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.measurement_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.name">
+<code class="sig-name descname">name</code><em class="property">: str</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.on_init">
+<code class="sig-name descname">on_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.on_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to initialize the object. Calls DbResultMeasurement.create_in_db() to save to db. This generates uid and paths to store data
+Then calls the class’ save_measurement method to save both.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.result_layer_id">
+<code class="sig-name descname">result_layer_id</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.result_layer_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.save_measurement">
+<code class="sig-name descname">save_measurement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="p">:</span> <span class="n">pathlib.Path</span></em>, <em class="sig-param"><span class="n">path_summary</span><span class="p">:</span> <span class="n">pathlib.Path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.save_measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method calls fileserver_requests.save_measurement and fsr.save_measurement_summary to save both attributes to given paths.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.to_db_class">
+<code class="sig-name descname">to_db_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.to_db_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms internal class representation to db class representation.</p>
+<p>To be done: db class has no path after transformation?!</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="app.api.classes.result_measurement.IntResultMeasurement.uid">
+<code class="sig-name descname">uid</code><em class="property">: int</em><a class="headerlink" href="#app.api.classes.result_measurement.IntResultMeasurement.uid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.api.classes">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app.api.classes" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="app.tests.html" class="btn btn-neutral float-right" title="app.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="app.api.html" class="btn btn-neutral float-left" title="app.api package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Thomas J. Lux.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

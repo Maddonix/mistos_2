@@ -2,7 +2,7 @@ from deepflash2.learner import EnsembleLearner, get_files, Path
 from app import crud
 import pathlib
 import numpy as np
-from app.api import classes_internal as c_int, utils_transformations
+from app.api import classes, utils_transformations
 import app.fileserver_requests as fsr
 from app.api import utils_paths
 
@@ -18,11 +18,30 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
     use_tta -- boolean, if true tta prediction is used. Image will be predicted in multiple orientations, consensus is returned. Takes significantly longer, yiels more reliable results
     separate_z_slices -- boolean, if True each z slice of each image will be temporarily stored and passed to the prediction.
     '''
+    tmp_filepaths = []
     # Read image paths
     if separate_z_slices == False:
-        image_path_list = [crud.read_db_image_by_uid(
-            image_id).path_image for image_id in image_id_list]
-        image_path_list = [pathlib.Path(path) for path in image_path_list]
+        tmp_indexes = []
+        image_list = [crud.read_image_by_uid(
+            image_id) for image_id in image_id_list]
+        image_path_list = [pathlib.Path(
+            crud.read_db_image_by_uid(int_image.uid).path_image) for int_image in image_list]
+        # Check dimensions of images
+        for i, image in enumerate(image_list):
+            # Means this image is a z stack
+            if image.data.shape[0] > 1 or image.data.shape[1] > 1:
+                image_array = image.select_channel(channel)
+                image_array = utils_transformations.z_project(
+                    image_array, mode="max")
+                print(
+                    f"shape of {image.name} was changed from {image.data.shape} to {image_array.shape}")
+                tmp_filepath = utils_paths.make_tmp_file_path(
+                    f"{image.uid}_0.zarr")
+                fsr.save_zarr(image_array, tmp_filepath)
+                tmp_filepaths.append(tmp_filepath)
+                tmp_indexes.append(i)
+                image_path_list[i] = tmp_filepath
+
     else:
         print("3D Prediction Mode")
         print("extracting z-slices to tmp folder")
@@ -39,7 +58,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
                 print(layer.shape)
                 path = utils_paths.make_tmp_file_path(
                     f"{image.uid}_{n_layer}.zarr")
-                print(path)
+                tmp_filepaths.append(path)
                 fsr.save_zarr(layer, path)
                 image_path_list.append(path)
                 layer_dict[image_id].append([])
@@ -60,9 +79,14 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
     # Pass image file paths to ensemble learner and predict images
     el.get_ensemble_results(image_path_list, use_tta=use_tta)
     if separate_z_slices == False:
-        for path in el.df_ens["res_path"]:
+        for i, path in enumerate(el.df_ens["res_path"]):
             path = pathlib.Path(path)
-            image_id, segmentation = get_segmentation_from_path(path)
+            print(path)
+            if i in tmp_indexes:
+                image_id, n_layer, segmentation = get_segmentation_from_tmp_path(
+                    path)
+            else:
+                image_id, segmentation = get_segmentation_from_path(path)
             # DeepFlash provides 2d segmentation only right now, therefore we have to change the dimension
             int_image = crud.read_image_by_uid(image_id)
             if len(segmentation.shape) == 2:
@@ -84,7 +108,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
                     0]
 
             # Create new Result Layer
-            result_layer = c_int.IntImageResultLayer(
+            result_layer = classes.IntImageResultLayer(
                 uid=-1,
                 name=f"df_seg_{classifier.uid}_{classifier.name}",
                 hint=f"Segmentation was created using DeepFlash2 (model: {classifier.name}, [ID: {classifier.uid}]",
@@ -105,8 +129,6 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
                 path)
             layer_dict[image_id][n_layer] = segmentation
 
-        print(layer_dict)
-
         for image_id, segmentation_list in layer_dict.items():
             print(segmentation_list[0].shape)
             y_dim = segmentation_list[0].shape[0]
@@ -115,13 +137,12 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
                 (len(segmentation_list), y_dim, x_dim), dtype=bool)
             for i, segmentation in enumerate(segmentation_list):
                 result_layer_data[i] = segmentation
-            fsr.save_zarr(result_layer_data, "test.zarr")
 
             if transform_to_multilabel:
                 result_layer_data = utils_transformations.binary_mask_to_multilabel(
                     result_layer_data)[0]
 
-            result_layer = c_int.IntImageResultLayer(
+            result_layer = classes.IntImageResultLayer(
                 uid=-1,
                 name=f"df_seg_{classifier.uid}_{classifier.name}",
                 hint=f"Segmentation was created using DeepFlash2 (model: {classifier.name}, [ID: {classifier.uid}], channel number: {channel}, 3D Mode",
@@ -135,10 +156,9 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
             int_image.measure_mask_in_image(result_layer.uid)
 
     # delete temp files
-    # el.clear_tmp()
-    if separate_z_slices:
-        for path in image_path_list:
-            fsr.delete_folder(path)
+    el.clear_tmp()
+    for path in tmp_filepaths:
+        fsr.delete_folder(path)
 
 
 def get_segmentation_from_path(path):
@@ -147,6 +167,7 @@ def get_segmentation_from_path(path):
 
     returns: (uid, array) 
     '''
+    print(path)
     uid = int(path.as_posix().split("/")[-1].split(".")[0])
     segmentation_array = np.load(path)["seg"]
     segmentation_array = np.where(segmentation_array > 0.5, 1, 0)
@@ -167,6 +188,5 @@ def get_segmentation_from_tmp_path(path):
     segmentation_array = np.load(path)["seg"]
     segmentation_array = np.where(segmentation_array > 0.5, 1, 0)
     segmentation_array.astype(np.bool)
-    np.save(f"{uid}.np", segmentation_array)
 
     return(uid, n_layer, segmentation_array)
