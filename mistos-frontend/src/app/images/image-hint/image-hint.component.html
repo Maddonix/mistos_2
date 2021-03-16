@@ -31,8 +31,8 @@
 <div class="mat-body-1" style="margin-left:40px" *ngFor="let resultLayer of image.imageResultLayers">{{resultLayer.name}} [{{resultLayer.layerType}}]</div>
 <br>
 <!-- Measurements -->
-<div class="mat-body-2">Measurements</div>
-<div class="mat-body-1" style="margin-left:40px" *ngFor="let measurement of image.measurements">{{measurement.name}} [ID: {{measurement.uid}}]</div>
+<!-- <div class="mat-body-2">Measurements</div>
+<div class="mat-body-1" style="margin-left:40px" *ngFor="let measurement of image.measurements">{{measurement.name}} [ID: {{measurement.uid}}]</div> -->
 
 <div class="m-left" fxLayoutAlign="center end">
     <button mat-raised-button color="primary" style="margin-left:5px; margin-right:5px;" (click)="onDetail()">Detail</button>

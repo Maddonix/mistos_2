@@ -28,6 +28,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
             crud.read_db_image_by_uid(int_image.uid).path_image) for int_image in image_list]
         # Check dimensions of images
         for i, image in enumerate(image_list):
+            print(image.data.shape)
             # Means this image is a z stack
             if image.data.shape[0] > 1 or image.data.shape[1] > 1:
                 image_array = image.select_channel(channel)
@@ -72,8 +73,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
 
     # Create EnsembleLearner and read model
     # , dl_kwargs={'num_workers':0}) # num_workers set to 0 due to cuda error on windows workiing with shared storage
-    el = EnsembleLearner(files=image_path_list)
-    # "RuntimeError: cuda runtime error (801) : operation not supported at ..\torch/csrc/generic/StorageSharing.cpp:247"
+    el = EnsembleLearner(files=image_path_list)#, dl_kwargs={'num_workers':0})
     el.get_models(classifier_path)
 
     # Pass image file paths to ensemble learner and predict images

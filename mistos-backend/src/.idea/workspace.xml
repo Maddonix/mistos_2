@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="14e19dcb-ec16-41cb-8e66-eeb6cfa6ac7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Tutorial/Mistos_Guide.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Tutorial/Mistos_Guide.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/classes/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/classes/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/classes/result_measurement.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/classes/result_measurement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/napari_viewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/napari_viewer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_deepflash.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_deepflash.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_export.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_export.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_garbage.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_garbage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_import.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_import.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_napari.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_napari.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_paths.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_results.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_results.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_segmentation_random_forest.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_segmentation_random_forest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/utils_transformations.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/utils_transformations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fileserver_requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/fileserver_requests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tests/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/tests/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tests/test_api_experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/tests/test_api_experiments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tests/test_api_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/tests/test_api_images.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tests/test_napari_viewer_backend.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/tests/test_napari_viewer_backend.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/app-navbar/app-navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/app-navbar/app-navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/deepflash/ground-truth-estimator/ground-truth-estimator.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/deepflash/ground-truth-estimator/ground-truth-estimator.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/dialogs/export-experiment/export-experiment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/dialogs/export-experiment/export-experiment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/experiments/experiment-detail/experiment-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/experiments/experiment-detail/experiment-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/images/image-detail/image-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/images/image-detail/image-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/images/image-hint/image-hint.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/images/image-hint/image-hint.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mistos-frontend/src/app/importer/images-upload/images-upload.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../mistos-frontend/src/app/importer/images-upload/images-upload.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../setup.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../../setup.bat" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="JupyterTrust" id="496ab46f-59b2-408f-a73d-00a0a23baf83" />
+  <component name="ProjectId" id="1pnuwRwc3MCWvdi8eEDZ9P1iF2B" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="14e19dcb-ec16-41cb-8e66-eeb6cfa6ac7f" name="Default Changelist" comment="" />
+      <created>1615831415956</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615831415956</updated>
+      <workItem from="1615831417093" duration="7000" />
+    </task>
+    <servers />
+  </component>
+</project>

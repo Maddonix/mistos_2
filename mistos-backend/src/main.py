@@ -16,22 +16,15 @@ inside the src/-folder.
 For debugging using VSCode or Pycharm see: https://fastapi.tiangolo.com/tutorial/debugging/
 
 """
-# Delete old files from garbage collection before startup
-# from app.api import utils_garbage
-# if not utils_garbage.garbage_json.exists():
-#     utils_garbage.create_garbage_json()
-# utils_garbage.delete_garbage_file()
-
 import uvicorn
 
 from app.api.com import hello, api_images, api_classifier, api_experiments, api_deepflash
 # from app.api.schemas import LoginException
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from app.database import engine
 from app import db_models
-from app.api import utils_paths
+from app.api import utils_garbage
 from app.api.utils_import import start_jvm, kill_jvm
 
 
@@ -70,6 +63,7 @@ async def startup():
     """
     # initialize javabridge
     start_jvm()
+
 
 
 @mistos.on_event("shutdown")

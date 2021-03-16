@@ -19,7 +19,7 @@ except ImportError:
         pass
 
 
-def semi_automatic_classification(img_array, label_array, multichannel=False, remove_bg_label=True):
+def semi_automatic_classification(img_array, label_array, remove_bg_label=True):
     '''
     Expects a image of 2 or 3 Dimensions as well as labels for it. Returns the completely labeled image.
     Background should always be labeled with class 1:
@@ -29,10 +29,9 @@ def semi_automatic_classification(img_array, label_array, multichannel=False, re
         n_estimators=50, n_jobs=-1, max_depth=8, max_samples=0.05
     )
 
-    features = multiscale_basic_features(img_array, multichannel=multichannel)
+    features = multiscale_basic_features(img_array, multichannel=True)
     classified_img, clf = fit_segmenter(label_array, features, clf)
 
-    # I
     if remove_bg_label:
         classified_img[classified_img >
                        0] = classified_img[classified_img > 0] - 1

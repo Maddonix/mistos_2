@@ -591,7 +591,7 @@ class IntImage(BaseModel):
             return None
         else:
             image_shape = self.data.shape
-            if mask.shape == (image_shape[0], image_shape[-2], image_shape[-1]) or mask.shape == (1, image_shape[-2], image_shape[-1]):
+            if mask.shape == (image_shape[0], image_shape[-2], image_shape[-1]):
                 int_result_layer = IntImageResultLayer(
                     uid=-1,
                     name=f"{path.name}",
@@ -599,6 +599,20 @@ class IntImage(BaseModel):
                     image_id=self.uid,
                     layer_type="labels",
                     data=mask
+                )
+                int_result_layer.on_init()
+                self.refresh_from_db()
+                self.measure_mask_in_image(int_result_layer.uid)
+            elif mask.shape == (1, image_shape[-2], image_shape[-1]):
+                _mask = np.zeros((image_shape[0], image_shape[-2], image_shape[-1]))
+                _mask[:,...] = mask
+                int_result_layer = IntImageResultLayer(
+                    uid=-1,
+                    name=f"{path.name}",
+                    hint="imported mask",
+                    image_id=self.uid,
+                    layer_type="labels",
+                    data=_mask
                 )
                 int_result_layer.on_init()
                 self.refresh_from_db()

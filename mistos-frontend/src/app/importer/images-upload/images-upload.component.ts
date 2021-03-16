@@ -17,7 +17,7 @@ export class ImagesUploadComponent implements OnInit {
   uploadModes = [
     "image",
     "max-z-projection",
-    "tilescan"
+    // "tilescan"
   ];
   uploadMode:string="image";
   constructor(private comService: ComService) { }

@@ -6,5 +6,6 @@ PAUSE
 call conda env create -f environment.yml
 call conda activate mistos
 call conda install pytorch torchvision torchaudio cpuonly -c pytorch
-call conda install -c fastai -c pytorch -c matjesg deepflash2
+call conda install deepflash2 -c fastai -c pytorch -c matjesg
 python setup.py
+PAUSE

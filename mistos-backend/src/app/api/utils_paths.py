@@ -51,8 +51,7 @@ else:
 if using_default and not default_mistos_dir.exists():
     os.mkdir(default_mistos_dir)
 
-# fileserver = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder")
-# export_folder = pathlib.Path("F:\\Data_Storage\\AG_Rittner\\Microscope Framework\\data\\fileserver_folder\\export")
+
 static_fileserver = "localhost:7778/"
 
 image_folder = pathlib.Path("images")
@@ -134,12 +133,12 @@ def make_result_path(uid):
 
 
 def make_measurement_path(uid):
-    path = measurement_folder.joinpath(f"{uid}.zarr")
+    path = measurement_folder.joinpath(f"{uid}.pkl")
     return path
 
 
 def make_measurement_summary_path(uid):
-    path = measurement_folder.joinpath(f"{uid}.pkl")
+    path = measurement_folder.joinpath(f"{uid}_summary.json")
     return path
 
 
@@ -227,7 +226,7 @@ def make_rois_export_folder_path(group_uid, group_name, exp_uid, exp_name, resca
 
 
 def create_rois_export_folder(group_uid, group_name, exp_uid, exp_name, rescaled=False):
-    path = make_images_export_folder_path(
+    path = make_rois_export_folder_path(
         group_uid, group_name, exp_uid, exp_name, rescaled)
     if not path.exists():
         os.mkdir(path)

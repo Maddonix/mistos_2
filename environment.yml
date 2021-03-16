@@ -4,6 +4,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=3.8.6
   - aiofiles
   - czifile
   - fastapi
@@ -15,10 +16,9 @@ dependencies:
   - numpy
   - openpyxl
   - pandas
-  - pip=21.0.1
+  - pip
   - pydantic
   - pyqt
-  - python=3.8.6
   - python-multipart
   - scikit-image
   - scikit-learn
@@ -27,9 +27,9 @@ dependencies:
   - tensorflow=2.3.0
   - tifffile
   - tqdm
-  - uvicorn
   - vispy
   - zarr
+  - uvicorn
   - pip:
     - auto-tqdm
     - csbdeep
@@ -38,5 +38,6 @@ dependencies:
     - xtiff
     - roifile
     - pathlib
+    - pytest
     - python-bioformats
     - python-javabridge

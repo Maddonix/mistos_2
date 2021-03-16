@@ -1,15 +1,13 @@
 # Mistos
-Microscopy Image Storing-and-Processing System
+Microscopy Image Storing and Processing System
 
-## Voraussetzungen
+## Requirements
 - Windows
 - Anaconda
 - Chrome browser (recommended)
 - Oracle JDK > 1.6
 - microsoft visual c++ 14.0
-- Speicherplatz je nach Nutzung
-- RAM je nach Größe der zu bearbeitenden Bilder
-- (CUDA fähige Grafikkarte für eine bessere Performance)
+- (CUDA enabled GPU for faster processing)
     - List of Cuda enabled GPU's: https://developer.nvidia.com/cuda-gpus
     - Guide to setup GPU support: https://www.tensorflow.org/install/gpu
 
@@ -87,7 +85,7 @@ Microscopy Image Storing-and-Processing System
 - Anaconda not added to PATH correctly
     - Solution: Add Anaconda to path
         - Find Anaconda path (default is: C:\\users\\{username}\\Anaconda3)
-        - Open the Windows menu "Systemumgebungsvariablen bearbeiten" TODO: ADD ENGLISH NAME
+        - Open the Windows menu "Systemumgebungsvariablen bearbeiten"
         - Go to "Umgebungsvariablen..."
         - double-click on "Path" in the upper list ("Benutzervariablen für {username}")
         - click "New" and paste the Anaconda path
@@ -136,19 +134,5 @@ Microscopy Image Storing-and-Processing System
 
 - Maybe: MachineLearning Screen?
 
-## Processes
-### Image Import
-1. URL from angular to :7777/api/import_image_series {data: image_path, separate_series: bool = False}
-2. calls ie.imported_series_path, series_id = ie.import_file_to_system(importURL, exportURL, separate_series=separate_series)
-2. - Reads Metadata
-2. - calls db.import_image_series_to_db(filename, n_series) to create db entries, returns name of future image series folder and series id 
-2a. - if 
-
-
-## Functions
-
-## Developer Processes
-### Build new frontend distribution
-- cd mistos-frontend
-- ng build
-- git add -f --all :/mistos-frontend/dist
+## Tutorial
+For a detailed tutorial, open the Mistos/tutorial folder and follow the instructions.

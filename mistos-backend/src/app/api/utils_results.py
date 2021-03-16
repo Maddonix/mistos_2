@@ -4,11 +4,9 @@ import SimpleITK as sitk
 import pandas as pd
 from app.api.utils_transformations import binary_mask_to_multilabel
 from typing import List
+import skimage.measure
 
-features = [
-    "n_pixel",
-    "sum_intensity"
-]
+features = ["label", "area", "max_intensity", "mean_intensity", "min_intensity"]
 
 n_features = len(features)
 
@@ -23,33 +21,36 @@ def calculate_measurement(image_array, labels_array):
         - image_array(np.array): shape(z,c,y,x)
         - labels_array(np.array): shape(z,y,x) and type int. Every number > 0 corresponds to a label.
     '''
-    n_channels = image_array.shape[1]
-    # Use np.unique instead of max, since labels might be removed during labeling process, this would skip numbers.
-    labels = np.unique(labels_array)
+    image_array = np.moveaxis(image_array, 1, -1)
+    print(f"img shape {image_array.shape}")
+    print(f"mask shape {labels_array.shape}")
+    measurement_dict = skimage.measure.regionprops_table(labels_array, image_array, properties = features)
+
     # we reduce the label length since label 0 is empty
-    measurement = np.zeros((len(labels)-1, n_channels, n_features))
-    for n in range(n_channels):
-        channel_array = image_array[:, n, ...]
-        for i, label in tqdm(enumerate(labels)):
-            if i == 0:
-                continue
-            label_array = np.where(labels_array == label, channel_array, 0)
-            _sum_pixel = label_array.sum()
-            _n_pixel = (label_array > 0).sum()
-            measurement[i-1, n] = [_n_pixel, _sum_pixel]
+    # Depreceated
+    # for n in range(n_channels):
+    #     channel_array = image_array[:, n, ...]
+    #     for i, label in tqdm(enumerate(labels)):
+    #         if i == 0:
+    #             continue
+    #         label_array = np.where(labels_array == label, channel_array, 0)
+    #         # Measurements for each channel
+    #         # Sum Intensity
+    #         _sum_pixel = label_array.sum()
+    #         # Number of Pixels for this label
+    #         _n_pixel = (label_array > 0).sum()
+    #         measurement[i-1, n] = [_n_pixel, _sum_pixel]
 
-    measurement_summary = {
-        "n_labels": measurement.shape[0]
-    }
-    return measurement, measurement_summary
+    measurement_summary = {}
+    return measurement_dict, measurement_summary
 
 
-def get_feature_colnames(channel_name_list):
-    colnames = []
-    for c in channel_name_list:
-        for f in features:
-            colnames.append(f"{c}_{f}")
-    return colnames
+# def get_feature_colnames(channel_name_list):
+#     colnames = []
+#     for c in channel_name_list:
+#         for f in features:
+#             colnames.append(f"{c}_{f}")
+#     return colnames
 
 # replace: result_layer_uid with c_int_measurement + image
 # replace
@@ -71,24 +72,29 @@ def calculate_measurement_df_for_result(experiment_group_uid: int, experiment_gr
     measurement = int_measurement.measurement
     # Calculate BG
     # returns list of mean intensity per pixel values in order of channels#
-    bg_mean_pixel_list = int_image.calculate_background()
+    bg_mean_pixel_list = int_image.calculate_background() # TO DOOOOOOOOOOOOOOOOOOOO
     channel_name_list = int_image.metadata["custom_channel_names"]
     # Get Colnames
-    colnames_features = get_feature_colnames(
-        channel_name_list)
+
     colnames_background = [
         f"{c}_mean_background_per_pixel" for c in channel_name_list]
-    measurement_reshaped = measurement.reshape(
-        (measurement.shape[0], -1), order="C")
+    # measurement_reshaped = measurement.reshape(
+    #     (measurement.shape[0], -1), order="C")
     # Here, pandas adds a index column
-    measurement_df = pd.DataFrame(
-        measurement_reshaped, columns=colnames_features)
+    measurement_df = pd.DataFrame(measurement)
+    channel_dict = {str(i): channel for i, channel in enumerate(channel_name_list)}
+    skip_cols = ["label", "area"]
+    rename_dict = {col:col.replace(col.split("-")[-1], channel_dict[col.split("-")[-1]]) for col in measurement_df.columns if col not in skip_cols}
+    # Rename cols
+    measurement_df.rename(columns=rename_dict, inplace = True)
+    
     for i, bg_colname in enumerate(colnames_background):
         measurement_df[bg_colname] = bg_mean_pixel_list[i]
     measurement_df["n_z_slices"] = int_image.data.shape[0]
 
     measurement_df["image"] = f"{int_image.uid}_{int_image.metadata['original_filename']}"
     measurement_df["group"] = f"{experiment_group_uid}_{experiment_group_name}"
+
     return measurement_df
 
 

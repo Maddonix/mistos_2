@@ -69,6 +69,7 @@ def view(
             """
             Apply StarDist2D Nuclei Segmentation
             """
+            print("ASD")
             layer = viewer.active_layer
             # Max Z Projection
             # Load Model
@@ -81,6 +82,8 @@ def view(
             # make z stack mask
             labels = np.zeros(layer.data.shape, dtype=int)
             labels[:] = _labels
+            viewer.add_labels(labels, name="StarDistNuclei",
+                              scale=image_scale, visible=True)
 
         def apply_stardist_3d(event=None):
             model_path = pathlib.Path(
@@ -90,16 +93,6 @@ def view(
             model = StarDist3D(name="stardist3d",
                                basedir=model_path.as_posix())
             _labels, details = model.predict_instances(layer.data)
-
-            # # TO DO: Load 3 D model
-            # labels = np.zeros(layer.data.shape)
-            # # Iterate over every z-slice and predict
-            # for n in range(layer.data.shape[0]):
-            #     _slice = layer.data[n]
-            #     # Normalize
-            #     _slice = _slice/_slice.max()
-            #     _labels, details = model.predict_instances(_slice)
-            #     labels[n] = _labels
             viewer.add_labels(_labels, name="StarDistNuclei3D",
                               scale=image_scale, visible=True)
 
@@ -147,18 +140,6 @@ def view(
             if confirmed:
                 layer = viewer.active_layer
                 assert type(layer) == Labels
-                # layer_name = layer.name
-                # layer_names = [
-                #     _layer.name for _layer in intImageResultLayerList]
-
-                # if layer_name in layer_names:
-                #     index = layer_names.index(layer_name)
-                # else:
-                #     print("Layer not in Layerlist. Either the image does not exist in db or you renamed it within the viewer. Renaming within the viewer is not fully supported yet")
-                #     return
-
-                # int_result_layer = intImageResultLayerList[index]
-                # _layer_id = int_result_layer.uid
                 _layer_id = int(combobox_select_layer.value.split("_")[0])
                 print(f"delete layer with id {_layer_id}")
                 intImage.delete_result_layer(_layer_id)
@@ -188,7 +169,49 @@ def view(
                     intImage.set_bg_true(new_bg_layer)
 
                     refresh()
+        
+        
+        @magicgui(
+            call_button="Segmentation",
+            layout="vertical"
+        )
+        def semiautomatic_segmentation_random_forest(
+            layer_labels: napari.layers.Labels
+        ):
 
+            label_array = viewer.active_layer.data
+            img_array = intImage.data
+            # We expect c to be the last dimension
+            img_array = np.moveaxis(img_array, 1, -1)
+
+            # if we have only one z slice, we tranform the image to shape (y,x)
+            if img_array.shape[0] == 1:
+                img_array = img_array[0, ...]
+                label_array = label_array[0, ...]
+
+            segmentation_labels, clf = utils_seg_rf.semi_automatic_classification(
+                img_array, label_array)
+
+            # classifier = classes.IntClassifier(
+            #     uid=-1,
+            #     name=f"random_forest_on_{intImage.name}",
+            #     classifier=clf,
+            #     clf_type="rf_segmentation",
+            #     test_train_data=[(intImage.data, label_array)],
+            #     metrics={},
+            #     params={
+            #         "multichannel": multichannel
+            #     },
+            #     tags=set(tags.split(";"))
+            # )
+            # classifier.on_init()
+
+            # will only be a binary mask if we have marked only labels 1==background, 2==regions of interest
+
+            viewer.add_labels(segmentation_labels,
+                              name="Segmentation", scale=image_scale)
+        
+        
         def binary_mask_to_multilabel(event=None):
             layer = viewer.active_layer
             assert type(layer) == Labels
@@ -426,41 +449,7 @@ def view(
                                       ])
         # container_toolbar.show()
         viewer.window.add_dock_widget(container_toolbar, area="right")
-
-        # button = PushButton(name="print", bind=print("ASDASDASDSD"))
-        # widgets_for_container = [button]
-        # widget_container = Container()
-        # widget_container.extend(widgets_for_container)
-
-        # Build UIs
-        # viewer.window.add_dock_widget(save_label_layer, area="top")
-        # viewer.window.add_dock_widget(save_background_layer, area="top")
-        # viewer.window.add_dock_widget(delete_background_layer, area="top")
-        # viewer.window.add_dock_widget(delete_label_layer, area="top")
-        # viewer.window.add_dock_widget(widget_container, area="top")
-
-        # viewer.window.add_dock_widget(load_clf_and_apply, area="bottom")
-        # viewer.layers.events.changed.connect(load_clf_and_apply.reset_choices)
-
-        # viewer.window.add_dock_widget(refresh, area="top")
-
-        # viewer.window.add_dock_widget(
-        #     semiautomatic_segmentation_random_forest, area="bottom")
-        # viewer.layers.events.changed.connect(
-        #     semiautomatic_segmentation_random_forest.reset_choices)
-
-        # viewer.window.add_dock_widget(remove_small_objects, area="bottom")
-
-        # viewer.window.add_dock_widget(remove_small_holes, area="bottom")
-
-        # viewer.window.add_dock_widget(area_closing, area="bottom")
-
-        # viewer.window.add_dock_widget(watershed, area="bottom")
-
-        # viewer.window.add_dock_widget(binary_mask_to_multilabel, area="top")
-        # viewer.window.add_dock_widget(multiclass_mask_to_binary, area="top")
-        # apply_stardist.show()
-        # viewer.window.add_dock_widget(apply_stardist, area="top")
+        viewer.window.add_dock_widget(semiautomatic_segmentation_random_forest, area = "right")
 
  # Depreceated for now, as it doesnt work nicely
         # @magicgui(call_button="Watershed", compactness={"widget_type": "FloatSpinBox", "max": 50, "min": 0, "value": 5}, layout="vertical")
@@ -520,53 +509,3 @@ def view(
         #         prediction_layer = classes.IntImageResultLayer(**kwargs)
         #         utils_napari.add_layer_from_int_layer(
         #             viewer=viewer, intImageResultLayer=prediction_layer, image_scale=image_scale, visible=True)
-
-        # @magicgui(
-        #     call_button="Segmentation",
-        #     multichannel={"choices": [True, False]},
-        #     tags={"widget_type": "LineEdit", "label": "tags"},
-        #     layout="vertical"
-        # )
-        # def semiautomatic_segmentation_random_forest(
-        #     layer_image: napari.layers.Image,
-        #     layer_labels: napari.layers.Labels,
-        #     tags: str,
-        #     multichannel=False,
-        # ):
-
-        #     img_array = layer_image.data
-        #     label_array = layer_labels.data
-        #     assert img_array.shape == label_array.shape
-
-        #     if multichannel:
-        #         # get all original image layers
-        #         img_array = image.data  # shape: (z,c,y,x)
-        #         # for multichannel segmentation we expect c to be the last dimension
-        #         img_array = np.moveaxis(img_array, 1, -1)
-
-        #     # if we have only one z slice, we tranform the image to shape (y,x)
-        #     if img_array.shape[0] == 1:
-        #         img_array = img_array[0, ...]
-        #         label_array = label_array[0, ...]
-
-        #     segmentation_labels, clf = utils_seg_rf.semi_automatic_classification(
-        #         img_array, label_array, multichannel=multichannel)
-
-        #     classifier = classes.IntClassifier(
-        #         uid=-1,
-        #         name=f"random_forest_on_{intImage.name}",
-        #         classifier=clf,
-        #         clf_type="rf_segmentation",
-        #         test_train_data=[(intImage.data, label_array)],
-        #         metrics={},
-        #         params={
-        #             "multichannel": multichannel
-        #         },
-        #         tags=set(tags.split(";"))
-        #     )
-        #     classifier.on_init()
-
-        #     # will only be a binary mask if we have marked only labels 1==background, 2==regions of interest
-
-        #     viewer.add_labels(segmentation_labels,
-        #                       name="Segmentation", scale=image_scale)

@@ -1,4 +1,7 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "C:\\Users\\tlux1\\anaconda3\\envs\\mistos\\python.exe"
+    "python.pythonPath": "D:\\Programming\\miniconda\\envs\\mistos\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.linting.enabled": true
 }

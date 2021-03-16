@@ -121,7 +121,7 @@ class IntResultMeasurement(BaseModel):
     image_id: int
     result_layer_id: int
     measurement: Any
-    measurement_summary: Any
+    measurement_summary: dict
 
     def on_init(self):
         '''
@@ -132,6 +132,7 @@ class IntResultMeasurement(BaseModel):
             db_result_measurement = self.to_db_class()
             db_result_measurement.create_in_db()
             self.uid = db_result_measurement.uid
+            print(self.measurement)
             self.save_measurement(db_result_measurement.path,
                                   db_result_measurement.path_summary)
 

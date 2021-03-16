@@ -74,21 +74,21 @@ def save_thumbnail(image, path: pathlib.Path):
     imageio.imwrite(path, image)
 
 
-def save_measurement(measurement, path: pathlib.Path):
+def save_measurement(measurement:dict, path: pathlib.Path):
     '''
-    format?
+    dictionary
     '''
-    path = path.as_posix()
-    zarr.save_array(path, measurement)
+    with open(path, "wb") as _file:
+        pickle.dump(measurement, _file)
 
 
 def load_measurement(path: pathlib.Path):
-    path = path.as_posix()
-    measurement = zarr.convenience.load(path)
+    with open(path, "rb") as _file:
+        measurement = pickle.load(_file)
     return measurement
 
 
-def save_measurement_summary(measurement_summary, path: pathlib.Path):
+def save_measurement_summary(measurement_summary: dict, path: pathlib.Path):
     with open(path, "w") as _file:
         json.dump(measurement_summary, _file)
 

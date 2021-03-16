@@ -8,11 +8,8 @@ from typing import List
 from app.api.utils_transformations import rescale_image, z_project, multiclass_mask_to_binary
 import numpy as np
 import skimage.io
-import sys
 import roifile
 from typing import List
-
-sys.setrecursionlimit(10000)
 
 
 def to_tiff(image_array, path, image_name, channel_names, mask=False, pixel_type=None):
@@ -37,6 +34,8 @@ def to_png(array, path):
     assert array.shape[0] == 1
     assert array.shape[1] == 1
     array = array[0, 0, ...]
+    # Make binary
+    array = array.astype(bool)
     array = img_as_ubyte(array*255)
     skimage.io.imsave(fname=path, arr=array)
 

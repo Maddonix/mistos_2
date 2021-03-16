@@ -1,6 +1,6 @@
 <div fxLayout="row">
     <div class="mat-headline">Image Detail: {{image.name}} [ID: {{image.uid}}]</div>
-    <button mat-raised-button color="primary" (click)="onExportMistosImage()" style="margin-left:auto; margin-right: 10px;">Export to Export Folder</button>
+    <button mat-raised-button color="primary" (click)="onExportMistosImage()" style="margin-left: 100px;margin-bottom:5 px">Export to Export Folder</button>
 </div>
 
 
@@ -46,12 +46,12 @@
                 <div class="mat-body-1">{{image.hint}}</div>
             </div>          
         </mat-grid-tile>
-        <mat-grid-tile [rowspan]="'2'">
+        <!-- <mat-grid-tile [rowspan]="'2'">
             <mat-grid-tile-header>
                 Summary
             </mat-grid-tile-header>
-            3
-        </mat-grid-tile>
+            
+        </mat-grid-tile> -->
 
     </mat-grid-list>
 </div>
@@ -77,7 +77,7 @@
                 </div>
                 <hr>
                 <br>
-                <div class="mat-body-2">Measurements</div>
+                <!-- <div class="mat-body-2">Measurements</div> -->
                 <!-- <div class="measurement-info" *ngFor="let measurement of filterMeasurements(layer.uid)"></div> -->
             </div>
         </mat-grid-tile>

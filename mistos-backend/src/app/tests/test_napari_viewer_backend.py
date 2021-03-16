@@ -9,9 +9,9 @@ def test_multilabel_mask_to_binary():
     pass
 
 
-def test_remove_small_objects():
-    pass
+# def test_remove_small_objects():
+#     pass
 
 
-def test_remove_small_holes():
-    pass
+# def test_remove_small_holes():
+#     pass

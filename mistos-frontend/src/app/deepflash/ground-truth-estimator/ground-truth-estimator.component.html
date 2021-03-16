@@ -51,7 +51,7 @@
                 </div> -->
             </mat-grid-tile-header>
             <mat-form-field appearance="fill">
-                <mat-label for="selectModel">Model</mat-label>
+                <mat-label for="selectModel">Layer</mat-label>
                 <mat-select class="form-control" [formControlName]="image.uid.toString()+'_'+expert.toString()">
                   <mat-option id="selectModel" *ngFor="let choice of layerChoices[image.uid]" [value]="choice.layerId">
                     {{choice.viewValue}}

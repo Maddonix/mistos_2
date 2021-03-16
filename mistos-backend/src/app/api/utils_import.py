@@ -60,6 +60,7 @@ def read_mask(path: Path):
 
 
 def read_roi(path: Path, image_shape):
+    # Currently expects 2d rois!
     rois = roifile.ImagejRoi.fromfile(path)
     if path.suffix == ".roi":
         rois = [rois]
@@ -69,8 +70,9 @@ def read_roi(path: Path, image_shape):
     for i, polygon in enumerate(polys):
         polygon_mask = polygon2mask(mask_shape_2d, np.flip(polygon, axis=1))
         mask[polygon_mask] = i+1
-    mask = mask[np.newaxis, ...]
-    return mask
+    _mask = np.zeros((image_shape[0], image_shape[2], image_shape[3]))
+    _mask[:] = mask
+    return _mask
 
 
 def load_metadata_only(filepath_metadata):
@@ -153,7 +155,6 @@ def read_image_of_series(path, metadata_dict, n_series=0):
     Intensity values are rescaled to floats between 0 and 1.
     Returns zarr of shape (z,c,y,x) and metadata_dict.
     '''
-    #  Start Javabridge for bioformats_importer
 
     tmp_reader_key = "_"
 

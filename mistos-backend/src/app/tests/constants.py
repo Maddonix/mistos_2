@@ -2,6 +2,7 @@ import pathlib
 import numpy as np
 from app.api.classes import *
 from app.api.classes_com import *
+import skimage.draw
 
 test_images_folder = pathlib.Path("../../tutorial/Demo Experiment 1")
 deepflash_model_folder = pathlib.Path(
@@ -41,7 +42,7 @@ mask_paths = mask_paths[:n_test_images]
 channel_names_list = [
     [""],
     ["c01", "c02", "c03"],
-    None
+    [""]
 ]
 channel_names_list = channel_names_list[:n_test_images]
 
@@ -206,6 +207,15 @@ export_experiment_requests = [
     }
 ]
 
+# def get_test_poly(int_image):
+#     _shape = int_image.data.shape
+#     assert len(_shape) == 4
+#     _mask_shape = (_shape[0], _shape[2], _shape[3])
+#     circle_coords = skimage.draw.circle_perimeter(25,50, 10)
+#     circle_coords_2 = skimage.draw.circle_perimeter(25,25, 10)
+#     for z in range(len(_shape[0])):
+
+#     assert
 
 def get_test_label_array(int_image):
     _shape = int_image.data.shape
@@ -220,3 +230,41 @@ def get_test_label_array(int_image):
         else:
             _ = True
     return test_layer
+
+
+# Frequently used Requests
+def fetch_all_images(test_app_simple):
+    return test_app_simple.get(
+        "/api/images/fetch_all")
+def read_image_from_path(test_app_simple, path):
+    return test_app_simple.post(
+            "/api/images/read_from_path", headers={"Content-Type": "application/json"},
+            json={
+                "path": path.as_posix()
+            })
+
+def make_result_layer(int_image, label_array):
+    int_result_layer = IntImageResultLayer(
+            uid=-1,
+            name=f"test_layer_{int_image.name}",
+            image_id=int_image.uid,
+            layer_type="labels", data=label_array
+        )
+    int_result_layer.on_init()
+    int_image.refresh_from_db()
+    int_image.measure_mask_in_image(
+        int_result_layer.uid)
+    return int_image, int_result_layer
+
+def delete_image_by_uid(test_app_simple, image_id):
+    return test_app_simple.post(
+            "/api/images/delete_by_id", headers={"Content-Type": "application/json"},
+            json={
+                "id": image_id
+            })
+
+def delete_all_images(test_app_simple):
+    list_image_dicts = fetch_all_images(test_app_simple).json()
+    ids = [img_dict["uid"] for img_dict in list_image_dicts]
+    for id in ids:
+        delete_image_by_uid(test_app_simple, id)

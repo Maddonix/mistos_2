@@ -19,12 +19,7 @@ def test_import_images_from_path(test_app_simple):
     for path in image_paths:
         print(path.resolve())
         print(f"Exists? {path.exists()}")
-        response = test_app_simple.post(
-            "/api/images/read_from_path", headers={"Content-Type": "application/json"},
-            json={
-                "path": path.as_posix()
-            })
-        print(response)
+        response = read_image_from_path(test_app_simple, path)
         assert response.status_code == 201
 
 
@@ -94,20 +89,20 @@ def test_fetch_thumbnail_path(test_app_simple):
         assert response.status_code == 200
 
 
-def test_export_import_mistos_image(test_app_simple):
-    for i in range(len(image_paths)):
-        uid = i+1
-        response = test_app_simple.get(
-            f"api/images/export_mistos_image/{uid}")
-        assert response.status_code == 201
-        path = response.json()["path"]
-        assert pathlib.Path(path).exists()
-        response = test_app_simple.post(
-            "/api/images/import_mistos_image", headers={"Content-Type": "application/json"},
-            json={
-                "path": path
-            })
-        assert response.status_code == 201
+# def test_export_import_mistos_image(test_app_simple):
+#     for i in range(len(image_paths)):
+#         uid = i+1
+#         response = test_app_simple.get(
+#             f"api/images/export_mistos_image/{uid}")
+#         assert response.status_code == 201
+#         path = response.json()["path"]
+#         assert pathlib.Path(path).exists()
+#         response = test_app_simple.post(
+#             "/api/images/import_mistos_image", headers={"Content-Type": "application/json"},
+#             json={
+#                 "path": path
+#             })
+#         assert response.status_code == 201
 
 
 def test_view_image_by_id(test_app_simple):
