@@ -28,7 +28,7 @@ Microscopy Image Storing and Processing System
 
 ### Visual Studio 
 - If you already have a Visual C++ Redistributable ( >14.0 ) you may skip this step
-- Otherwise visit https://www.microsoft.com/de-de/download/details.aspx?id=48145 , download and install 
+- Otherwise visit https://visualstudio.microsoft.com/downloads/, download and install (check the C++ build tools box)
 
 ### Anaconda
 - If you already have an up-to-date version of anaconda installed, you may skip this section (make sure conda is accessable from commandline!)
