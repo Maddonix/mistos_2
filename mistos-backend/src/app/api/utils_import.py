@@ -25,7 +25,7 @@ color_multipliers = {
     "teal": [0, 1, 1],
     "yellow": [1, 1, 0]
 }
-cmaps = ["blue", "green", "red", "yellow", "teal"]
+cmaps = ["green", "red","blue", "yellow", "teal"]
 
 javabridge.start_vm(class_path=bioformats.JARS)
 

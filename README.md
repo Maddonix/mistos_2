@@ -2,8 +2,8 @@
 Microscopy Image Storing and Processing System
 
 ## Requirements
-- Windows
-- Anaconda
+- Windows 10
+- 2020.11 64Bit Individual Edition (https://repo.anaconda.com/archive/Anaconda3-2020.11-Windows-x86_64.exe)
 - Chrome browser (recommended)
 - Oracle JDK > 1.6
 - microsoft visual c++ 14.0

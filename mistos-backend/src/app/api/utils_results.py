@@ -26,34 +26,8 @@ def calculate_measurement(image_array, labels_array):
     print(f"mask shape {labels_array.shape}")
     measurement_dict = skimage.measure.regionprops_table(labels_array, image_array, properties = features)
 
-    # we reduce the label length since label 0 is empty
-    # Depreceated
-    # for n in range(n_channels):
-    #     channel_array = image_array[:, n, ...]
-    #     for i, label in tqdm(enumerate(labels)):
-    #         if i == 0:
-    #             continue
-    #         label_array = np.where(labels_array == label, channel_array, 0)
-    #         # Measurements for each channel
-    #         # Sum Intensity
-    #         _sum_pixel = label_array.sum()
-    #         # Number of Pixels for this label
-    #         _n_pixel = (label_array > 0).sum()
-    #         measurement[i-1, n] = [_n_pixel, _sum_pixel]
-
     measurement_summary = {}
     return measurement_dict, measurement_summary
-
-
-# def get_feature_colnames(channel_name_list):
-#     colnames = []
-#     for c in channel_name_list:
-#         for f in features:
-#             colnames.append(f"{c}_{f}")
-#     return colnames
-
-# replace: result_layer_uid with c_int_measurement + image
-# replace
 
 
 def calculate_measurement_df_for_result(experiment_group_uid: int, experiment_group_name: str, int_measurement, int_image):
@@ -72,14 +46,12 @@ def calculate_measurement_df_for_result(experiment_group_uid: int, experiment_gr
     measurement = int_measurement.measurement
     # Calculate BG
     # returns list of mean intensity per pixel values in order of channels#
-    bg_mean_pixel_list = int_image.calculate_background() # TO DOOOOOOOOOOOOOOOOOOOO
+    bg_mean_pixel_list = int_image.calculate_background() # to be revised
     channel_name_list = int_image.metadata["custom_channel_names"]
     # Get Colnames
 
     colnames_background = [
         f"{c}_mean_background_per_pixel" for c in channel_name_list]
-    # measurement_reshaped = measurement.reshape(
-    #     (measurement.shape[0], -1), order="C")
     # Here, pandas adds a index column
     measurement_df = pd.DataFrame(measurement)
     channel_dict = {str(i): channel for i, channel in enumerate(channel_name_list)}

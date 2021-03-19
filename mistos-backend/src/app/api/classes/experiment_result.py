@@ -76,7 +76,7 @@ class DbExperimentResult(BaseModel):
     def to_com_class(self):
         '''Returns c_com.ComExperimentResult'''
         kwargs = self.dict()
-        kwargs["experimentGroups"] = [g.uid for g in self.experiment_groups]
+        kwargs["experimentGroups"] = self.experiment_group_id
         kwargs["resultType"] = self.result_type
         return ComExperimentResult(**kwargs)
 

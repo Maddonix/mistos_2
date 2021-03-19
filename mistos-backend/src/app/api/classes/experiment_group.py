@@ -32,6 +32,7 @@ class DbExperimentGroup(BaseModel):
     result_layer_ids: List[int] = []
         emtpy list by default. List of all associated DbImageResultLayer objects' ids.
     measurement_ids: List[int] = []
+        To be depreceated
         emtpy list by default. List of all associated DbResultMeasurement objects' ids.
 
     Methods

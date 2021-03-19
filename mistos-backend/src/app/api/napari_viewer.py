@@ -179,7 +179,7 @@ def view(
             layer_labels: napari.layers.Labels
         ):
 
-            label_array = viewer.active_layer.data
+            label_array = layer_labels.data
             img_array = intImage.data
             # We expect c to be the last dimension
             img_array = np.moveaxis(img_array, 1, -1)
@@ -190,7 +190,7 @@ def view(
                 label_array = label_array[0, ...]
 
             segmentation_labels, clf = utils_seg_rf.semi_automatic_classification(
-                img_array, label_array)
+                img_as_ubyte(img_array), label_array.astype(int))
 
             # classifier = classes.IntClassifier(
             #     uid=-1,

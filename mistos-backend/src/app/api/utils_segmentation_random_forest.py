@@ -7,6 +7,7 @@ from skimage import filters, feature
 from skimage import img_as_float32
 from joblib import Parallel, delayed
 from sklearn.ensemble import RandomForestClassifier
+from app.api.utils_transformations import binary_mask_to_multilabel
 
 try:
     from sklearn.exceptions import NotFittedError
@@ -21,7 +22,7 @@ except ImportError:
 
 def semi_automatic_classification(img_array, label_array, remove_bg_label=True):
     '''
-    Expects a image of 2 or 3 Dimensions as well as labels for it. Returns the completely labeled image.
+    Expects an image of shape (z,c,y,x) and labels of shape (z,y,x). Returns the prediction labels.
     Background should always be labeled with class 1:
         If remove_bg_label is true, all labels except 0 will be reduced by one. This will effectively remove label 1. 
     '''
@@ -39,7 +40,7 @@ def semi_automatic_classification(img_array, label_array, remove_bg_label=True):
     if len(classified_img.shape) == 2:
         classified_img = classified_img[np.newaxis, ...]
 
-    return classified_img, clf
+    return binary_mask_to_multilabel(classified_img)[0], clf
 
 # Taken and adapted (mostly directly copied) from
 # https://github.com/plotly/dash-sample-apps/blob/master/apps/dash-image-segmentation/trainable_segmentation.py
