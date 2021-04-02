@@ -272,7 +272,7 @@ def make_export_array_name(image_id, image_name, mask, group_uid, group_name, ex
     if png:
         export_name = export_name.with_suffix(".png")
     else:
-        export_name = export_name.with_suffix(".ome.tiff")
+        export_name = export_name.with_suffix(".tiff")
     print(export_name)
     return export_name
 
