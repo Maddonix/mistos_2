@@ -262,16 +262,18 @@ def make_export_array_name(image_id, image_name, mask, group_uid, group_name, ex
         path = make_masks_export_folder_path(
             group_uid, group_name, exp_uid, exp_name, rescaled)
     image_name = pathlib.Path(image_name).with_suffix("").as_posix()
-    if mask:
-        image_name += "_mask"
+    # export_name = path.joinpath(image_name)
     if max_z:
-        export_name = path.joinpath(f"{image_id}_{image_name}_max_z")
-    else:
-        export_name = path.joinpath(f"{image_id}_{image_name}")
+        image_name = f"{image_name}_max_z"
+    if mask:
+        image_name = f"{image_name}_mask"
+
+    export_name = path.joinpath(image_name)
     if png:
         export_name = export_name.with_suffix(".png")
     else:
-        export_name = export_name.with_suffix(".tiff")
+        export_name = export_name.with_suffix(".ome.tiff")
+    print(export_name)
     return export_name
 
 

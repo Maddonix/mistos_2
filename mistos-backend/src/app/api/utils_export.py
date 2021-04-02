@@ -22,8 +22,7 @@ def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, 
         print(
             f"Image type {pixel_type} currently not supported for export, defaulting to 32-bit float export")
         image_array = img_as_float32(image_array)
-    path = path.with_name(image_name)
-    path = path.with_suffix(".ome.tiff")
+    print(f"write to: {path}")
     imsave(
         path,
         image_array, 
@@ -40,6 +39,7 @@ def to_png(array, path):
     # Make binary
     array = array.astype(bool)
     array = img_as_ubyte(array*255)
+    print(f"write to: {path}")
     skimage.io.imsave(fname=path, arr=array)
 
 
