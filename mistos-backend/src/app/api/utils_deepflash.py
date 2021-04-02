@@ -31,7 +31,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
             print(image.data.shape)
             # Means this image is a z stack
             if image.data.shape[0] > 1 or image.data.shape[1] > 1:
-                image_array = image.select_channel(channel)
+                # image_array = image.select_channel(channel)
                 image_array = utils_transformations.z_project(
                     image_array, mode="max")
                 print(

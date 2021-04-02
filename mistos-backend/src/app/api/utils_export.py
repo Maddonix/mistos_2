@@ -1,5 +1,6 @@
-import xtiff
-from tifffile import imwrite
+# import xtiff
+# from SimpleITK import ImageFileWriter, GetImageFromArray
+from tifffile import imsave
 from skimage import img_as_ubyte, img_as_bool, img_as_uint, img_as_float32
 from app import crud
 import pickle
@@ -12,7 +13,7 @@ import roifile
 from typing import List
 
 
-def to_tiff(image_array, path, image_name, channel_names, mask=False, pixel_type=None):
+def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, pixel_type=None):
     if pixel_type == "uint8":
         image_array = img_as_ubyte(image_array)
     elif pixel_type == "uint16":
@@ -21,12 +22,14 @@ def to_tiff(image_array, path, image_name, channel_names, mask=False, pixel_type
         print(
             f"Image type {pixel_type} currently not supported for export, defaulting to 32-bit float export")
         image_array = img_as_float32(image_array)
-    xtiff.to_tiff(
-        img=image_array,
-        file=path,
-        image_name=image_name,
-        channel_names=channel_names,
-        profile=3
+    path = path.with_name(image_name)
+    path = path.with_suffix(".ome.tiff")
+    imsave(
+        path,
+        image_array, 
+        imagej=True,
+        resolution = (metadata["pixel_size_physical_x"], metadata["pixel_size_physical_y"]), #x, y
+        metadata={'axes': 'ZCYX', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
     )
 
 
@@ -88,6 +91,7 @@ def export_experiment_image_to_tiff(experiment, group, image, rescaled: bool, ma
         path=path,
         image_name=image.metadata["original_filename"],
         channel_names=image.metadata["custom_channel_names"],
+        metadata = image.metadata,
         pixel_type=image.metadata["pixel_type"]
     )
 
@@ -139,7 +143,7 @@ def export_experiment_mask(experiment, group, mask, image, channel_names, rescal
         to_tiff(image_array=mask,
                 path=path,
                 image_name=image.metadata["original_filename"],
-                channel_names=channel_names, mask=True)
+                channel_names=channel_names, metadata = image.metadata, mask=True)
 
 
 def export_experiment_roi(experiment, group, rois: List[roifile.ImagejRoi], int_image):
