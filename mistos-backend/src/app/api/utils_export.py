@@ -29,7 +29,7 @@ def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, 
     imsave(
         path,
         image_array, 
-        imagej=True,
+        imagej=False, #True
         resolution = (metadata["pixel_size_physical_x"], metadata["pixel_size_physical_y"]), #x, y
         metadata={'axes': 'ZYXC', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
     )
