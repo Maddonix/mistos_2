@@ -108,6 +108,9 @@ Microscopy Image Storing and Processing System
     - run "conda activate mistos"
     - run "pip install -e ."
 
+    - hard coded shape error: 
+        - deepflash2/models.py line341: m.conv1 = nn.Conv2d(1, self.inplanes, kernel_size=7, stride=2, bias=False) -> m.conv1 = nn.Conv2d(in_channels, self.inplanes, kernel_size=7, stride=2, bias=False)
+
 - You changed the filepaths under config before deleting all entries:
     - The database will still hold references to the old paths, the app will not work anymore
     - Option 1: 

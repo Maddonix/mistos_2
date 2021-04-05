@@ -22,13 +22,16 @@ def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, 
         print(
             f"Image type {pixel_type} currently not supported for export, defaulting to 32-bit float export")
         image_array = img_as_float32(image_array)
+
+    image_array = np.swapaxes(image_array, 0,1)
+    image_array = np.swapaxes(image_array, 1,2)
     print(f"write to: {path}")
     imsave(
         path,
         image_array, 
         imagej=True,
         resolution = (metadata["pixel_size_physical_x"], metadata["pixel_size_physical_y"]), #x, y
-        metadata={'axes': 'ZCYX', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
+        metadata={'axes': 'ZYXC', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
     )
 
 

@@ -29,22 +29,26 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
         # Check dimensions of images
         for i, image in enumerate(image_list):
             print(image.data.shape)
-            # Means this image is a z stack
-            if image.data.shape[0] > 1 or image.data.shape[1] > 1:
-                image_array = image.select_channel(channel)
-                image_array = utils_transformations.z_project(
-                    image_array, mode="max")
-                print(
-                    f"shape of {image.name} was changed from {image.data.shape} to {image_array.shape}")
-                tmp_filepath = utils_paths.make_tmp_file_path(
-                    f"{image.uid}_0.zarr")
-                fsr.save_zarr(image_array, tmp_filepath)
-                tmp_filepaths.append(tmp_filepath)
-                tmp_indexes.append(i)
-                image_path_list[i] = tmp_filepath
+            # image_array = image.select_channel(channel)
+            image_array = image.data
+            image_array = utils_transformations.z_project(
+                image_array, mode="max")
+            # if len(image_array.shape) == 4:
+            #     image_array = image_array[0,...]
+            # assert len(image_array.shape) == 3
+            # image_array = np.swapaxes(image_array, 0,1)
+            # image_array = np.swapaxes(image_array, 1,2)
+            print(
+                f"shape of {image.name} was changed from {image.data.shape} to {image_array.shape}")
+            tmp_filepath = utils_paths.make_tmp_file_path(
+                f"{image.uid}_0.zarr")
+            fsr.save_zarr(image_array, tmp_filepath)
+            tmp_filepaths.append(tmp_filepath)
+            tmp_indexes.append(i)
+            image_path_list[i] = tmp_filepath
 
     else:
-        print("3D Prediction Mode")
+        print("3D Prediction Mode, EXPERIMENTAL FEATURE")
         print("extracting z-slices to tmp folder")
         image_path_list = []
         layer_dict = {}  # {image_uid: [filepath]}
@@ -54,8 +58,10 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
             layer_dict[image_id] = []
             for n_layer in range(image.data.shape[0]):
                 print(f"layer: {n_layer}")
-                layer = image.data[n_layer, channel, ...]
-                layer = layer[np.newaxis, np.newaxis, ...]
+                layer = image.data[n_layer, ...]
+                # layer = np.swapaxes(layer, 0,1)
+                # layer = np.swapaxes(layer, 1,2)
+
                 print(layer.shape)
                 path = utils_paths.make_tmp_file_path(
                     f"{image.uid}_{n_layer}.zarr")
