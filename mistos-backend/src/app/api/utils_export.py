@@ -13,7 +13,7 @@ import roifile
 from typing import List
 
 
-def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, pixel_type=None):
+def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, pixel_type=None, export_deepflash: bool = False):
     if pixel_type == "uint8":
         image_array = img_as_ubyte(image_array)
     elif pixel_type == "uint16":
@@ -22,17 +22,22 @@ def to_tiff(image_array, path, image_name, channel_names, metadata, mask=False, 
         print(
             f"Image type {pixel_type} currently not supported for export, defaulting to 32-bit float export")
         image_array = img_as_float32(image_array)
-
-    image_array = np.swapaxes(image_array, 0,1)
-    image_array = np.swapaxes(image_array, 1,2)
-    print(f"write to: {path}")
-    imsave(
-        path,
-        image_array, 
-        imagej=False, #True
-        resolution = (metadata["pixel_size_physical_x"], metadata["pixel_size_physical_y"]), #x, y
-        metadata={'axes': 'ZYXC', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
-    )
+    if export_deepflash:
+        image_array = np.max(image_array, axis = 0)
+        image_array = np.swapaxes(image_array, 0,1)
+        image_array = np.swapaxes(image_array, 1,2)
+        imsave(
+            path,
+            image_array
+        )
+    else: 
+        imsave(
+            path,
+            image_array, 
+            imagej=True, #True
+            resolution = (metadata["pixel_size_physical_x"], metadata["pixel_size_physical_y"]), #x, y
+            metadata={'axes': 'ZCYX', "channel_names": channel_names, "spacing": metadata["pixel_size_physical_z"], "unit":"um"}, # metadata["pixel_size_physical_unit_x"] NEED TO FIX ENCODING
+        )
 
 
 def to_png(array, path):
@@ -77,7 +82,7 @@ def export_mistos_experiment(experiment_uid: int):
     return path
 
 
-def export_experiment_image_to_tiff(experiment, group, image, rescaled: bool, max_z: bool):
+def export_experiment_image_to_tiff(experiment, group, image, rescaled: bool, max_z: bool, export_deepflash: bool = False):
     path = utils_paths.make_export_array_name(
         image_id=image.uid,
         image_name=image.metadata["original_filename"],
@@ -95,7 +100,8 @@ def export_experiment_image_to_tiff(experiment, group, image, rescaled: bool, ma
         image_name=image.metadata["original_filename"],
         channel_names=image.metadata["custom_channel_names"],
         metadata = image.metadata,
-        pixel_type=image.metadata["pixel_type"]
+        pixel_type=image.metadata["pixel_type"], 
+        export_deepflash = export_deepflash
     )
 
 
@@ -107,7 +113,8 @@ def export_experiment_images(
         export_single_channel: int,
         export_max_z_project: bool,
         x_dim: int = 1024,
-        y_dim: int = 1024):
+        y_dim: int = 1024,
+        export_deepflash: bool = False):
     '''
     '''
     image_array = image.data
@@ -121,11 +128,11 @@ def export_experiment_images(
     if export_rescaled:
         image.data = image_array
         export_experiment_image_to_tiff(
-            experiment, group, image, rescaled=False, max_z=export_max_z_project)
+            experiment, group, image, rescaled=False, max_z=export_max_z_project, export_deepflash = export_deepflash)
         image_array = rescale_image(image_array, x_dim, y_dim)
     image.data = image_array
     export_experiment_image_to_tiff(
-        experiment, group, image, rescaled=export_rescaled, max_z=export_max_z_project)
+        experiment, group, image, rescaled=export_rescaled, max_z=export_max_z_project, export_deepflash = export_deepflash)
 
 
 def export_experiment_mask(experiment, group, mask, image, channel_names, rescaled: bool, max_z: bool, png: bool):

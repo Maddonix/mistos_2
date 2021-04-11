@@ -4,25 +4,28 @@
     <form [formGroup]="form">
         <!-- name -->
         <div>
-            <mat-checkbox formControlName="images">Include Images?</mat-checkbox>
+            <mat-checkbox formControlName="images">Include Images</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="masks">Include Masks?</mat-checkbox>
+            <mat-checkbox formControlName="masks">Include Masks</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="rescaled">Include rescaled Images and Masks?</mat-checkbox>
+            <mat-checkbox formControlName="rescaled">Include rescaled Images and Masks</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="z_projection">Export as max-z-projection?</mat-checkbox>
+            <mat-checkbox formControlName="z_projection">Export as max-z-projection</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="rois">Export Masks as Rois?</mat-checkbox>
+            <mat-checkbox formControlName="rois">Export Masks as Rois</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="masks_binary">Export masks as binary labelled masks?</mat-checkbox>
+            <mat-checkbox formControlName="masks_binary">Export masks as binary labelled masks</mat-checkbox>
         </div>
         <div>
-            <mat-checkbox formControlName="masks_png">Export masks as .png files?</mat-checkbox>
+            <mat-checkbox formControlName="masks_png">Export masks as .png files</mat-checkbox>
+        </div>
+        <div>
+            <mat-checkbox formControlName="export_deepflash">Export images and masks for deepflash</mat-checkbox>
         </div>
         <div>
             <mat-form-field>

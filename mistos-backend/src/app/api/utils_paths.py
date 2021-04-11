@@ -268,12 +268,12 @@ def make_export_array_name(image_id, image_name, mask, group_uid, group_name, ex
     if mask:
         image_name = f"{image_name}_mask"
 
-    export_name = path.joinpath(image_name)
+    
     if png:
-        export_name = export_name.with_suffix(".png")
+        image_name = image_name + ".png"
     else:
-        export_name = export_name.with_suffix(".tiff")
-    print(export_name)
+        image_name = image_name + ".tiff"
+    export_name = path.joinpath(image_name)
     return export_name
 
 

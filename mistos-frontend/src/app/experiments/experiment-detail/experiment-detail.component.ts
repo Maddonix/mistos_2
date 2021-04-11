@@ -6,6 +6,7 @@ import { EditDescriptionComponent } from 'src/app/dialogs/edit-description/edit-
 import { EditHintComponent } from 'src/app/dialogs/edit-hint/edit-hint.component';
 import { EditNameComponent } from 'src/app/dialogs/edit-name/edit-name.component';
 import { ExportExperimentComponent } from 'src/app/dialogs/export-experiment/export-experiment.component';
+import { UploadImageToGroupComponent } from 'src/app/dialogs/upload-image-to-group/upload-image-to-group.component';
 import { WarningDeleteComponent } from 'src/app/dialogs/warning-delete/warning-delete.component';
 import { ExperimentGroup } from 'src/app/models/experiment-group.model';
 import { Experiment } from 'src/app/models/experiment.model';
@@ -173,6 +174,17 @@ export class ExperimentDetailComponent implements OnInit {
       }
     }
     )
+  }
+  onUploadImage(group) {
+    console.log(group);
+    this.dialogConfig.data = {
+      groupId: group.uid,
+      groupName: group.name
+    };
+    const dialogRef = this.dialog.open(         //dialogRef is a observable of the dialog
+      UploadImageToGroupComponent,
+      this.dialogConfig
+    );
   }
 
   onAddImage(group) {

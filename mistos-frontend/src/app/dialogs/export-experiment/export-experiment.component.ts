@@ -27,6 +27,7 @@ export class ExportExperimentComponent implements OnInit {
       z_projection: false,
       masks_binary: false,
       masks_png: false,
+      export_deepflash: false,
       images_single_channel: new FormControl(-1), //Add validator to make only integers from -1 (means no single channel export) to n_channels-1 available!
       x_dim: new FormControl(1024),
       y_dim: new FormControl(1024)

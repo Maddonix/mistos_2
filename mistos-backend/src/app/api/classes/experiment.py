@@ -264,6 +264,7 @@ class IntExperiment(BaseModel):
                 images_single_channel - int
                 x_dim - int
                 y_dim - int
+                export_deepflash - bool
         '''
         self.calculate_results()
         # Export result df, is always exported
@@ -303,7 +304,8 @@ class IntExperiment(BaseModel):
                         export_single_channel=export_types["images_single_channel"],
                         export_max_z_project=export_types["z_projection"],
                         x_dim=x_dim,
-                        y_dim=y_dim)
+                        y_dim=y_dim,
+                        export_deepflash = export_types["export_deepflash"])
             if export_types["masks"]:
                 for result_layer_id in group.result_layer_ids:
                     export_experiment_masks(

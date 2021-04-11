@@ -67,6 +67,7 @@ import { WarningDeleteComponent } from './dialogs/warning-delete/warning-delete.
 import { MistosFormatsComponent } from './importer/mistos-formats/mistos-formats.component';
 import { DeepflashModelsComponent } from './importer/deepflash-models/deepflash-models.component';
 import { ImagesUploadComponent } from './importer/images-upload/images-upload.component';
+import { UploadImageToGroupComponent } from './dialogs/upload-image-to-group/upload-image-to-group.component';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import { ImagesUploadComponent } from './importer/images-upload/images-upload.co
     WarningDeleteComponent,
     MistosFormatsComponent,
     DeepflashModelsComponent,
-    ImagesUploadComponent
+    ImagesUploadComponent,
+    UploadImageToGroupComponent
   ],
   imports: [
     BrowserModule,

@@ -102,6 +102,7 @@ async def upload_image(file: UploadFile = File(...)):
 
     image_list, metadata_dict, metadata_OMEXML = utils_import.read_image_file(
         path)
+    metadata_dict["original_filename"] = metadata_dict["original_filename"][2:]
     print(metadata_dict)
     for image, i in image_list:
         img_zarr = zarr.creation.array(image)
@@ -114,6 +115,43 @@ async def upload_image(file: UploadFile = File(...)):
             metadata_omexml=metadata_OMEXML
         )
         int_image.on_init()
+
+    fileserver_requests.delete_file(path)
+
+    return {"Result": "OK"}
+
+@router.post("/api/images/upload_to_group_{group_id}", status_code=201)
+async def upload_images_to_group(group_id: str, file: UploadFile = File(...)):
+    ''' 
+    API Request to upload an image.
+    '''
+    path = utils_paths.make_tmp_file_path(file.filename)
+    path = utils_paths.fileserver.joinpath(path).as_posix()
+    async with aiofiles.open(path, 'wb') as out_file:
+        while content := await file.read(1024):  # async read chunk
+            await out_file.write(content)  # async write chunk
+
+    # open experiment group 
+    group_id = int(group_id)
+    db_experiment_group = crud.read_experiment_db_group_by_uid(group_id)
+    image_ids = [image.uid for image in db_experiment_group.images]
+    
+    image_list, metadata_dict, metadata_OMEXML = utils_import.read_image_file(
+        path)
+    metadata_dict["original_filename"] = metadata_dict["original_filename"][2:]
+    for image, i in image_list:
+        img_zarr = zarr.creation.array(image)
+        int_image = classes.IntImage(
+            uid=-1,
+            series_index=i,
+            name=metadata_dict["original_filename"],  # .replace("\#", "_"),
+            metadata=metadata_dict,  # This is not the finished metadata!
+            data=img_zarr,
+            metadata_omexml=metadata_OMEXML
+        )
+        int_image.on_init()
+        image_ids.append(int_image.uid)
+        db_experiment_group.update_images(image_ids)
 
     fileserver_requests.delete_file(path)
 

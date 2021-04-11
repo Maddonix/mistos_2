@@ -16,7 +16,7 @@ export class ImagesUploadComponent implements OnInit {
   error:string;
   uploadModes = [
     "image",
-    "max-z-projection",
+    "max-z-projection"
     // "tilescan"
   ];
   uploadMode:string="image";

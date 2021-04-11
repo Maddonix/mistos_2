@@ -139,6 +139,32 @@ export class ComService {
         }
     }
 
+    uploadImagesToGroup(file:File, groupId:string) {
+        const formData: FormData = new FormData();
+        // formData.append('group_id', groupId.toString());
+        formData.append('file', file);
+
+        return this.httpClient.post(`${this.serverURL}images/upload_to_group_${groupId}`, formData, {
+            reportProgress: true,
+            observe: 'events'
+            }).pipe(
+                map((event)=>{
+                    switch(event.type) {
+                        case HttpEventType.UploadProgress:
+                            const progress = Math.round(100 * event.loaded / event.total);
+                            return {status: "progress", message: progress};
+                            
+                        case HttpEventType.Response:
+                            return event.body;
+                        
+                        default:
+                            return "Unhandled event: ${event.type}";
+                    }
+            })
+        );
+        
+    }
+
     uploadImageFromFilepath(path:string, uploadMode:string) {
         let payload = {path: path};
         if (uploadMode === "image") {

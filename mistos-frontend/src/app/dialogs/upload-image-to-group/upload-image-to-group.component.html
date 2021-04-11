@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Upload Images</h2>
+
+<mat-dialog-content>
+    <ngx-dropzone 
+        (change)="onImageAdded($event)"
+        [expandable]="true">
+        <ngx-dropzone-label>Drop Images!</ngx-dropzone-label>
+        <ngx-dropzone-preview *ngFor="let f of images" [removable]="true" (removed)="onRemoveImage(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </ngx-dropzone>
+  <button mat-raised-button style = "margin-top:5px;" color="primary" (click)="onUploadImagesClicked()">Upload</button>
+</mat-dialog-content>
+
+<!-- Actions -->
+<mat-dialog-actions>
+    <!-- <button mat-raised-button color="primary" (click)="onSubmit()">Save</button> -->
+    <button mat-raised-button color="danger" (click)="onClose()">Close</button>
+</mat-dialog-actions>

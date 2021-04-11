@@ -205,6 +205,7 @@ async def export_experiment(export_experiment_request: ExportExperimentRequest):
         rescaled: bool
         x_dim: int
         y_dim: int
+        export_deepflash: bool
     '''
     print(export_experiment_request)
     int_experiment = crud.read_experiment_by_uid(
