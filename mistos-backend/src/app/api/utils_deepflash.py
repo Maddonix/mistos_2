@@ -80,7 +80,7 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
     # Create EnsembleLearner and read model
     # , dl_kwargs={'num_workers':0}) # num_workers set to 0 due to cuda error on windows workiing with shared storage
     el = EnsembleLearner(files=image_path_list)#, dl_kwargs={'num_workers':0})
-    el.get_models(classifier_path)
+    el.get_model(classifier_path)
 
     # Pass image file paths to ensemble learner and predict images
     el.get_ensemble_results(image_path_list, use_tta=use_tta)

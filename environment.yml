@@ -1,43 +1,4 @@
 name: mistos
-channels:
-  - bioconda
-  - conda-forge
-  - defaults
 dependencies:
-  - python=3.8.6
-  - aiofiles
-  - czifile
-  - fastapi
-  - imagecodecs
-  - jpeg
-  - magicgui
-  - matplotlib
-  - napari
-  - numpy
-  - openpyxl
-  - pandas
-  - pip
-  - pydantic
-  - pyqt
-  - python-multipart
-  - scikit-image
-  - scikit-learn
-  - scipy
-  - simpleitk
-  - tensorflow=2.3.0
-  - tifffile
-  - tqdm
-  - vispy
-  - zarr
-  - uvicorn
-  - pip:
-    - auto-tqdm
-    - csbdeep
-    - sqlalchemy==1.4.0b2
-    - stardist
-    - xtiff
-    - roifile
-    - pathlib
-    - pytest
-    - python-bioformats
-    - python-javabridge
+  - python=3.8
+  
