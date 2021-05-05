@@ -5,6 +5,7 @@ import numpy as np
 from app.api import classes, utils_transformations
 import app.fileserver_requests as fsr
 from app.api import utils_paths
+import zarr
 
 
 def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transform_to_multilabel=True, separate_z_slices=False):
@@ -33,11 +34,11 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
             image_array = image.data
             image_array = utils_transformations.z_project(
                 image_array, mode="max")
-            # if len(image_array.shape) == 4:
-            #     image_array = image_array[0,...]
-            # assert len(image_array.shape) == 3
-            # image_array = np.swapaxes(image_array, 0,1)
-            # image_array = np.swapaxes(image_array, 1,2)
+            if len(image_array.shape) == 4:
+                image_array = image_array[0,...]
+            assert len(image_array.shape) == 3
+            image_array = np.swapaxes(image_array, 0,1)
+            image_array = np.swapaxes(image_array, 1,2)
             print(
                 f"shape of {image.name} was changed from {image.data.shape} to {image_array.shape}")
             tmp_filepath = utils_paths.make_tmp_file_path(
@@ -77,15 +78,19 @@ def predict_image_list(classifier_id, image_id_list, use_tta, channel=0, transfo
     assert classifier.clf_type == "deepflash_model"
     classifier_path = pathlib.Path(classifier.classifier)
 
+    zarr.group(image_path_list[0].parent.as_posix())
+
     # Create EnsembleLearner and read model
     # , dl_kwargs={'num_workers':0}) # num_workers set to 0 due to cuda error on windows workiing with shared storage
-    el = EnsembleLearner(files=image_path_list)#, dl_kwargs={'num_workers':0})
-    el.get_model(classifier_path)
+    el = EnsembleLearner(files=image_path_list, dl_kwargs={'num_workers':0})
+    print(image_path_list)
+    el.load_ensemble(classifier_path)
 
     # Pass image file paths to ensemble learner and predict images
     el.get_ensemble_results(image_path_list, use_tta=use_tta)
     if separate_z_slices == False:
-        for i, path in enumerate(el.df_ens["res_path"]):
+        print(el.df_ens)
+        for i, path in enumerate(el.df_ens["pred_path"]):
             path = pathlib.Path(path)
             print(path)
             if i in tmp_indexes:
@@ -191,7 +196,7 @@ def get_segmentation_from_tmp_path(path):
     _name = path.as_posix().split("/")[-1].split(".")[0]
     uid = int(_name.split("_")[-2])
     n_layer = int(_name.split("_")[-1])
-    segmentation_array = np.load(path)["seg"]
+    segmentation_array = zarr.load(path.as_posix())#["seg"]
     segmentation_array = np.where(segmentation_array > 0.5, 1, 0)
     segmentation_array.astype(np.bool)
 

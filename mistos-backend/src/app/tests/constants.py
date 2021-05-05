@@ -6,7 +6,7 @@ import skimage.draw
 
 test_images_folder = pathlib.Path("../../tutorial/Demo Experiment 1")
 deepflash_model_folder = pathlib.Path(
-    r"F:\Data_Storage\AG_Rittner\Microscope Framework\data\demo_experiment_deepflash\model")
+    r"F:\Google Drive\AG_Rittner\Masterarbeit\deepflash_model_18")
 
 # Varbiables for testing
 n_test_images = 2
@@ -75,7 +75,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 1024,  # not used if rescaled is false
-        "y_dim": 1024
+        "y_dim": 1024,
+        "export_deepflash": False
     },
     # + images
     {
@@ -88,7 +89,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 1024,  # not used if rescaled is false
-        "y_dim": 1024
+        "y_dim": 1024,
+        "export_deepflash": False
     },
     # + masks
     {
@@ -101,7 +103,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 1024,  # not used if rescaled is false
-        "y_dim": 1024
+        "y_dim": 1024,
+        "export_deepflash": False
     },
     # + rescaled
     {
@@ -114,7 +117,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 700,  # not used if rescaled is false
-        "y_dim": 1200
+        "y_dim": 1200,
+        "export_deepflash": False
     },
     # max_z instead of z-stacks images and masks
     {
@@ -127,7 +131,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 1200,  # not used if rescaled is false
-        "y_dim": 700
+        "y_dim": 700,
+        "export_deepflash": False
     },  # Masks as binary
     {
         "images": True,
@@ -139,7 +144,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 1400,  # not used if rescaled is false
-        "y_dim": 1400
+        "y_dim": 1400,
+        "export_deepflash": False
     },
     {
         "images": True,
@@ -151,7 +157,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": -1,  # Means no
         "x_dim": 800,  # not used if rescaled is false
-        "y_dim": 800
+        "y_dim": 800,
+        "export_deepflash": False
     },
     # Single channel
     {
@@ -164,7 +171,8 @@ export_experiment_requests = [
         "masks_png": False,
         "images_single_channel": 0,  # Means no
         "x_dim": 800,  # not used if rescaled is false
-        "y_dim": 800
+        "y_dim": 800,
+        "export_deepflash": False
     },
     # Masks as png
     {
@@ -177,7 +185,8 @@ export_experiment_requests = [
         "masks_png": True,
         "images_single_channel": -1,  # Means no
         "x_dim": 800,  # not used if rescaled is false
-        "y_dim": 800
+        "y_dim": 800,
+        "export_deepflash": False
     },
     # png with single channel selection
     {
@@ -190,7 +199,8 @@ export_experiment_requests = [
         "masks_png": True,
         "images_single_channel": 0,
         "x_dim": 800,  # not used if rescaled is false
-        "y_dim": 800
+        "y_dim": 800,
+        "export_deepflash": False
     },
     # with rois
     {
@@ -203,7 +213,22 @@ export_experiment_requests = [
         "masks_png": True,
         "images_single_channel": 0,
         "x_dim": 800,  # not used if rescaled is false
-        "y_dim": 800
+        "y_dim": 800,
+        "export_deepflash": False
+    },
+    # deepflash
+    {
+        "images": True,
+        "masks": True,
+        "rois": True,
+        "rescaled": False,
+        "z_projection": False,  # Should be performed automatically
+        "masks_binary": False,  # Should be performed automatically
+        "masks_png": True,
+        "images_single_channel": 0,
+        "x_dim": 0,  # not used if rescaled is false
+        "y_dim": None,
+        "export_deepflash": True
     }
 ]
 

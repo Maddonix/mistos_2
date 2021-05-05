@@ -48,10 +48,10 @@ def get_zoom_view_on_label(layer, image_scale):
     y = _bbox[0]
     w = _bbox[3] - x
     h = _bbox[2] - y
-    x = x-1*w
-    w = 3 * w
-    y = y-1*h
-    h = 3 * h
+    x = x-2*w
+    w = 5 * w
+    y = y-2*h
+    h = 5 * h
     print(Rect(x, y, w, h))
     return {"rect": Rect(x, y, w, h)}
 

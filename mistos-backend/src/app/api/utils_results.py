@@ -32,6 +32,7 @@ def calculate_measurement(image_array, labels_array):
 
 def calculate_measurement_df_for_result(experiment_group_uid: int, experiment_group_name: str, int_measurement, int_image):
     '''
+    DEPRECEATED
     Helper method to format each result layers measurement into a measurement df for the result report.
     Returns pd.DataFrame
 

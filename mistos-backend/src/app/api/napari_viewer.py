@@ -3,6 +3,7 @@ from magicgui.types import ChoicesCallback
 import napari
 from napari.layers.labels import Labels
 import warnings
+import tensorflow as tf
 
 import pathlib
 from typing import List
@@ -27,6 +28,9 @@ from app.api import utils_transformations
 # Activate experimental napari features: async and octree
 os.environ["NAPARI_OCTREE"] = "1"
 os.environ["NAPARI_ASYNC"] = "1"
+# Set tf GPU devices to empty list to prevent GPU until tf supports current CUDA build
+tf.config.set_visible_devices([], 'GPU')
+
 
 lbl_cmap = random_label_cmap()
 
@@ -346,8 +350,7 @@ def view(
             return [f"{label_layer.uid}_{label_layer.name}" for label_layer in intImage.image_result_layers]
 
         def on_file_select(event):
-
-            path = pathlib.Path(event.value.value)
+            path = pathlib.Path(event.value)
             print(path)
             assert path.exists()
             suffix = path.suffix

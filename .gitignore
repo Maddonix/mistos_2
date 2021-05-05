@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*/deepflash_model/*
 
 # Database files
 *db

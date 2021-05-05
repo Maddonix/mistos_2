@@ -1,4 +1,4 @@
-name: mistos
+name: lappen
 dependencies:
   - python=3.8
   
